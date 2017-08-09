@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aluno/Kagami/Entities/Component.hpp
+
+/home/aluno/Kagami/Entities/Entity.hpp
+Component.hpp
+/home/aluno/Kagami/Entities/Component.hpp
+vector
+-
+
+/home/aluno/Kagami/main.cpp
+cstdio
+-
+GL/glut.h
+-
+glm/glm.hpp
+-
+string
+-
+Entities/Entity.hpp
+/home/aluno/Kagami/Entities/Entity.hpp
+

@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11    CMakeFiles/Kagami.dir/main.cpp.o CMakeFiles/Kagami.dir/Entities/Entity.cpp.o CMakeFiles/Kagami.dir/Entities/Component.cpp.o  -o Kagami -rdynamic -lGLU -lGL -lSM -lICE -lX11 -lXext -lglut -lXmu -lXi 
