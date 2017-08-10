@@ -1,7 +1,19 @@
+// Include standard hibraries
+#include <cstdlib>
 #include <cstdio>
-#include <GL/glut.h>
+
+// Include GLEW. Always include it before gl.h and glfw.h, since it's a bit magic.
+#include <GL/glew.h>
+
+// Include GLFW. To handle the window and the keyboard
+#include <GL/glfw3.h>
+
+// Include GLM
 #include <glm/glm.hpp>
-#include <string>
+
+//#include <GL/glut.h>
+//#include <cstring>
+//#include <string>
 #include "Entities/Entity.hpp"
 
 //---------------------------------------------------------------------------------------
@@ -88,11 +100,11 @@ int main(){
 
 	std::string path = "sportsCar.obj";
 
-	bool res = loadOBJ(path.c_str(), vertices, uvs, normals);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+	//bool res = loadOBJ(path.c_str(), vertices, uvs, normals);
+	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
 	// Load it into a VBO ---------------------------------------------------------------------
-	GLuint vertexbuffer;
+	/*GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
@@ -160,7 +172,7 @@ int main(){
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-	}
+	}*/
 	//---------------------------------------------------------------------
 
 	return 0;

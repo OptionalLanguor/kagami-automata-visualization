@@ -1,22 +1,24 @@
 # The set of languages for which implicit dependencies are needed:
-SET(CMAKE_DEPENDS_LANGUAGES
+set(CMAKE_DEPENDS_LANGUAGES
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
-SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/aluno/Kagami/Entities/Component.cpp" "/home/aluno/Kagami/CMakeFiles/Kagami.dir/Entities/Component.cpp.o"
-  "/home/aluno/Kagami/Entities/Entity.cpp" "/home/aluno/Kagami/CMakeFiles/Kagami.dir/Entities/Entity.cpp.o"
-  "/home/aluno/Kagami/main.cpp" "/home/aluno/Kagami/CMakeFiles/Kagami.dir/main.cpp.o"
+set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/aluno/Kagami/kagami-automata-visualization/Entities/Component.cpp" "/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles/Kagami.dir/Entities/Component.cpp.o"
+  "/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.cpp" "/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles/Kagami.dir/Entities/Entity.cpp.o"
+  "/home/aluno/Kagami/kagami-automata-visualization/main.cpp" "/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles/Kagami.dir/main.cpp.o"
   )
-SET(CMAKE_CXX_COMPILER_ID "GNU")
-
-# Targets to which this target links.
-SET(CMAKE_TARGET_LINKED_INFO_FILES
-  )
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
-SET(CMAKE_C_TARGET_INCLUDE_PATH
+set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "external/glm-0.9.7.1"
   )
-SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
-SET(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/CMakeFiles/glfw.dir/DependInfo.cmake"
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
