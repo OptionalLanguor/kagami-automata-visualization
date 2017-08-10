@@ -12,6 +12,7 @@ if( CMAKE_BINARY_DIR MATCHES " " )
 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
 
+
 ################################################################################
 # COMPILER
 include(CheckCXXCompilerFlag)
@@ -34,10 +35,6 @@ SET(CMAKE_MODULE_PATH                ${${PROJECT_NAME}_ROOT_DIR}/cmake)
 SET(CMAKE_CURRENT_BINARY_DIR            ${${PROJECT_NAME}_ROOT_DIR}/build)
 SET(CMAKE_INSTALL_PREFIX             ${${PROJECT_NAME}_ROOT_DIR}/bin)
 
-################################################################################
-# Configuring Libraries
-#add_library(${PROJECT_NAME}) #I created this so glfw can choose this library as a target to link to the project
-
 
 ################################################################################
 # OpenGL
@@ -52,10 +49,11 @@ if(NOT OPENGL_FOUND)
         message(Error "OpenGL not found")
 endif(NOT OPENGL_FOUND)
 
+
 ################################################################################
 # GLEW
 
-#If you have an error with GLEW use the command:  sudo apt-get install libglew-dev
+#If you have an error with GLEW use this command:  sudo apt-get install libglew-dev
 
 find_package(GLEW REQUIRED)
 #include_directories(${GLEW_INCLUDE_DIRS})
@@ -81,21 +79,6 @@ endif(NOT GLEW_FOUND)
 
 add_subdirectory(external/glfw-3.1.2/)
 include_directories(external/glfw-3.1.2/include)
-#target_link_libraries(${PROJECT_NAME} glfw ${GLFW_LIBRARIES})
-
-#include_directories(external/glfw-3.1.2/)
-#link_libraries(external/glfw-3.1.2/include/GLFW)
-
-#find_package(GLFW REQUIRED)
-
-#if(GLFW_FOUND)
-#		include_directories(${GLFW_INCLUDE_DIRS})
-#    	link_libraries(${GLFW_LIBRARIES})
-#    	add_definitions(${GLFW_DEFINITIONS})
-#endif(GLFW_FOUND)
-#if(NOT GLFW_FOUND)
-#		message(Error "GLFW not found")
-#endif(NOT GLFW_FOUND)
 
 
 ################################################################################
@@ -134,7 +117,6 @@ set(SRCS
 ################################################################################
 # EXEC
 add_executable(${PROJECT_NAME} ${HDRS} ${SRCS})
-
 
 
 # LIBS
