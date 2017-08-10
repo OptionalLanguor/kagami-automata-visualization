@@ -2,18 +2,21 @@
 #include <cstdlib>
 #include <cstdio>
 
-// Include GLEW. Always include it before gl.h and glfw.h, since it's a bit magic.
+// Include GLEW (OpenGL Extension Wrangler Library). 
+// Always include it before gl.h and glfw.h, since it's a bit magic.
 #include <GL/glew.h>
 
+//Also, glew.h should be added before glfw3, as glfw3 documentation describes
+
 // Include GLFW. To handle the window and the keyboard
-#include <GL/glfw3.h>
+#include <GLFW/glfw3.h>
 
 // Include GLM
 #include <glm/glm.hpp>
 
 //#include <GL/glut.h>
-//#include <cstring>
-//#include <string>
+#include <cstring>
+#include <string>
 #include "Entities/Entity.hpp"
 
 //---------------------------------------------------------------------------------------

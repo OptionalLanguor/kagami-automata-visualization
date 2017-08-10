@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1 
+CXX_INCLUDES = -I/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/include -I/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1 
 

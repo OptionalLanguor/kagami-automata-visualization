@@ -10,6 +10,7 @@ CMakeFiles/Kagami.dir/Entities/Entity.cpp.o: Entities/Entity.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: Entities/Component.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: Entities/Entity.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: main.cpp
+CMakeFiles/Kagami.dir/main.cpp.o: external/glfw-3.1.2/include/GLFW/glfw3.h
 CMakeFiles/Kagami.dir/main.cpp.o: external/glm-0.9.7.1/glm/common.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: external/glm-0.9.7.1/glm/detail/_fixes.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: external/glm-0.9.7.1/glm/detail/_swizzle.hpp

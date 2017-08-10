@@ -147,6 +147,23 @@ Kagami: /usr/lib/x86_64-linux-gnu/libGLU.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGL.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGLEW.so
 Kagami: external/glfw-3.1.2/src/libglfw3.a
+Kagami: /usr/lib/x86_64-linux-gnu/librt.so
+Kagami: /usr/lib/x86_64-linux-gnu/libm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libX11.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXrandr.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXinerama.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXi.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXcursor.so
+Kagami: /usr/lib/x86_64-linux-gnu/libGL.so
+Kagami: /usr/lib/x86_64-linux-gnu/librt.so
+Kagami: /usr/lib/x86_64-linux-gnu/libm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libX11.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXrandr.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXinerama.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXi.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXcursor.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGLEW.so
 Kagami: CMakeFiles/Kagami.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Kagami"

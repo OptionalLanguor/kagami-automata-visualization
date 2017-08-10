@@ -35,6 +35,11 @@ SET(CMAKE_CURRENT_BINARY_DIR            ${${PROJECT_NAME}_ROOT_DIR}/build)
 SET(CMAKE_INSTALL_PREFIX             ${${PROJECT_NAME}_ROOT_DIR}/bin)
 
 ################################################################################
+# Configuring Libraries
+#add_library(${PROJECT_NAME}) #I created this so glfw can choose this library as a target to link to the project
+
+
+################################################################################
 # OpenGL
 
 find_package(OpenGL REQUIRED)
@@ -70,11 +75,13 @@ endif(NOT GLEW_FOUND)
 # GLFW
 
 #When including GLFW as part of your build, you probably don't want to build the GLFW tests, examples and documentation. To disable these, set the corresponding cache variables before adding the GLFW source tree.
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+#set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+#set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+#set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(external/glfw-3.1.2/)
+include_directories(external/glfw-3.1.2/include)
+#target_link_libraries(${PROJECT_NAME} glfw ${GLFW_LIBRARIES})
 
 #include_directories(external/glfw-3.1.2/)
 #link_libraries(external/glfw-3.1.2/include/GLFW)
@@ -94,7 +101,7 @@ add_subdirectory(external/glfw-3.1.2/)
 ################################################################################
 # GLM
 
-include_directories(external/glm-0.9.7.1/)
+include_directories(external/glm-0.9.7.1/) #Using a current compiled version of GLM for this computer, I used this from the OpenGL tutorial	
 
 #The commands bellow arent supported anymore by cmake, so the glm library was downloaded
 #manually and included in the project by the command right up.
@@ -135,6 +142,7 @@ set(LIBS
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES} 
     glfw
+    ${GLFW_LIBRARIES}
     #${GLUT_LIBRARIES}
     ${GLM_LIBRARIES}
     

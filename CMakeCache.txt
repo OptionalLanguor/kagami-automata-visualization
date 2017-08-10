@@ -229,6 +229,9 @@ GLFW_USE_WAYLAND:BOOL=OFF
 //Value Computed by CMake
 Kagami_BINARY_DIR:STATIC=/home/aluno/Kagami/kagami-automata-visualization
 
+//Dependencies for the target
+Kagami_LIB_DEPENDS:STATIC=general;glfw;general;/usr/lib/x86_64-linux-gnu/librt.so;general;/usr/lib/x86_64-linux-gnu/libm.so;general;/usr/lib/x86_64-linux-gnu/libX11.so;general;-lpthread;general;/usr/lib/x86_64-linux-gnu/libXrandr.so;general;/usr/lib/x86_64-linux-gnu/libXinerama.so;general;/usr/lib/x86_64-linux-gnu/libXi.so;general;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;general;/usr/lib/x86_64-linux-gnu/libXcursor.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;dl;general;/usr/lib/x86_64-linux-gnu/libGLU.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;/usr/lib/x86_64-linux-gnu/libGLEW.so;
+
 //Value Computed by CMake
 Kagami_SOURCE_DIR:STATIC=/home/aluno/Kagami/kagami-automata-visualization
 
