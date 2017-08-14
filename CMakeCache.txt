@@ -184,26 +184,23 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Path to a file.
-GLEW_INCLUDE_DIR:PATH=/usr/include
+//Doxygen documentation generation tool (http://www.doxygen.org)
+DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
 
-//Path to a library.
-GLEW_LIBRARY_DEBUG:FILEPATH=GLEW_LIBRARY_DEBUG-NOTFOUND
-
-//Path to a library.
-GLEW_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libGLEW.so
+//Dependencies for the target
+GLEW_1130_LIB_DEPENDS:STATIC=general;-lGL;general;-lGLU;general;-lXrandr;general;-lXext;general;-lX11;general;-lrt;general;dl;general;/usr/lib/x86_64-linux-gnu/librt.so;general;/usr/lib/x86_64-linux-gnu/libm.so;general;/usr/lib/x86_64-linux-gnu/libX11.so;general;-lpthread;general;/usr/lib/x86_64-linux-gnu/libXrandr.so;general;/usr/lib/x86_64-linux-gnu/libXinerama.so;general;/usr/lib/x86_64-linux-gnu/libXi.so;general;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;general;/usr/lib/x86_64-linux-gnu/libXcursor.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;dl;
 
 //Value Computed by CMake
 GLFW_BINARY_DIR:STATIC=/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2
 
 //Build the GLFW documentation
-GLFW_BUILD_DOCS:BOOL=OFF
+GLFW_BUILD_DOCS:BOOL=ON
 
 //Build the GLFW example programs
-GLFW_BUILD_EXAMPLES:BOOL=OFF
+GLFW_BUILD_EXAMPLES:BOOL=ON
 
 //Build the GLFW test programs
-GLFW_BUILD_TESTS:BOOL=OFF
+GLFW_BUILD_TESTS:BOOL=ON
 
 //Include internals in documentation
 GLFW_DOCUMENT_INTERNALS:BOOL=OFF
@@ -228,9 +225,6 @@ GLFW_USE_WAYLAND:BOOL=OFF
 
 //Value Computed by CMake
 Kagami_BINARY_DIR:STATIC=/home/aluno/Kagami/kagami-automata-visualization
-
-//Dependencies for the target
-Kagami_LIB_DEPENDS:STATIC=general;glfw;general;/usr/lib/x86_64-linux-gnu/librt.so;general;/usr/lib/x86_64-linux-gnu/libm.so;general;/usr/lib/x86_64-linux-gnu/libX11.so;general;-lpthread;general;/usr/lib/x86_64-linux-gnu/libXrandr.so;general;/usr/lib/x86_64-linux-gnu/libXinerama.so;general;/usr/lib/x86_64-linux-gnu/libXi.so;general;/usr/lib/x86_64-linux-gnu/libXxf86vm.so;general;/usr/lib/x86_64-linux-gnu/libXcursor.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;dl;general;/usr/lib/x86_64-linux-gnu/libGLU.so;general;/usr/lib/x86_64-linux-gnu/libGL.so;general;/usr/lib/x86_64-linux-gnu/libGLEW.so;
 
 //Value Computed by CMake
 Kagami_SOURCE_DIR:STATIC=/home/aluno/Kagami/kagami-automata-visualization
@@ -440,8 +434,8 @@ X11_xf86misc_INCLUDE_PATH:PATH=X11_xf86misc_INCLUDE_PATH-NOTFOUND
 //Path to a file.
 X11_xf86vmode_INCLUDE_PATH:PATH=/usr/include
 
-//Dependencies for the target
-glfw_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libGLEW.so;
+//Dependencies for target
+glfw_LIB_DEPENDS:STATIC=
 
 
 ########################
@@ -560,7 +554,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -605,20 +599,14 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 COMPILER_SUPPORTS_CXX0X:INTERNAL=1
 //Test COMPILER_SUPPORTS_CXX11
 COMPILER_SUPPORTS_CXX11:INTERNAL=1
-//Details about finding GLEW
-FIND_PACKAGE_MESSAGE_DETAILS_GLEW:INTERNAL=[/usr/include][/usr/lib/x86_64-linux-gnu/libGLEW.so][v()]
+//ADVANCED property for variable: DOXYGEN_EXECUTABLE
+DOXYGEN_EXECUTABLE-ADVANCED:INTERNAL=1
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libGL.so][/usr/include][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding X11
 FIND_PACKAGE_MESSAGE_DETAILS_X11:INTERNAL=[/usr/lib/x86_64-linux-gnu/libX11.so][/usr/include]
-//ADVANCED property for variable: GLEW_INCLUDE_DIR
-GLEW_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: GLEW_LIBRARY_DEBUG
-GLEW_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: GLEW_LIBRARY_RELEASE
-GLEW_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MATH_LIBRARY
 MATH_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_INCLUDE_DIR

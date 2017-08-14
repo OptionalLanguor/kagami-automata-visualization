@@ -69,6 +69,8 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/cmake_install.cmake")
+  include("/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/examples/cmake_install.cmake")
+  include("/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/cmake_install.cmake")
 
 endif()
 

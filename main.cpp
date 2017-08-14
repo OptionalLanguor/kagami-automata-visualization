@@ -1,6 +1,7 @@
 // Include standard hibraries
 #include <cstdlib>
 #include <cstdio>
+#include <vector>
 
 // Include GLEW (OpenGL Extension Wrangler Library). 
 // Always include it before gl.h and glfw.h, since it's a bit magic.
@@ -13,13 +14,26 @@
 
 // Include GLM
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+using namespace glm;
+
+//Common
+#include "common/shader.hpp"
+//#include "common/texture.hpp"
+#include "common/controls.hpp"
+#include "common/objloader.hpp"
 
 //#include <GL/glut.h>
 #include <cstring>
 #include <string>
 #include "Entities/Entity.hpp"
 
+
+GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
+					// to work it's necessary at the moment.
+
 //---------------------------------------------------------------------------------------
+/*
 bool loadOBJ(const char *path,
     std::vector < glm::vec3 > & out_vertices,
     std::vector < glm::vec2 > & out_uvs,
@@ -86,7 +100,7 @@ bool loadOBJ(const char *path,
     	out_vertices.push_back(vertex);
     }
 }
-
+*/
 
 //---------------------------------------------------------------------------------------
 
@@ -100,10 +114,8 @@ int main(){
 	ent.hello();	
 
 
-
 	// Code from the tutorial -------------------------------------------------------
 
-	GLFWwindow* window;
 		// Initialise GLFW
 	if( !glfwInit() )
 	{
@@ -129,50 +141,82 @@ int main(){
 	glfwMakeContextCurrent(window);
 
 	// Initialize GLEW
+	glewExperimental = GL_TRUE; //For VertexArrayID
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		getchar();
 		glfwTerminate();
 		return -1;
 	}
+	printf("GLEW initilized.\n");
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	// Hide the mouse and enable unlimited mouvement
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    // Set the mouse at the center of the screen
+    glfwPollEvents();
+    glfwSetCursorPos(window, 1024/2, 768/2);
 
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
-	do{
-		// Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
-		glClear( GL_COLOR_BUFFER_BIT );
+	printf("Before depth test.\n");
 
-		// Draw nothing, see you in tutorial 2 !
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
 
-		
-		// Swap buffers
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+	printf("After depth test.\n");
 
-	} // Check if the ESC key was pressed or the window was closed
-	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-		   glfwWindowShouldClose(window) == 0 );
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS); 
 
-	// Close OpenGL window and terminate GLFW
-	glfwTerminate();
+	printf("After DepthFunc.\n");
 
-	//return 0;
 
-	// ------------------------------------------------------------------------------
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
 
-	//	Opening an .obj  ------------------------------------------------------------
+	printf("Cull enabled.\n");
 
-	std::string path = "sportsCar.obj";
+	GLuint VertexArrayID;
 
-	//bool res = loadOBJ(path.c_str(), vertices, uvs, normals);
-	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+	printf("Declarion of VertexArrayID\n");
 
-	// Load it into a VBO ---------------------------------------------------------------------
-	/*GLuint vertexbuffer;
+	glGenVertexArrays(1, &VertexArrayID);
+
+	printf("Generation of VertexArrayID\n");
+
+	glBindVertexArray(VertexArrayID);
+
+	printf("Before loading shaders.\n");
+
+	// Create and compile our GLSL program from the shaders
+	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
+
+	printf("ProgramID opened.\n");
+
+	// Get a handle for our "MVP" uniform
+	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+
+	// Load the texture
+	//GLuint Texture = loadDDS("uvmap.DDS");
+	
+	// Get a handle for our "myTextureSampler" uniform
+	//GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+
+	// Read our .obj file
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals; // Won't be used at the moment.
+	printf("Opening the .obj\n");
+	bool res = loadOBJ("sportsCar.obj", vertices, uvs, normals);
+	printf(".obj opened.\n");
+	
+	// Load it into a VBO
+
+	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
@@ -182,8 +226,11 @@ int main(){
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
-	do{
+	//while(true){};
+	
 
+	do{
+		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -202,10 +249,10 @@ int main(){
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 		// Bind our texture in Texture Unit 0
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture);
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, Texture);
 		// Set our "myTextureSampler" sampler to use Texture Unit 0
-		glUniform1i(TextureID, 0);
+		//glUniform1i(TextureID, 0);
 
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0);
@@ -231,7 +278,7 @@ int main(){
 			(void*)0                          // array buffer offset
 		);
 
-		// Draw the triangle !
+		// Draw the obj !
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
 
 		glDisableVertexAttribArray(0);
@@ -240,8 +287,21 @@ int main(){
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-	}*/
-	//---------------------------------------------------------------------
+
+
+	} // Check if the ESC key was pressed or the window was closed
+	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
+		   glfwWindowShouldClose(window) == 0 );
+	
+	// Cleanup VBO and shader
+	glDeleteBuffers(1, &vertexbuffer);
+	glDeleteBuffers(1, &uvbuffer);
+	glDeleteProgram(programID);
+	//glDeleteTextures(1, &Texture);
+	glDeleteVertexArrays(1, &VertexArrayID);
+
+	// Close OpenGL window and terminate GLFW
+	glfwTerminate();
 
 	return 0;
 }

@@ -22,6 +22,11 @@ set(CMAKE_C_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_C
+  "GLEW_STATIC"
+  "TW_NO_DIRECT3D"
+  "TW_NO_LIB_PRAGMA"
+  "TW_STATIC"
+  "_CRT_SECURE_NO_WARNINGS"
   "_GLFW_USE_CONFIG_H"
   )
 

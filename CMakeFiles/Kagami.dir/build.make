@@ -129,11 +129,111 @@ CMakeFiles/Kagami.dir/Entities/Component.cpp.o.provides: CMakeFiles/Kagami.dir/E
 CMakeFiles/Kagami.dir/Entities/Component.cpp.o.provides.build: CMakeFiles/Kagami.dir/Entities/Component.cpp.o
 
 
+CMakeFiles/Kagami.dir/common/shader.cpp.o: CMakeFiles/Kagami.dir/flags.make
+CMakeFiles/Kagami.dir/common/shader.cpp.o: common/shader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Kagami.dir/common/shader.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Kagami.dir/common/shader.cpp.o -c /home/aluno/Kagami/kagami-automata-visualization/common/shader.cpp
+
+CMakeFiles/Kagami.dir/common/shader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Kagami.dir/common/shader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aluno/Kagami/kagami-automata-visualization/common/shader.cpp > CMakeFiles/Kagami.dir/common/shader.cpp.i
+
+CMakeFiles/Kagami.dir/common/shader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Kagami.dir/common/shader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aluno/Kagami/kagami-automata-visualization/common/shader.cpp -o CMakeFiles/Kagami.dir/common/shader.cpp.s
+
+CMakeFiles/Kagami.dir/common/shader.cpp.o.requires:
+
+.PHONY : CMakeFiles/Kagami.dir/common/shader.cpp.o.requires
+
+CMakeFiles/Kagami.dir/common/shader.cpp.o.provides: CMakeFiles/Kagami.dir/common/shader.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Kagami.dir/build.make CMakeFiles/Kagami.dir/common/shader.cpp.o.provides.build
+.PHONY : CMakeFiles/Kagami.dir/common/shader.cpp.o.provides
+
+CMakeFiles/Kagami.dir/common/shader.cpp.o.provides.build: CMakeFiles/Kagami.dir/common/shader.cpp.o
+
+
+CMakeFiles/Kagami.dir/common/texture.cpp.o: CMakeFiles/Kagami.dir/flags.make
+CMakeFiles/Kagami.dir/common/texture.cpp.o: common/texture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Kagami.dir/common/texture.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Kagami.dir/common/texture.cpp.o -c /home/aluno/Kagami/kagami-automata-visualization/common/texture.cpp
+
+CMakeFiles/Kagami.dir/common/texture.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Kagami.dir/common/texture.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aluno/Kagami/kagami-automata-visualization/common/texture.cpp > CMakeFiles/Kagami.dir/common/texture.cpp.i
+
+CMakeFiles/Kagami.dir/common/texture.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Kagami.dir/common/texture.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aluno/Kagami/kagami-automata-visualization/common/texture.cpp -o CMakeFiles/Kagami.dir/common/texture.cpp.s
+
+CMakeFiles/Kagami.dir/common/texture.cpp.o.requires:
+
+.PHONY : CMakeFiles/Kagami.dir/common/texture.cpp.o.requires
+
+CMakeFiles/Kagami.dir/common/texture.cpp.o.provides: CMakeFiles/Kagami.dir/common/texture.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Kagami.dir/build.make CMakeFiles/Kagami.dir/common/texture.cpp.o.provides.build
+.PHONY : CMakeFiles/Kagami.dir/common/texture.cpp.o.provides
+
+CMakeFiles/Kagami.dir/common/texture.cpp.o.provides.build: CMakeFiles/Kagami.dir/common/texture.cpp.o
+
+
+CMakeFiles/Kagami.dir/common/controls.cpp.o: CMakeFiles/Kagami.dir/flags.make
+CMakeFiles/Kagami.dir/common/controls.cpp.o: common/controls.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Kagami.dir/common/controls.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Kagami.dir/common/controls.cpp.o -c /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp
+
+CMakeFiles/Kagami.dir/common/controls.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Kagami.dir/common/controls.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp > CMakeFiles/Kagami.dir/common/controls.cpp.i
+
+CMakeFiles/Kagami.dir/common/controls.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Kagami.dir/common/controls.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp -o CMakeFiles/Kagami.dir/common/controls.cpp.s
+
+CMakeFiles/Kagami.dir/common/controls.cpp.o.requires:
+
+.PHONY : CMakeFiles/Kagami.dir/common/controls.cpp.o.requires
+
+CMakeFiles/Kagami.dir/common/controls.cpp.o.provides: CMakeFiles/Kagami.dir/common/controls.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Kagami.dir/build.make CMakeFiles/Kagami.dir/common/controls.cpp.o.provides.build
+.PHONY : CMakeFiles/Kagami.dir/common/controls.cpp.o.provides
+
+CMakeFiles/Kagami.dir/common/controls.cpp.o.provides.build: CMakeFiles/Kagami.dir/common/controls.cpp.o
+
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.o: CMakeFiles/Kagami.dir/flags.make
+CMakeFiles/Kagami.dir/common/objloader.cpp.o: common/objloader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Kagami.dir/common/objloader.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Kagami.dir/common/objloader.cpp.o -c /home/aluno/Kagami/kagami-automata-visualization/common/objloader.cpp
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Kagami.dir/common/objloader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aluno/Kagami/kagami-automata-visualization/common/objloader.cpp > CMakeFiles/Kagami.dir/common/objloader.cpp.i
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Kagami.dir/common/objloader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aluno/Kagami/kagami-automata-visualization/common/objloader.cpp -o CMakeFiles/Kagami.dir/common/objloader.cpp.s
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.o.requires:
+
+.PHONY : CMakeFiles/Kagami.dir/common/objloader.cpp.o.requires
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.o.provides: CMakeFiles/Kagami.dir/common/objloader.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Kagami.dir/build.make CMakeFiles/Kagami.dir/common/objloader.cpp.o.provides.build
+.PHONY : CMakeFiles/Kagami.dir/common/objloader.cpp.o.provides
+
+CMakeFiles/Kagami.dir/common/objloader.cpp.o.provides.build: CMakeFiles/Kagami.dir/common/objloader.cpp.o
+
+
 # Object files for target Kagami
 Kagami_OBJECTS = \
 "CMakeFiles/Kagami.dir/main.cpp.o" \
 "CMakeFiles/Kagami.dir/Entities/Entity.cpp.o" \
-"CMakeFiles/Kagami.dir/Entities/Component.cpp.o"
+"CMakeFiles/Kagami.dir/Entities/Component.cpp.o" \
+"CMakeFiles/Kagami.dir/common/shader.cpp.o" \
+"CMakeFiles/Kagami.dir/common/texture.cpp.o" \
+"CMakeFiles/Kagami.dir/common/controls.cpp.o" \
+"CMakeFiles/Kagami.dir/common/objloader.cpp.o"
 
 # External object files for target Kagami
 Kagami_EXTERNAL_OBJECTS =
@@ -141,12 +241,23 @@ Kagami_EXTERNAL_OBJECTS =
 Kagami: CMakeFiles/Kagami.dir/main.cpp.o
 Kagami: CMakeFiles/Kagami.dir/Entities/Entity.cpp.o
 Kagami: CMakeFiles/Kagami.dir/Entities/Component.cpp.o
+Kagami: CMakeFiles/Kagami.dir/common/shader.cpp.o
+Kagami: CMakeFiles/Kagami.dir/common/texture.cpp.o
+Kagami: CMakeFiles/Kagami.dir/common/controls.cpp.o
+Kagami: CMakeFiles/Kagami.dir/common/objloader.cpp.o
 Kagami: CMakeFiles/Kagami.dir/build.make
-Kagami: /usr/lib/x86_64-linux-gnu/libGLEW.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGLU.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGL.so
-Kagami: /usr/lib/x86_64-linux-gnu/libGLEW.so
 Kagami: external/glfw-3.1.2/src/libglfw3.a
+Kagami: external/libGLEW_1130.a
+Kagami: /usr/lib/x86_64-linux-gnu/librt.so
+Kagami: /usr/lib/x86_64-linux-gnu/libm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libX11.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXrandr.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXinerama.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXi.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
+Kagami: /usr/lib/x86_64-linux-gnu/libXcursor.so
 Kagami: /usr/lib/x86_64-linux-gnu/librt.so
 Kagami: /usr/lib/x86_64-linux-gnu/libm.so
 Kagami: /usr/lib/x86_64-linux-gnu/libX11.so
@@ -156,17 +267,8 @@ Kagami: /usr/lib/x86_64-linux-gnu/libXi.so
 Kagami: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
 Kagami: /usr/lib/x86_64-linux-gnu/libXcursor.so
 Kagami: /usr/lib/x86_64-linux-gnu/libGL.so
-Kagami: /usr/lib/x86_64-linux-gnu/librt.so
-Kagami: /usr/lib/x86_64-linux-gnu/libm.so
-Kagami: /usr/lib/x86_64-linux-gnu/libX11.so
-Kagami: /usr/lib/x86_64-linux-gnu/libXrandr.so
-Kagami: /usr/lib/x86_64-linux-gnu/libXinerama.so
-Kagami: /usr/lib/x86_64-linux-gnu/libXi.so
-Kagami: /usr/lib/x86_64-linux-gnu/libXxf86vm.so
-Kagami: /usr/lib/x86_64-linux-gnu/libXcursor.so
-Kagami: /usr/lib/x86_64-linux-gnu/libGLEW.so
 Kagami: CMakeFiles/Kagami.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Kagami"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aluno/Kagami/kagami-automata-visualization/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Kagami"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Kagami.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -177,6 +279,10 @@ CMakeFiles/Kagami.dir/build: Kagami
 CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/main.cpp.o.requires
 CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/Entities/Entity.cpp.o.requires
 CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/Entities/Component.cpp.o.requires
+CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/common/shader.cpp.o.requires
+CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/common/texture.cpp.o.requires
+CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/common/controls.cpp.o.requires
+CMakeFiles/Kagami.dir/requires: CMakeFiles/Kagami.dir/common/objloader.cpp.o.requires
 
 .PHONY : CMakeFiles/Kagami.dir/requires
 
