@@ -28,81 +28,21 @@ using namespace glm;
 #include <string>
 #include "Entities/Entity.hpp"
 
+/*
+ Represents a point light
+ */
+struct Light {
+    glm::vec3 position;
+    glm::vec3 intensities; //a.k.a. the color of the light
+    float attenuation;
+    float ambientCoefficient;
+};
+
 
 GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
 					// to work it's necessary at the moment.
 
-//---------------------------------------------------------------------------------------
-/*
-bool loadOBJ(const char *path,
-    std::vector < glm::vec3 > & out_vertices,
-    std::vector < glm::vec2 > & out_uvs,
-    std::vector < glm::vec3 > & out_normals)
-{
-	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-	std::vector< glm::vec3 > temp_vertices;
-	std::vector< glm::vec2 > temp_uvs;
-	std::vector< glm::vec3 > temp_normals;
-
-	FILE * file = fopen(path, "r");
-	if( file == NULL ){
-	    printf("Impossible to open the file !\n");
-	    return false;
-	}
-	
-	while( 1 ){
-	    char lineHeader[128];
-	    // read the first word of the line
-	    int res = fscanf(file, "%s", lineHeader);
-	    if (res == EOF)
-	        break; // EOF = End Of File. Quit the loop.
-
-	    else{
-	    	if ( strcmp( lineHeader, "v" ) == 0 ){
-			    glm::vec3 vertex;
-			    fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
-			    temp_vertices.push_back(vertex);
-			}
-			else if ( strcmp( lineHeader, "vt" ) == 0 ){
-			    glm::vec2 uv;
-			    fscanf(file, "%f %f\n", &uv.x, &uv.y );
-			    temp_uvs.push_back(uv);
-			}
-			else if ( strcmp( lineHeader, "vn" ) == 0 ){
-			    glm::vec3 normal;
-			    fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
-			    temp_normals.push_back(normal);
-			}
-			else if ( strcmp( lineHeader, "f" ) == 0 ){
-			    std::string vertex1, vertex2, vertex3;
-			    unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			    int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
-			    if (matches != 9){
-			        printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-			        return false;
-			    }
-			    vertexIndices.push_back(vertexIndex[0]);
-			    vertexIndices.push_back(vertexIndex[1]);
-			    vertexIndices.push_back(vertexIndex[2]);
-			    uvIndices    .push_back(uvIndex[0]);
-			    uvIndices    .push_back(uvIndex[1]);
-			    uvIndices    .push_back(uvIndex[2]);
-			    normalIndices.push_back(normalIndex[0]);
-			    normalIndices.push_back(normalIndex[1]);
-			    normalIndices.push_back(normalIndex[2]);
-			}
-		}
-    }
-    //Indexing
-    for( unsigned int i=0; i<vertexIndices.size(); i++ ){
-    	unsigned int vertexIndex = vertexIndices[i];
-    	glm::vec3 vertex = temp_vertices[ vertexIndex-1 ];
-    	out_vertices.push_back(vertex);
-    }
-}
-*/
-
-//---------------------------------------------------------------------------------------
+Light gLight;
 
 //class Kagami {	
 //};
@@ -141,14 +81,17 @@ int main(){
 	glfwMakeContextCurrent(window);
 
 	// Initialize GLEW
-	glewExperimental = GL_TRUE; //For VertexArrayID
+	glewExperimental = GL_TRUE; //For VertexArrayID on the campus Ubuntu and for OSX
+	//As of writing this, GLEW has a few issues with the OpenGL core profile we are using. 
+	//Setting glewExperimental to true fixes the problem, 
+	//but hopefully this won't be necessary in the future.
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		getchar();
 		glfwTerminate();
 		return -1;
 	}
-	printf("GLEW initilized.\n");
+	printf("GLEW initialized.\n");
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
@@ -163,42 +106,40 @@ int main(){
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 	printf("Before depth test.\n");
-
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
-
 	printf("After depth test.\n");
 
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS); 
-
 	printf("After DepthFunc.\n");
 
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
-
 	printf("Cull enabled.\n");
 
-	GLuint VertexArrayID;
-
+	GLuint VertexArrayID; //Creating the VAO
 	printf("Declarion of VertexArrayID\n");
-
-	glGenVertexArrays(1, &VertexArrayID);
-
+	glGenVertexArrays(1, &VertexArrayID); 
 	printf("Generation of VertexArrayID\n");
-
 	glBindVertexArray(VertexArrayID);
 
 	printf("Before loading shaders.\n");
-
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
-
 	printf("ProgramID opened.\n");
+
+	// Enable Lighting
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	
 
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+
+	// Getting a handle for the light uniform
+	//GLuint LightID = glGetUniformLocation(programID, )
 
 	// Load the texture
 	//GLuint Texture = loadDDS("uvmap.DDS");
@@ -211,6 +152,7 @@ int main(){
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 	printf("Opening the .obj\n");
+	//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
 	bool res = loadOBJ("sportsCar.obj", vertices, uvs, normals);
 	printf(".obj opened.\n");
 	
@@ -226,11 +168,18 @@ int main(){
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
+	GLuint normalbuffer;
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec2), &normals[0], GL_STATIC_DRAW);
+
+
 	//while(true){};
-	
+
+	// Enabling Lightning
+	//glEnable(GL_LIGHT0);
 
 	do{
-		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -255,10 +204,10 @@ int main(){
 		//glUniform1i(TextureID, 0);
 
 		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(0); // Enabling the var at vertexshader with layout=0
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 		glVertexAttribPointer(
-			0,                  // attribute
+			0,                  // attribute - Selecting the var at vertexshader with layout=0
 			3,                  // size
 			GL_FLOAT,           // type
 			GL_FALSE,           // normalized?
@@ -278,11 +227,29 @@ int main(){
 			(void*)0                          // array buffer offset
 		);
 
+		// 3nd attribute buffer : normals
+		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+		glVertexAttribPointer(
+			2,                                // attribute
+			3,                                // size
+			GL_FLOAT,                         // type
+			GL_FALSE,                         // normalized?
+			0,                                // stride
+			(void*)0                          // array buffer offset
+		);
+
 		// Draw the obj !
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
 
+		//glTranslatef(0,0, 20.0f);
+		// Draw the obj !
+		//glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
+
+
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
 
 		// Swap buffers
 		glfwSwapBuffers(window);
@@ -296,6 +263,7 @@ int main(){
 	// Cleanup VBO and shader
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
+	glDeleteBuffers(1, &normalbuffer);
 	glDeleteProgram(programID);
 	//glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);

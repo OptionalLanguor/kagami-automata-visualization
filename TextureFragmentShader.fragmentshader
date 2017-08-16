@@ -1,16 +1,76 @@
 #version 330 core
 
 // Interpolated values from the vertex shaders
-in vec2 UV;
+in vec3 fragVert;
+in vec2 fragUV;
+in vec3 fragNormal;
+
 
 // Ouput data
-out vec3 color;
+out vec4 color; //I changed it for a 4 dimensional vector instead of a vec3
 
 // Values that stay constant for the whole mesh.
-uniform sampler2D myTextureSampler;
+//uniform sampler2D myTextureSampler;
+
+/*
+//Trying to include some code from tomdalling.com - diffuse point lighting
+uniform mat4 model;
+uniform sampler2D tex;
+
+uniform struct Light {
+   vec3 position;
+   vec3 intensities; //a.k.a the color of the light
+} light;
+
+in vec2 fragTexCoord;
+in vec3 fragNormal;
+in vec3 fragVert;
+
+out vec4 finalColor;
+*/
+
+
+//in vec3 fragNormal;
+//in vec3 fragVert;
+
+uniform mat4 MVP;
 
 void main(){
 
 	// Output color = color of the texture at the specified UV
-	color = texture( myTextureSampler, UV ).rgb;
+	//color = texture( myTextureSampler, UV ).rgb;
+	//color = vec4(0.0, 1.0, 1.0, 1.0); // It uses RGBA (red, green, blue and alpha)
+
+	//-----------------------------------------------------------------------------------
+
+	//Trying to include lighting
+	//calculate normal in world coordinates
+    mat3 normalMatrix = transpose(inverse(mat3(MVP)));
+    vec3 normal = normalize(normalMatrix * fragNormal);
+
+    //calculate the location of this fragment (pixel) in world coordinates
+    vec3 fragPosition = vec3(MVP * vec4(fragVert, 1));
+    
+    //calculate the vector from this pixels surface to the light source
+    //vec3 surfaceToLight = light.position - fragPosition;
+	vec3 surfaceToLight = vec3(5,0,2) - fragPosition;
+
+    //calculate the cosine of the angle of incidence
+    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal));
+    brightness = clamp(brightness, 0, 1);
+
+    //calculate final color of the pixel, based on:
+    // 1. The angle of incidence: brightness
+    // 2. The color/intensities of the light: light.intensities
+    // 3. The texture and texture coord: texture(tex, fragTexCoord)
+    vec4 surfaceColor = vec4(0.0, 1.0, 1.0, 1.0);//texture(0, UV);
+    color = vec4(brightness * vec3(1,1,1) * surfaceColor.rgb, surfaceColor.a);
+	
+	//white light
+	//color = vec4(brightness * vec3(1,1,1) * surfaceColor.rgb, surfaceColor.a);
+
+	//white light
+	//color = vec4(brightness * glm::vec3(1,1,1), surfaceColor.a);
+
+
 }
