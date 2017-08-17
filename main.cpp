@@ -47,8 +47,52 @@ Light gLight;
 //class Kagami {	
 //};
 
+struct ModelProperties{ //Kinda of using the ideia of tomdalling's code
+	int id;
+	GLuint shaders;
+	GLuint texture;
+	GLuint vao;
+	GLuint vbo;
+	GLenum drawType;
+	GLfloat shininess;
+	glm::vec3 specularColor;
+
+	static int current_id;
+
+	ModelProperties() :
+		shaders(0),	//Maybe it's a good ideia to make shaders and texture pointers
+		texture(0),
+		vao(0),
+		vbo(0),
+		drawType(GL_TRIANGLES),
+		shininess(0.0f),
+		specularColor(1.0f, 1.0f, 1.0f),
+		id(current_id++)
+	{}
+};
+
+struct ModelInstance{
+	ModelProperties* properties;
+	glm::mat4 transformMatrix;
+
+	ModelInstance() :
+		properties(NULL),
+		transformMatrix()
+	{}
+};
+
+// Function to place an object in the scene
+void initializeModelInstance(const ModelInstance &instance, const glm::vec3 &position)
+{
+
+}
+
+
 int main(){
 	printf("Hello, World!\n");
+
+	//Initialize the ids of ModelProperties to use in VertexAttribArrays (VAO)
+	//ModelProperties::current_id=0;	
 
 	Entity ent;
 	ent.hello();	
@@ -115,26 +159,21 @@ int main(){
 	printf("After DepthFunc.\n");
 
 
-	// Cull triangles which normal is not towards the camera
-	glEnable(GL_CULL_FACE);
-	printf("Cull enabled.\n");
+	// Initializing the ModelInstance class for the .obj
 
-	GLuint VertexArrayID; //Creating the VAO
-	printf("Declarion of VertexArrayID\n");
-	glGenVertexArrays(1, &VertexArrayID); 
-	printf("Generation of VertexArrayID\n");
-	glBindVertexArray(VertexArrayID);
-
-	printf("Before loading shaders.\n");
-	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
-	printf("ProgramID opened.\n");
-
-	// Enable Lighting
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 	
 
+
+	// Cull triangles which normal is not towards the camera
+	//glEnable(GL_CULL_FACE);
+	
+	GLuint VertexArrayID; //Creating the VAO
+	glGenVertexArrays(1, &VertexArrayID); 
+	glBindVertexArray(VertexArrayID);
+
+	// Create and compile our GLSL program from the shaders
+	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
+	
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 
@@ -175,9 +214,6 @@ int main(){
 
 
 	//while(true){};
-
-	// Enabling Lightning
-	//glEnable(GL_LIGHT0);
 
 	do{
 		// Clear the screen

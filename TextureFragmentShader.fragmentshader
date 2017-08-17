@@ -53,11 +53,12 @@ void main(){
     
     //calculate the vector from this pixels surface to the light source
     //vec3 surfaceToLight = light.position - fragPosition;
-	vec3 surfaceToLight = vec3(5,0,2) - fragPosition;
+	vec3 surfaceToLight = vec3(-4,0,4) - fragPosition;
 
     //calculate the cosine of the angle of incidence
     float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal));
     brightness = clamp(brightness, 0, 1);
+    //brightness = (brightness<0)?1:brightness;
 
     //calculate final color of the pixel, based on:
     // 1. The angle of incidence: brightness
