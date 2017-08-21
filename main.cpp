@@ -85,14 +85,19 @@ int ModelProperties::current_id;
 struct ModelInstance{
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
-	GLuint MatrixID;
+	static GLuint MatrixID;
+	static glm::mat4 ProjectionMatrix;
+	static glm::mat4 ViewMatrix;
 
 	ModelInstance() :
 		properties(NULL),
-		transformMatrix(glm::mat4(1.0)),
-		MatrixID(0)
+		transformMatrix(glm::mat4(1.0))
 	{}
 };
+//Initializing statics from ModelInstance
+GLuint ModelInstance::MatrixID;
+glm::mat4 ModelInstance::ProjectionMatrix;
+glm::mat4 ModelInstance::ViewMatrix;
 
 // Function to place an object in the scene
 void initializerModelInstance(ModelInstance &instance)
@@ -107,9 +112,9 @@ void initializerModelInstance(ModelInstance &instance)
 	//instance.MatrixID = glGetUniformLocation(instance.properties->shaders, "MVP");
 
 	// Binding arrays
-	glGenVertexArrays(instance.properties->id, &instance.properties->vao);
+	glGenVertexArrays(1, &instance.properties->vao);
 	printf("%d\n", instance.properties->id);
-	glGenBuffers(instance.properties->id, &instance.properties->vbo);
+	glGenBuffers(1, &instance.properties->vbo);
 
 	// bind the VAO
     glBindVertexArray(instance.properties->vao);
@@ -130,61 +135,57 @@ void initializerModelInstance(ModelInstance &instance)
 
 	// Load it into a VBO
 	//GLuint vertexbuffer;
-	glGenBuffers(instance.properties->id, &instance.properties->vertexbuffer);
+	glGenBuffers(1, &instance.properties->vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
 	//GLuint uvbuffer;
-	glGenBuffers(instance.properties->id, &instance.properties->uvbuffer);
+	glGenBuffers(1, &instance.properties->uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
 	//GLuint normalbuffer;
-	glGenBuffers(instance.properties->id, &instance.properties->normalbuffer);
+	glGenBuffers(1, &instance.properties->normalbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->normalbuffer);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 }
 
 void desalocateModelInstance(ModelInstance &instance)
 {
 	// Cleanup VBO and shader
-	glDeleteBuffers(instance.properties->id, &instance.properties->vertexbuffer);
-	glDeleteBuffers(instance.properties->id, &instance.properties->uvbuffer);
-	glDeleteBuffers(instance.properties->id, &instance.properties->normalbuffer);
+	glDeleteBuffers(1, &instance.properties->vertexbuffer);
+	glDeleteBuffers(1, &instance.properties->uvbuffer);
+	glDeleteBuffers(1, &instance.properties->normalbuffer);
 	glDeleteProgram(instance.properties->shaders);
 	//glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &instance.properties->vao);
-}
-
-void updateModelInstance(ModelInstance &instance, glm::mat4 &V, glm::mat4 &P)
-{
-	instance.MatrixID = glGetUniformLocation(instance.properties->shaders, "MVP");
-	glm::mat4 MVP = P * V * instance.transformMatrix;
-
-	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
-	glUniformMatrix4fv(instance.MatrixID, 1, GL_FALSE, &MVP[0][0]);
 }
 
 void update(ModelInstance* instances)
 {
 	// Compute the MVP matrix from keyboard and mouse input
 	computeMatricesFromInputs();
-	glm::mat4 ProjectionMatrix = getProjectionMatrix();
-	glm::mat4 ViewMatrix = getViewMatrix();
+	ModelInstance::ProjectionMatrix = getProjectionMatrix();
+	ModelInstance::ViewMatrix = getViewMatrix();
 	
 	//We could loop this to work on more models
-	for(int i = 0; i<1; i++)
-		updateModelInstance(instances[i], ViewMatrix, ProjectionMatrix);
+	//for(int i = 0; i<1; i++)
+	//	updateModelInstance(instances[i], ViewMatrix, ProjectionMatrix);
 }
 
 void drawModelInstance(const ModelInstance &instance)
 {
+	glBindVertexArray(instance.properties->vao);
 	
-	glBindVertexArray(instance.properties->id);
-	
+	glm::mat4 MVP = ModelInstance::ProjectionMatrix * ModelInstance::ViewMatrix
+						 * instance.transformMatrix;
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform
+	glUniformMatrix4fv(ModelInstance::MatrixID, 1, GL_FALSE, &MVP[0][0]);
+
 	// Bind our texture in Texture Unit 0
 	//glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_2D, Texture);
@@ -227,15 +228,8 @@ void drawModelInstance(const ModelInstance &instance)
 		(void*)0                          // array buffer offset
 	);
 
-	// Draw the obj !
-	glBindVertexArray(instance.properties->vao);
+	// Draw the obj!
 	glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	//glBindVertexArray(0);
-
 }
 
 void draw(ModelInstance* instances)
@@ -245,6 +239,10 @@ void draw(ModelInstance* instances)
 
 	for(int i = 0; i<2; i++)
 		drawModelInstance(instances[i]);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 
 	// Swap buffers
 	glfwSwapBuffers(window);
