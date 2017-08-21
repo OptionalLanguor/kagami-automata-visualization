@@ -49,8 +49,8 @@ Light gLight;
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:
-	static int current_id;
-	int id;
+	//static int current_id;
+	//int id;
 	GLuint shaders;
 	GLuint texture;
 	GLuint vao;
@@ -64,7 +64,7 @@ public:
 	GLuint vertexSize;
 
 	ModelProperties() :
-		id(++current_id),
+		//id(++current_id),
 		shaders(0),	//Maybe it's a good ideia to make shaders and texture pointers
 		texture(0),
 		vao(0),
@@ -80,7 +80,7 @@ public:
 };
 
 //Initializing statics from ModelProperties
-int ModelProperties::current_id;
+//int ModelProperties::current_id;
 
 struct ModelInstance{
 	ModelProperties* properties;
@@ -91,8 +91,13 @@ struct ModelInstance{
 
 	ModelInstance() :
 		properties(NULL),
-		transformMatrix(glm::mat4(1.0))
+		transformMatrix()
 	{}
+	ModelInstance(glm::mat4 model) :
+		properties(NULL)
+	{
+		transformMatrix = model;
+	}
 };
 //Initializing statics from ModelInstance
 GLuint ModelInstance::MatrixID;
@@ -113,7 +118,6 @@ void initializerModelInstance(ModelInstance &instance)
 
 	// Binding arrays
 	glGenVertexArrays(1, &instance.properties->vao);
-	printf("%d\n", instance.properties->id);
 	glGenBuffers(1, &instance.properties->vbo);
 
 	// bind the VAO
@@ -163,7 +167,7 @@ void desalocateModelInstance(ModelInstance &instance)
 	glDeleteVertexArrays(1, &instance.properties->vao);
 }
 
-void update(ModelInstance* instances)
+void update()
 {
 	// Compute the MVP matrix from keyboard and mouse input
 	computeMatricesFromInputs();
@@ -175,10 +179,12 @@ void update(ModelInstance* instances)
 	//	updateModelInstance(instances[i], ViewMatrix, ProjectionMatrix);
 }
 
-void drawModelInstance(const ModelInstance &instance)
+void drawModelInstance(ModelInstance instance)
 {
 	glBindVertexArray(instance.properties->vao);
 	
+	glUseProgram(instance.properties->shaders);
+
 	glm::mat4 MVP = ModelInstance::ProjectionMatrix * ModelInstance::ViewMatrix
 						 * instance.transformMatrix;
 
@@ -232,13 +238,16 @@ void drawModelInstance(const ModelInstance &instance)
 	glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 }
 
-void draw(ModelInstance* instances)
+void draw(std::vector<ModelInstance> instances)
 {
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for(int i = 0; i<2; i++)
-		drawModelInstance(instances[i]);
+	//for(int i = 0; i<2; i++)
+	//	drawModelInstance(instances[i]);
+	
+	for(std::vector<ModelInstance>::iterator it = instances.begin(); it!=instances.end(); ++it)
+		drawModelInstance(*it);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -260,6 +269,7 @@ glm::mat4 translate(GLfloat x, GLfloat y, GLfloat z) {
 glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z) {
     return glm::scale(glm::mat4(), glm::vec3(x,y,z));
 }
+
 
 int main(){
 	printf("Hello, World!\n");
@@ -390,23 +400,23 @@ int main(){
 
 	//while(true){};
 
-	//std::vector <ModelInstance> instances;
-	//std::vector<ModelInstance>::iterator it;
+	std::vector <ModelInstance> instances;
+	std::vector<ModelInstance>::iterator it;
 
-	//instances.push_back(ModelInstance());
-	//instances.push_back(ModelInstance());
-	//it = instances.begin();
-	
-	ModelInstance instances[2];
-	initializerModelInstance(instances[0]);
-	initializerModelInstance(instances[1]);
-	instances[0].transformMatrix = translate(0,5,0);
+	instances.push_back(ModelInstance(glm::mat4()));
+	//initializerModelInstance(instances.back());
+	instances.push_back(ModelInstance(translate(0,5,0)));
+	//initializerModelInstance(instances.back());
 
-	//it++;
-	//initializerModelInstance(*it);
-	//it->transformMatrix = translate(0,-4,0) * scale(1,2,1);
-	
-	glUseProgram(instances[0].properties->shaders);
+	for(std::vector<ModelInstance>::iterator it = instances.begin(); it!=instances.end(); ++it)
+		initializerModelInstance(*it);
+
+	//ModelInstance instances[2];
+	//initializerModelInstance(instances[0]);
+	//initializerModelInstance(instances[1]);
+	//instances[0].transformMatrix = translate(0,5,0);
+
+	//glUseProgram(instances[0].properties->shaders);
 
 	// FPS counter -------------------------------------------------------------------------
 	double lastTime = glfwGetTime();
@@ -423,7 +433,7 @@ int main(){
 	    }
 	    //end
 
-		update(instances);
+		update();
 		draw(instances);
 
 	} // Check if the ESC key was pressed or the window was closed
