@@ -88,13 +88,16 @@ struct ModelInstance{
 	static GLuint MatrixID;
 	static glm::mat4 ProjectionMatrix;
 	static glm::mat4 ViewMatrix;
+	std::string modelPath;
 
 	ModelInstance() :
 		properties(NULL),
-		transformMatrix()
+		transformMatrix(),
+		modelPath()
 	{}
-	ModelInstance(glm::mat4 model) :
-		properties(NULL)
+	ModelInstance(std::string modelPath, glm::mat4 model) :
+		properties(NULL),
+		modelPath(modelPath)
 	{
 		transformMatrix = model;
 	}
@@ -132,7 +135,7 @@ void initializerModelInstance(ModelInstance &instance)
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 	printf("Opening the .obj\n");
 	//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
-	bool res = loadOBJ("sportsCar.obj", vertices, uvs, normals);
+	bool res = loadOBJ(instance.modelPath.c_str(), vertices, uvs, normals);
 	printf(".obj opened.\n");
 	
 	instance.properties->vertexSize = vertices.size();
@@ -403,9 +406,9 @@ int main(){
 	std::vector <ModelInstance> instances;
 	std::vector<ModelInstance>::iterator it;
 
-	instances.push_back(ModelInstance(glm::mat4()));
+	instances.push_back(ModelInstance("sportsCar.obj", glm::mat4()));
 	//initializerModelInstance(instances.back());
-	instances.push_back(ModelInstance(translate(0,5,0)));
+	instances.push_back(ModelInstance("golf-cart.obj", translate(0,5,0)));
 	//initializerModelInstance(instances.back());
 
 	for(std::vector<ModelInstance>::iterator it = instances.begin(); it!=instances.end(); ++it)
