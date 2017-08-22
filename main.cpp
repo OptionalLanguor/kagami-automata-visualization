@@ -406,9 +406,12 @@ int main(){
 	std::vector <ModelInstance> instances;
 	std::vector<ModelInstance>::iterator it;
 
-	instances.push_back(ModelInstance("sportsCar.obj", glm::mat4()));
+	//instances.push_back(ModelInstance("sportsCar.obj", glm::mat4()));
 	//initializerModelInstance(instances.back());
-	instances.push_back(ModelInstance("golf-cart.obj", translate(0,5,0)));
+	instances.push_back(ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
+	instances.push_back(ModelInstance("desert city.obj", translate(0,5,0)));
+	instances.push_back(ModelInstance("hazelnut.obj", translate(0,25,0)));
+
 	//initializerModelInstance(instances.back());
 
 	for(std::vector<ModelInstance>::iterator it = instances.begin(); it!=instances.end(); ++it)

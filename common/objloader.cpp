@@ -41,6 +41,7 @@ bool loadOBJ(
 	while( 1 ){
 
 		char lineHeader[128];
+		char entireLine[128];
 		// read the first word of the line
 		int res = fscanf(file, "%s", lineHeader);
 		if (res == EOF)
@@ -64,21 +65,72 @@ bool loadOBJ(
 		}else if ( strcmp( lineHeader, "f" ) == 0 ){
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
-			if (matches != 9){
+			//int matches;
+			//int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
+			fgets(entireLine, 128, file);
+			int bars =0;
+			for(int i=0; entireLine[i]!='\n' && i<128; i++)
+				if(entireLine[i] == '/')
+					bars++;
+
+			if(bars == 6 || bars == 8)
+			{
+				sscanf(entireLine,  "%d/%d/%d %d/%d/%d %d/%d/%d", &vertexIndex[0], &uvIndex[0], &normalIndex[0], 
+																	&vertexIndex[1], &uvIndex[1], &normalIndex[1], 
+																		&vertexIndex[2], &uvIndex[2], &normalIndex[2] );
+				vertexIndices.push_back(vertexIndex[0]);
+				vertexIndices.push_back(vertexIndex[1]);
+				vertexIndices.push_back(vertexIndex[2]);
+				uvIndices    .push_back(uvIndex[0]);
+				uvIndices    .push_back(uvIndex[1]);
+				uvIndices    .push_back(uvIndex[2]);
+				normalIndices.push_back(normalIndex[0]);
+				normalIndices.push_back(normalIndex[1]);
+				normalIndices.push_back(normalIndex[2]);
+			
+				if(bars == 8)
+				{
+					sscanf(entireLine,  "%d/%d/%d %*s %d/%d/%d %d/%d/%d ", &vertexIndex[0], &uvIndex[0], &normalIndex[0], 
+																			&vertexIndex[1], &uvIndex[1], &normalIndex[1], 
+																				&vertexIndex[2], &uvIndex[2], &normalIndex[2] );
+					vertexIndices.push_back(vertexIndex[0]);
+					vertexIndices.push_back(vertexIndex[1]);
+					vertexIndices.push_back(vertexIndex[2]);
+					uvIndices    .push_back(uvIndex[0]);
+					uvIndices    .push_back(uvIndex[1]);
+					uvIndices    .push_back(uvIndex[2]);
+					normalIndices.push_back(normalIndex[0]);
+					normalIndices.push_back(normalIndex[1]);
+					normalIndices.push_back(normalIndex[2]);	
+				}
+			}
+			else if (bars == 4) //For some reason there are only two vertices on a face
+			{
+				continue; //So we just ignore it
+				/* // If for a reason there is a need for the "faces" made of a "line"
+				sscanf(entireLine,  "%d/%d/%d %d/%d/%d", &vertexIndex[0], &uvIndex[0], &normalIndex[0], 
+																			&vertexIndex[1], &uvIndex[1], &normalIndex[1]);
+				vertexIndices.push_back(vertexIndex[0]);
+				vertexIndices.push_back(vertexIndex[1]);
+				vertexIndices.push_back(vertexIndex[1]);
+				uvIndices    .push_back(uvIndex[0]);
+				uvIndices    .push_back(uvIndex[1]);
+				uvIndices    .push_back(uvIndex[1]);
+				normalIndices.push_back(normalIndex[0]);
+				normalIndices.push_back(normalIndex[1]);
+				normalIndices.push_back(normalIndex[1]);
+				*/
+			}
+			else{
+				printf("File can't be read by our simple parser :-( Try exporting with other options\n");
+			}
+			/*if (matches != 9){
+				printf("%d/%d/%d %d/%d/%d %d/%d/%d\n", vertexIndex[0], uvIndex[0], normalIndex[0], vertexIndex[1], uvIndex[1], normalIndex[1], vertexIndex[2], uvIndex[2], normalIndex[2] );
 				printf("File can't be read by our simple parser :-( Try exporting with other options\n");
 				fclose(file);
 				return false;
-			}
-			vertexIndices.push_back(vertexIndex[0]);
-			vertexIndices.push_back(vertexIndex[1]);
-			vertexIndices.push_back(vertexIndex[2]);
-			uvIndices    .push_back(uvIndex[0]);
-			uvIndices    .push_back(uvIndex[1]);
-			uvIndices    .push_back(uvIndex[2]);
-			normalIndices.push_back(normalIndex[0]);
-			normalIndices.push_back(normalIndex[1]);
-			normalIndices.push_back(normalIndex[2]);
+			}*/
+			
 		}else{
 			// Probably a comment, eat up the rest of the line
 			char stupidBuffer[1000];
