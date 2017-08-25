@@ -28,6 +28,36 @@ using namespace glm;
 #include <string>
 #include "Entities/Entity.hpp"
 
+
+/*
+class Engine
+{
+public:
+  void Update( float dt );
+  void MainLoop( void );
+  void Add( System *sys );
+ 
+private:
+  std::vector<System> m_systems;
+};
+
+class System
+{
+public:
+  // All systems must update each game loop
+  virtual void Update( float dt ) = 0;
+ 
+  // It's good practice to separate the construction and initialization code.
+  virtual void Init( void ) = 0;
+ 
+  // This recieves any messages sent to the core engine in Engine.cpp
+  virtual void SendMessage( Message *msg ) = 0;
+ 
+  ///All systems need a virtual destructor to have their destructor called 
+  virtual ~System( ) {}
+};
+*/
+
 /*
  Represents a point light
  */
@@ -82,7 +112,8 @@ public:
 //Initializing statics from ModelProperties
 //int ModelProperties::current_id;
 
-struct ModelInstance{
+class ModelInstance{
+public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
 	static GLuint MatrixID;
@@ -182,7 +213,7 @@ void update()
 	//	updateModelInstance(instances[i], ViewMatrix, ProjectionMatrix);
 }
 
-void drawModelInstance(ModelInstance instance)
+void drawModelInstance(const ModelInstance &instance)
 {
 	glBindVertexArray(instance.properties->vao);
 	
@@ -241,7 +272,7 @@ void drawModelInstance(ModelInstance instance)
 	glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 }
 
-void draw(std::vector<ModelInstance> instances)
+void draw(const std::vector<ModelInstance> &instances)
 {
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -249,7 +280,7 @@ void draw(std::vector<ModelInstance> instances)
 	//for(int i = 0; i<2; i++)
 	//	drawModelInstance(instances[i]);
 	
-	for(std::vector<ModelInstance>::iterator it = instances.begin(); it!=instances.end(); ++it)
+	for(std::vector<ModelInstance>::const_iterator it = instances.begin(); it!=instances.end(); ++it)
 		drawModelInstance(*it);
 
 	glDisableVertexAttribArray(0);
