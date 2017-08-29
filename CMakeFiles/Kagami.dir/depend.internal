@@ -185,8 +185,6 @@ CMakeFiles/Kagami.dir/common/texture.cpp.o
  external/glew-1.13.0/include/GL/glew.h
  external/glfw-3.1.2/include/GLFW/glfw3.h
 CMakeFiles/Kagami.dir/main.cpp.o
- /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
- /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
  /home/aluno/Kagami/kagami-automata-visualization/common/controls.hpp
  /home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
  /home/aluno/Kagami/kagami-automata-visualization/common/shader.hpp

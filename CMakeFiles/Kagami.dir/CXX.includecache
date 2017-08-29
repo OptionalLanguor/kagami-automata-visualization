@@ -117,8 +117,6 @@ cstring
 -
 string
 -
-Entities/Entity.hpp
-/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 
 external/glew-1.13.0/include/GL/glew.h
 stddef.h

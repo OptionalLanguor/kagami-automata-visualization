@@ -184,8 +184,6 @@ CMakeFiles/Kagami.dir/common/texture.cpp.o: common/texture.cpp
 CMakeFiles/Kagami.dir/common/texture.cpp.o: external/glew-1.13.0/include/GL/glew.h
 CMakeFiles/Kagami.dir/common/texture.cpp.o: external/glfw-3.1.2/include/GLFW/glfw3.h
 
-CMakeFiles/Kagami.dir/main.cpp.o: Entities/Component.hpp
-CMakeFiles/Kagami.dir/main.cpp.o: Entities/Entity.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: common/controls.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: common/objloader.hpp
 CMakeFiles/Kagami.dir/main.cpp.o: common/shader.hpp
