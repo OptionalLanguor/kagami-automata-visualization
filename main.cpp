@@ -1,7 +1,10 @@
-// Include standard hibraries
+// Include standard libraries
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
+
+// Include error handling librarie
+#include <exception>
 
 // Include GLEW (OpenGL Extension Wrangler Library). 
 // Always include it before gl.h and glfw.h, since it's a bit magic.
@@ -44,6 +47,7 @@ class System
 {
 public:
   // All systems must update each game loop
+  // = 0 means derived classes must provide an implementation, not that the base class can not provide an implementation.
   virtual void Update()=0;// float dt ) = 0;
  
   // It's good practice to separate the construction and initialization code.
@@ -134,8 +138,16 @@ GLuint ModelInstance::MatrixID;
 
 class Rendering : public System {
 public:
-	std::vector<ModelInstance> *m_models;
+	std::vector<ModelInstance*> *m_models;
 	
+	//Rendering(std::vector<ModelInstance> models) :
+	//	m_models(&models)
+	//{}
+	~Rendering(){int a = 0;}
+
+	void Init( void ){};	
+
+
 	void DrawModelInstance(const ModelInstance instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
 		glBindVertexArray(instance.properties->vao);
@@ -194,7 +206,7 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 	}
 
-	void Draw(const std::vector<ModelInstance> instances)
+	void Draw(const std::vector<ModelInstance*> instances)
 	{
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -204,8 +216,8 @@ public:
 		glm::mat4 ProjectionMatrix = getProjectionMatrix();
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
-		for(std::vector<ModelInstance>::const_iterator it = instances.begin(); it!=instances.end(); ++it)
-			DrawModelInstance(*it, ProjectionMatrix, ViewMatrix);
+		for(std::vector<ModelInstance*>::const_iterator it = instances.begin(); it!=instances.end(); ++it)
+			DrawModelInstance(**it, ProjectionMatrix, ViewMatrix);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -216,17 +228,13 @@ public:
 		glfwPollEvents();
 	}
 
-	void Update()
-	{
-		Draw(*m_models);
+	void assignModels(std::vector<ModelInstance*> instances){
+		m_models = &instances;
 	}
 
-	void Init( void ){};
-	~Rendering(){int a = 0;}
-
-	Rendering(std::vector<ModelInstance> models) :
-		m_models(&models)
-	{}
+	void Update(){
+		Draw(*m_models);
+	}
 };
 
 // Function to place an object in the scene
@@ -294,13 +302,31 @@ void desalocateModelInstance(ModelInstance &instance)
 
 class Engine
 {
+private:
+	static std::vector<System*> m_systems;
+	static std::vector<ModelInstance*> m_models;
+	//std::vector<Rendering*> renderTest;
+
 public:
 	void Main(void)
 	{
-		Add(new Rendering(m_models));
+		Rendering *render = new Rendering();
+		render->assignModels(m_models);
+		System *sys = render;
+		AddSys(sys);
+		
+		//renderTest.push_back(render);
+
+		printf("Entering Engine::Initialization()...\n");
 		Initialization();
-		MainLoop();
-		Finalization();
+		printf("Engine::Initialization() Done.\n");
+
+		//render->assignModels(m_models);
+
+		printf("Entering Engine::RunLoop()... \n");
+		RunLoop();
+		printf("Engine::RunLoop() Done.\n");
+		//Finalization();
 	}
 
 	void Initialization(void)
@@ -309,10 +335,10 @@ public:
 		//Entity ent;
 		//ent.hello();	
 
-		// Initialise GLFW
+		// Initialize GLFW
 		if( !glfwInit() )
 		{
-			fprintf( stderr, "Failed to initialize GLFW\n" );
+			fprintf(stderr, "Failed to initialize GLFW\n" );
 			getchar();
 			return;
 			//return -1;
@@ -335,13 +361,18 @@ public:
 		}
 		glfwMakeContextCurrent(window);
 
+		//old Initialize GLEW
 		// Initialize GLEW
 		glewExperimental = GL_TRUE; //For VertexArrayID on the campus Ubuntu and for OSX
-		//As of writing this, GLEW has a few issues with the OpenGL core profile we are using. 
-		//Setting glewExperimental to true fixes the problem, 
-		//but hopefully this won't be necessary in the future.
-		if (glewInit() != GLEW_OK) {
+			//As of writing this, GLEW has a few issues with the OpenGL core profile we are using. 
+			//Setting glewExperimental to true fixes the problem, 
+			//but hopefully this won't be necessary in the future.
+
+		GLenum err = glewInit();
+		if (err != GLEW_OK) 
+		{
 			fprintf(stderr, "Failed to initialize GLEW\n");
+			fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 			getchar();
 			glfwTerminate();
 			return;
@@ -385,26 +416,40 @@ public:
 		// Get a handle for our "myTextureSampler" uniform
 		//GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
-		m_models.push_back(ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
-		m_models.push_back(ModelInstance("desert city.obj", translate(0,5,0)));
-		m_models.push_back(ModelInstance("hazelnut.obj", translate(0,25,0)));
-
-		for(std::vector<ModelInstance>::iterator it = m_models.begin(); it!=m_models.end(); ++it)
-			initializerModelInstance(*it);
+		printf("Alocatting objs to test...");		
+		m_models.push_back(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
+		m_models.push_back(new ModelInstance("desert city.obj", translate(0,5,0)));
+		m_models.push_back(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		printf(" Done.\n");
+		//for(std::vector<ModelInstance>::iterator it = m_models.begin(); it!=m_models.end(); ++it)
+		//	initializerModelInstance(*it);
+		
+		return;
 	}
 
 	void Update()// float dt );
 	{
-		for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
-			it->Update();
+		for(std::vector<System*>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+			(*it)->Update();
+			//((Rendering*)(*it))->Update();
+
+		/*for(std::vector<Rendering*>::iterator it = renderTest.begin(); it!= renderTest.end(); it++)
+		{
+			printf("For call\n");
+			(**it).Update();
+		}*/
+			
 	}
 
-	void MainLoop(void)
+	void RunLoop(void)
 	{
+		printf("In Engine::RunLoop()... \n");
 		// FPS counter -------------------------------------------------------------------------
-		double lastTime = glfwGetTime();
-		int nbFrames = 0;
+		//double lastTime = glfwGetTime();
+		//int nbFrames = 0;
 		do{
+			printf("AAA\n");
+		/*
 			// Measure speed
 		    double currentTime = glfwGetTime();
 		    nbFrames++;
@@ -413,10 +458,12 @@ public:
 		        printf("%f ms/frame\n", 1000.0/double(nbFrames));
 		        nbFrames = 0;
 		        lastTime += 1.0;	//60fps = 16.6666ms; 30fps = 33.3333ms.
-		    }
+		    }*/
 		    //end
-
+		    printf("Calling Engine::Update()...");
+		    printf("%lu\n", m_systems.size());
 			Update();
+			printf("Engine::Update() Done.\n");
 			//draw(instances);
 
 		} // Check if the ESC key was pressed or the window was closed
@@ -432,21 +479,21 @@ public:
 		glfwTerminate();
 	}
 
-	void Add(System* sys)
+	void AddSys(System* sys)
 	{
 		m_systems.push_back(sys);
 	}
 
-private:
-	static std::vector<System*> m_systems;
-	static std::vector<ModelInstance> m_models;
+	/*
+	void AddObj(System* sys)
+	{
+		m_systems.push_back(sys);
+	}
+	*/
 };
 //Initialization of static attributes
-std::vector<System> Engine::m_systems;
-std::vector<ModelInstance> Engine::m_models;
-
-
-
+std::vector<System*> Engine::m_systems;
+std::vector<ModelInstance*> Engine::m_models;
 
 /*
  Represents a point light
@@ -457,12 +504,11 @@ struct Light {
     float attenuation;
     float ambientCoefficient;
 };
-
-Light gLight;
+//Light gLight;
 
 
 int main(){
-	Engine *Kagami = new Engine();
+	Engine* Kagami = new Engine();
 	Kagami->Main();
 	
 	return 0;

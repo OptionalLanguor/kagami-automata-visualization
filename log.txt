@@ -1,0 +1,305 @@
+[ 16%] Built target glfw
+[ 19%] Built target GLEW_1130
+[ 20%] Building CXX object CMakeFiles/Kagami.dir/main.cpp.o
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp: In member function ‘void Engine::Update()’:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:58: error: conversion from ‘std::vector<System*>::iterator {aka __gnu_cxx::__normal_iterator<System**, std::vector<System*> >}’ to non-scalar type ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ requested
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                          ^
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:63: error: no match for ‘operator!=’ (operand types are ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ and ‘std::vector<System*>::iterator {aka __gnu_cxx::__normal_iterator<System**, std::vector<System*> >}’)
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                               ^
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:63: note: candidates are:
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec2.hpp:404:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/vec2.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:97,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec2.inl:912:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tvec2<T, P>&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tvec2<T, P> const & v1, tvec2<T, P> const & v2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec2.inl:912:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tvec2<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec3.hpp:423:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/vec3.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:98,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec3.inl:1031:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tvec3<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tvec3<T, P> const & v1, tvec3<T, P> const & v2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec3.inl:1031:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tvec3<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec4.hpp:528:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/vec4.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:99,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec4.inl:1101:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tvec4<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tvec4<T, P> const & v1, tvec4<T, P> const & v2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec4.inl:1101:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tvec4<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x2.hpp:228:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat2x2.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:100,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x2.inl:547:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat2x2<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat2x2<T, P> const & m1, tmat2x2<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x2.inl:547:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat2x2<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x3.hpp:205:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat2x3.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:101,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x3.inl:505:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat2x3<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat2x3<T, P> const & m1, tmat2x3<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x3.inl:505:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat2x3<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x4.hpp:207:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat2x4.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:102,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x4.inl:514:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat2x4<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat2x4<T, P> const & m1, tmat2x4<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat2x4.inl:514:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat2x4<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x2.hpp:212:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat3x2.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:103,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x2.inl:539:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat3x2<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat3x2<T, P> const & m1, tmat3x2<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x2.inl:539:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat3x2<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x3.hpp:235:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat3x3.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:104,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x3.inl:630:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat3x3<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat3x3<T, P> const & m1, tmat3x3<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x3.inl:630:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat3x3<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x4.hpp:212:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat3x4.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:105,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x4.inl:579:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat3x4<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat3x4<T, P> const & m1, tmat3x4<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat3x4.inl:579:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat3x4<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x2.hpp:217:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat4x2.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:106,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x2.inl:585:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat4x2<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat4x2<T, P> const & m1, tmat4x2<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x2.inl:585:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat4x2<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x3.hpp:217:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat4x3.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:107,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x3.inl:609:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat4x3<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat4x3<T, P> const & m1, tmat4x3<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x3.inl:609:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat4x3<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x4.hpp:240:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/mat4x4.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:108,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x4.inl:772:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tmat4x4<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tmat4x4<T, P> const & m1, tmat4x4<T, P> const & m2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_mat4x4.inl:772:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tmat4x4<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec1.hpp:315:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/_vectorize.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/func_trigonometric.inl:33,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/func_trigonometric.hpp:205,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/trigonometric.hpp:35,
+                 from /home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/glm.hpp:110,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:16:
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec1.inl:593:26: note: template<class T, glm::precision P> bool glm::operator!=(const glm::tvec1<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER bool operator!=(tvec1<T, P> const & v1, tvec1<T, P> const & v2)
+                          ^
+/home/aluno/Kagami/kagami-automata-visualization/external/glm-0.9.7.1/glm/detail/type_vec1.inl:593:26: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const glm::tvec1<T, P>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/x86_64-linux-gnu/c++/4.8/bits/c++allocator.h:33:0,
+                 from /usr/include/c++/4.8/bits/allocator.h:46,
+                 from /usr/include/c++/4.8/vector:61,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/ext/new_allocator.h:144:5: note: template<class _Tp> bool __gnu_cxx::operator!=(const __gnu_cxx::new_allocator<_Tp>&, const __gnu_cxx::new_allocator<_Tp>&)
+     operator!=(const new_allocator<_Tp>&, const new_allocator<_Tp>&)
+     ^
+/usr/include/c++/4.8/ext/new_allocator.h:144:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const __gnu_cxx::new_allocator<_Tp>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:823:5: note: template<class _Iterator, class _Container> bool __gnu_cxx::operator!=(const __gnu_cxx::__normal_iterator<_Iterator, _Container>&, const __gnu_cxx::__normal_iterator<_Iterator, _Container>&)
+     operator!=(const __normal_iterator<_Iterator, _Container>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:823:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   deduced conflicting types for parameter ‘_Iterator’ (‘System*’ and ‘System**’)
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:817:5: note: template<class _IteratorL, class _IteratorR, class _Container> bool __gnu_cxx::operator!=(const __gnu_cxx::__normal_iterator<_IteratorL, _Container>&, const __gnu_cxx::__normal_iterator<_IteratorR, _Container>&)
+     operator!=(const __normal_iterator<_IteratorL, _Container>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:817:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   deduced conflicting types for parameter ‘_Container’ (‘std::vector<System>’ and ‘std::vector<System*>’)
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:28:
+/usr/include/c++/4.8/bits/basic_string.h:2556:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const std::basic_string<_CharT, _Traits, _Alloc>&, const _CharT*)
+     operator!=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2556:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:28:
+/usr/include/c++/4.8/bits/basic_string.h:2544:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const _CharT*, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator!=(const _CharT* __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2544:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   mismatched types ‘const _CharT*’ and ‘__gnu_cxx::__normal_iterator<System*, std::vector<System> >’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:28:
+/usr/include/c++/4.8/bits/basic_string.h:2532:5: note: template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const std::basic_string<_CharT, _Traits, _Alloc>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator!=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2532:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::basic_string<_CharT, _Traits, _Alloc>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/char_traits.h:40:0,
+                 from /usr/include/c++/4.8/string:40,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:28:
+/usr/include/c++/4.8/bits/postypes.h:221:5: note: template<class _StateT> bool std::operator!=(const std::fpos<_StateT>&, const std::fpos<_StateT>&)
+     operator!=(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+     ^
+/usr/include/c++/4.8/bits/postypes.h:221:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::fpos<_StateT>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/vector:64:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_vector.h:1428:5: note: template<class _Tp, class _Alloc> bool std::operator!=(const std::vector<_Tp, _Alloc>&, const std::vector<_Tp, _Alloc>&)
+     operator!=(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+     ^
+/usr/include/c++/4.8/bits/stl_vector.h:1428:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/vector:61:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/allocator.h:143:5: note: template<class _Tp> bool std::operator!=(const std::allocator<_Tp1>&, const std::allocator<_Tp1>&)
+     operator!=(const allocator<_Tp>&, const allocator<_Tp>&)
+     ^
+/usr/include/c++/4.8/bits/allocator.h:143:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::allocator<_Tp1>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/vector:61:0,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/allocator.h:138:5: note: template<class _T1, class _T2> bool std::operator!=(const std::allocator<_Tp1>&, const std::allocator<_T2>&)
+     operator!=(const allocator<_T1>&, const allocator<_T2>&)
+     ^
+/usr/include/c++/4.8/bits/allocator.h:138:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::allocator<_Tp1>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:1049:5: note: template<class _Iterator> bool std::operator!=(const std::move_iterator<_Iterator>&, const std::move_iterator<_Iterator>&)
+     operator!=(const move_iterator<_Iterator>& __x,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:1049:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::move_iterator<_Iterator>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:1043:5: note: template<class _IteratorL, class _IteratorR> bool std::operator!=(const std::move_iterator<_Iterator>&, const std::move_iterator<_IteratorR>&)
+     operator!=(const move_iterator<_IteratorL>& __x,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:1043:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::move_iterator<_Iterator>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:353:5: note: template<class _IteratorL, class _IteratorR> bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)
+     operator!=(const reverse_iterator<_IteratorL>& __x,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:353:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_iterator.h:303:5: note: template<class _Iterator> bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)
+     operator!=(const reverse_iterator<_Iterator>& __x,
+     ^
+/usr/include/c++/4.8/bits/stl_iterator.h:303:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::reverse_iterator<_Iterator>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+In file included from /usr/include/c++/4.8/bits/stl_algobase.h:64:0,
+                 from /usr/include/c++/4.8/vector:60,
+                 from /home/aluno/Kagami/kagami-automata-visualization/main.cpp:4:
+/usr/include/c++/4.8/bits/stl_pair.h:227:5: note: template<class _T1, class _T2> constexpr bool std::operator!=(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)
+     operator!=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+     ^
+/usr/include/c++/4.8/bits/stl_pair.h:227:5: note:   template argument deduction/substitution failed:
+/home/aluno/Kagami/kagami-automata-visualization/main.cpp:407:80: note:   ‘std::vector<System>::iterator {aka __gnu_cxx::__normal_iterator<System*, std::vector<System> >}’ is not derived from ‘const std::pair<_T1, _T2>’
+   for(std::vector<System>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+                                                                                ^
+make[2]: ** [CMakeFiles/Kagami.dir/main.cpp.o] Erro 1
+make[1]: ** [CMakeFiles/Kagami.dir/all] Erro 2
+make: ** [all] Erro 2
