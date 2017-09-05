@@ -3,6 +3,9 @@
 #include <cstdio>
 #include <vector>
 
+// Include pointer management library for shared_prt
+#include <memory>
+
 // Include error handling librarie
 #include <exception>
 
@@ -136,9 +139,10 @@ public:
 //Initializing statics from ModelInstance
 GLuint ModelInstance::MatrixID;
 
+//---------------------------------------------------------------------------------------------------------
 class Rendering : public System {
 public:
-	std::vector<ModelInstance*> *m_models;
+	std::shared_ptr < std::vector<ModelInstance*> > m_models;
 	
 	//Rendering(std::vector<ModelInstance> models) :
 	//	m_models(&models)
@@ -148,10 +152,10 @@ public:
 	void Init( void ){};	
 
 
-	void DrawModelInstance(const ModelInstance instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
+	void DrawModelInstance(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
 		glBindVertexArray(instance.properties->vao);
-		
+
 		glUseProgram(instance.properties->shaders);
 
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * instance.transformMatrix;
@@ -159,12 +163,6 @@ public:
 		// Send our transformation to the currently bound shader, 
 		// in the "MVP" uniform
 		glUniformMatrix4fv(ModelInstance::MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
-		// Bind our texture in Texture Unit 0
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, Texture);
-		// Set our "myTextureSampler" sampler to use Texture Unit 0
-		//glUniform1i(TextureID, 0);
 
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0); // Enabling the var at vertexshader with layout=0
@@ -206,7 +204,7 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 	}
 
-	void Draw(const std::vector<ModelInstance*> instances)
+	void Draw()
 	{
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -216,7 +214,8 @@ public:
 		glm::mat4 ProjectionMatrix = getProjectionMatrix();
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
-		for(std::vector<ModelInstance*>::const_iterator it = instances.begin(); it!=instances.end(); ++it)
+		//printf("%lu objs to draw.\n", m_models->size());
+		for(std::vector<ModelInstance*>::const_iterator it = m_models->begin(); it!=m_models->end(); ++it)
 			DrawModelInstance(**it, ProjectionMatrix, ViewMatrix);
 
 		glDisableVertexAttribArray(0);
@@ -228,12 +227,14 @@ public:
 		glfwPollEvents();
 	}
 
-	void assignModels(std::vector<ModelInstance*> instances){
-		m_models = &instances;
+	void assignModels(std::shared_ptr < std::vector<ModelInstance*> > &instances){
+		printf("Assigning Models... ");
+		m_models = std::shared_ptr < std::vector<ModelInstance*> >(instances);
+		printf("Models Assigned!\n");
 	}
 
 	void Update(){
-		Draw(*m_models);
+		Draw();
 	}
 };
 
@@ -303,8 +304,8 @@ void desalocateModelInstance(ModelInstance &instance)
 class Engine
 {
 private:
-	static std::vector<System*> m_systems;
-	static std::vector<ModelInstance*> m_models;
+	static std::unique_ptr < std::vector<System*> > m_systems;
+	static std::shared_ptr < std::vector<ModelInstance*> > m_models;
 	//std::vector<Rendering*> renderTest;
 
 public:
@@ -314,19 +315,16 @@ public:
 		render->assignModels(m_models);
 		System *sys = render;
 		AddSys(sys);
-		
-		//renderTest.push_back(render);
-
+	
 		printf("Entering Engine::Initialization()...\n");
 		Initialization();
 		printf("Engine::Initialization() Done.\n");
 
-		//render->assignModels(m_models);
-
 		printf("Entering Engine::RunLoop()... \n");
 		RunLoop();
 		printf("Engine::RunLoop() Done.\n");
-		//Finalization();
+
+		Finalization();
 	}
 
 	void Initialization(void)
@@ -417,39 +415,29 @@ public:
 		//GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
 		printf("Alocatting objs to test...");		
-		m_models.push_back(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
-		m_models.push_back(new ModelInstance("desert city.obj", translate(0,5,0)));
-		m_models.push_back(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		m_models->push_back(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
+		m_models->push_back(new ModelInstance("desert city.obj", translate(0,5,0)));
+		m_models->push_back(new ModelInstance("hazelnut.obj", translate(0,25,0)));
 		printf(" Done.\n");
-		//for(std::vector<ModelInstance>::iterator it = m_models.begin(); it!=m_models.end(); ++it)
-		//	initializerModelInstance(*it);
+		for(std::vector<ModelInstance*>::iterator it = m_models->begin(); it!=m_models->end(); ++it)
+			initializerModelInstance(**it);
 		
 		return;
 	}
 
 	void Update()// float dt );
 	{
-		for(std::vector<System*>::iterator it = m_systems.begin(); it!= m_systems.end(); it++)
+		for(std::vector<System*>::iterator it = m_systems->begin(); it!= m_systems->end(); it++)
 			(*it)->Update();
-			//((Rendering*)(*it))->Update();
-
-		/*for(std::vector<Rendering*>::iterator it = renderTest.begin(); it!= renderTest.end(); it++)
-		{
-			printf("For call\n");
-			(**it).Update();
-		}*/
-			
 	}
 
 	void RunLoop(void)
 	{
 		printf("In Engine::RunLoop()... \n");
-		// FPS counter -------------------------------------------------------------------------
-		//double lastTime = glfwGetTime();
-		//int nbFrames = 0;
+		//FPS counter -------------------------------------------------------------------------
+		double lastTime = glfwGetTime();
+		int nbFrames = 0;
 		do{
-			printf("AAA\n");
-		/*
 			// Measure speed
 		    double currentTime = glfwGetTime();
 		    nbFrames++;
@@ -458,14 +446,10 @@ public:
 		        printf("%f ms/frame\n", 1000.0/double(nbFrames));
 		        nbFrames = 0;
 		        lastTime += 1.0;	//60fps = 16.6666ms; 30fps = 33.3333ms.
-		    }*/
+		    }
 		    //end
-		    printf("Calling Engine::Update()...");
-		    printf("%lu\n", m_systems.size());
-			Update();
-			printf("Engine::Update() Done.\n");
-			//draw(instances);
-
+		    Update();
+			
 		} // Check if the ESC key was pressed or the window was closed
 		while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
 			   glfwWindowShouldClose(window) == 0 );
@@ -481,19 +465,18 @@ public:
 
 	void AddSys(System* sys)
 	{
-		m_systems.push_back(sys);
+		m_systems->push_back(sys);
 	}
-
-	/*
+	
 	void AddObj(System* sys)
 	{
-		m_systems.push_back(sys);
+		m_systems->push_back(sys);
 	}
-	*/
+	
 };
 //Initialization of static attributes
-std::vector<System*> Engine::m_systems;
-std::vector<ModelInstance*> Engine::m_models;
+std::unique_ptr < std::vector<System*> > Engine::m_systems = std::unique_ptr < std::vector<System*> >(new std::vector<System*>);
+std::shared_ptr < std::vector<ModelInstance*> > Engine::m_models = std::shared_ptr < std::vector<ModelInstance*> >(new std::vector<ModelInstance*>);
 
 /*
  Represents a point light
