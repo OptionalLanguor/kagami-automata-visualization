@@ -23,7 +23,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-//Common
+//Common 
 #include "common/shader.hpp"
 //#include "common/texture.hpp"
 #include "common/controls.hpp"
@@ -33,6 +33,10 @@ using namespace glm;
 #include <cstring>
 #include <string>
 //#include "Entities/Entity.hpp"
+
+/* To generate Diagrams:
+	sudo perl doxygraph/doxygraph /home/aluno/Kagami/xml/index.xml doxyviz/htdocs/graph.dot
+*/
 
 // ---------------------------------------------------------- These are from tomdalling
 // convenience function that returns a translation matrix
@@ -45,22 +49,27 @@ glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z) {
     return glm::scale(glm::mat4(), glm::vec3(x,y,z));
 }
 
-
 class System
 {
 public:
-  // All systems must update each game loop
-  // = 0 means derived classes must provide an implementation, not that the base class can not provide an implementation.
-  virtual void Update()=0;// float dt ) = 0;
- 
-  // It's good practice to separate the construction and initialization code.
-  virtual void Init( void ) = 0;
- 
-  // This recieves any messages sent to the core engine in Engine.cpp
-  //virtual void SendMessage( Message *msg ) = 0;
- 
-  ///All systems need a virtual destructor to have their destructor called 
-  virtual ~System( ) {}
+	// The idea of enum is to identify each systems so they can be processed
+	// properly by the Engine class
+	enum System_type {
+		Rendering,
+		ModelManager
+	};
+	// All systems must update each game loop
+	// = 0 means derived classes must provide an implementation, not that the base class can not provide an implementation.
+	virtual void Update()=0;// float dt ) = 0;
+
+	// It's good practice to separate the construction and initialization code.
+	virtual void Init( void ) = 0;
+
+	// This recieves any messages sent to the core engine in Engine.cpp
+	//virtual void SendMessage( Message *msg ) = 0;
+
+	///All systems need a virtual destructor to have their destructor called 
+virtual ~System( ) {}
 };
 
 GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
@@ -74,6 +83,20 @@ public:
 };
 //Initializing Component static attributes
 GLuint Component::current_id;
+
+class Entity
+{
+public:
+	GLuint id;
+	static GLuint current_id;
+
+	//init()
+	//{
+
+	//}
+};
+//Initializing Entity static attributes
+GLuint Entity::current_id;
 
 /*
 class GameObject
@@ -89,7 +112,7 @@ private:
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:
-	GLuint shaders;
+	//GLuint shaders;
 	GLuint texture;
 	GLuint vao;
 	GLuint vbo;
@@ -103,7 +126,7 @@ public:
 
 	ModelProperties() :
 		//id(++current_id),
-		shaders(0),	//Maybe it's a good ideia to make shaders and texture pointers
+		//shaders(LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" )),	//Maybe it's a good ideia to make shaders and texture pointers
 		texture(0),
 		vao(0),
 		vbo(0),
@@ -121,7 +144,6 @@ class ModelInstance{
 public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
-	static GLuint MatrixID;
 	std::string modelPath;
 
 	ModelInstance() :
@@ -136,33 +158,59 @@ public:
 		transformMatrix = model;
 	}
 };
-//Initializing statics from ModelInstance
-GLuint ModelInstance::MatrixID;
+
 
 //---------------------------------------------------------------------------------------------------------
+/* Rendering
+	Class Rendering is the class that will manage everything graphic related.
+
+	1. There should be only one instance of the class.
+	1. It's a System so it should be encapsulated for Engine access.
+*/
 class Rendering : public System {
 public:
 	std::shared_ptr < std::vector<ModelInstance*> > m_models;
-	
-	//Rendering(std::vector<ModelInstance> models) :
-	//	m_models(&models)
-	//{}
-	~Rendering(){int a = 0;}
+	GLuint shaders;
+	GLuint MatrixID;
+	GLuint ViewMatrixID;
+	GLuint ModelMatrixID;
+	GLuint LightID;
+
+	Rendering(std::shared_ptr < std::vector<ModelInstance*> > engModels) :
+		m_models(NULL),
+		shaders(LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" )),	//Maybe it's a good ideia to make shaders and texture pointers
+		MatrixID(glGetUniformLocation(shaders, "MVP")),
+		ViewMatrixID(glGetUniformLocation(shaders, "V")),
+		ModelMatrixID(glGetUniformLocation(shaders, "M")),
+		LightID(glGetUniformLocation(shaders, "LightPosition_worldspace"))
+	{
+		assignModels(engModels);
+	}
+
+	~Rendering()
+	{
+		glDeleteProgram(shaders);
+	}
 
 	void Init( void ){};	
-
 
 	void DrawModelInstance(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
 		glBindVertexArray(instance.properties->vao);
 
-		glUseProgram(instance.properties->shaders);
+		glUseProgram(shaders);
 
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * instance.transformMatrix;
 
 		// Send our transformation to the currently bound shader, 
 		// in the "MVP" uniform
-		glUniformMatrix4fv(ModelInstance::MatrixID, 1, GL_FALSE, &MVP[0][0]);
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &instance.transformMatrix[0][0]);
+		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+
+		glm::vec3 lightPos = glm::vec3(4,4,4);
+		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
 
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0); // Enabling the var at vertexshader with layout=0
@@ -238,17 +286,13 @@ public:
 	}
 };
 
+
 // Function to place an object in the scene
 void initializerModelInstance(ModelInstance &instance)
 {
 	instance.properties = new ModelProperties(); 
-	instance.properties->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
-	instance.properties->drawType = GL_TRIANGLES;
 	instance.properties->shininess = 80.0; //Value used by tomdalling
 
-
-	// Get a handle to our "MVP" uniform
-	//instance.MatrixID = glGetUniformLocation(instance.properties->shaders, "MVP");
 
 	// Binding arrays
 	glGenVertexArrays(1, &instance.properties->vao);
@@ -296,7 +340,6 @@ void desalocateModelInstance(ModelInstance &instance)
 	glDeleteBuffers(1, &instance.properties->vertexbuffer);
 	glDeleteBuffers(1, &instance.properties->uvbuffer);
 	glDeleteBuffers(1, &instance.properties->normalbuffer);
-	glDeleteProgram(instance.properties->shaders);
 	//glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &instance.properties->vao);
 }
@@ -306,19 +349,23 @@ class Engine
 private:
 	static std::unique_ptr < std::vector<System*> > m_systems;
 	static std::shared_ptr < std::vector<ModelInstance*> > m_models;
-	//std::vector<Rendering*> renderTest;
+	static std::shared_ptr < std::vector<Entity*> > m_entities;
+	static std::shared_ptr < std::vector<Component*> > m_components;
 
 public:
-	void Main(void)
+	void Run(void)
 	{
-		Rendering *render = new Rendering();
-		render->assignModels(m_models);
-		System *sys = render;
-		AddSys(sys);
-	
 		printf("Entering Engine::Initialization()...\n");
 		Initialization();
 		printf("Engine::Initialization() Done.\n");
+
+
+		printf("Alocatting objs to test...");
+		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
+		AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
+		AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		printf(" Done.\n");
+
 
 		printf("Entering Engine::RunLoop()... \n");
 		RunLoop();
@@ -413,15 +460,11 @@ public:
 		
 		// Get a handle for our "myTextureSampler" uniform
 		//GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
-
-		printf("Alocatting objs to test...");		
-		m_models->push_back(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));
-		m_models->push_back(new ModelInstance("desert city.obj", translate(0,5,0)));
-		m_models->push_back(new ModelInstance("hazelnut.obj", translate(0,25,0)));
-		printf(" Done.\n");
-		for(std::vector<ModelInstance*>::iterator it = m_models->begin(); it!=m_models->end(); ++it)
-			initializerModelInstance(**it);
 		
+		//Rendering *render = new Rendering(m_models);
+		//render->assignModels(m_models);
+		AddSys(new Rendering(m_models));
+
 		return;
 	}
 
@@ -468,15 +511,18 @@ public:
 		m_systems->push_back(sys);
 	}
 	
-	void AddObj(System* sys)
+	void AddObj(ModelInstance* obj)
 	{
-		m_systems->push_back(sys);
+		m_models->push_back(obj);
+		initializerModelInstance(*m_models->back());
 	}
 	
 };
 //Initialization of static attributes
 std::unique_ptr < std::vector<System*> > Engine::m_systems = std::unique_ptr < std::vector<System*> >(new std::vector<System*>);
 std::shared_ptr < std::vector<ModelInstance*> > Engine::m_models = std::shared_ptr < std::vector<ModelInstance*> >(new std::vector<ModelInstance*>);
+std::shared_ptr < std::vector<Entity*> > Engine::m_entities = std::shared_ptr < std::vector<Entity*> >(new std::vector<Entity*>);
+std::shared_ptr < std::vector<Component*> > Engine::m_components = std::shared_ptr < std::vector<Component*> >(new std::vector<Component*>);
 
 /*
  Represents a point light
@@ -492,7 +538,7 @@ struct Light {
 
 int main(){
 	Engine* Kagami = new Engine();
-	Kagami->Main();
+	Kagami->Run();
 	
 	return 0;
 }
