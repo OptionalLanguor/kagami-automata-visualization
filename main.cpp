@@ -151,11 +151,11 @@ public:
 		transformMatrix(),
 		modelPath()
 	{}
-	ModelInstance(std::string modelPath, glm::mat4 model) :
+	ModelInstance(std::string modelPath, glm::mat4 transf) :
 		properties(NULL),
 		modelPath(modelPath)
 	{
-		transformMatrix = model;
+		transformMatrix = transf;
 	}
 };
 
@@ -262,7 +262,7 @@ public:
 		glm::mat4 ProjectionMatrix = getProjectionMatrix();
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
-		//printf("%lu objs to draw.\n", m_models->size());
+		printf("%lu objs to draw.\n", m_models->size());
 		for(std::vector<ModelInstance*>::const_iterator it = m_models->begin(); it!=m_models->end(); ++it)
 			DrawModelInstance(**it, ProjectionMatrix, ViewMatrix);
 
@@ -361,9 +361,11 @@ public:
 
 
 		printf("Alocatting objs to test...");
+		AddObj(new ModelInstance("golf-cart.obj", mat4(translate(0,5,0) * scale(0.05,0.05,0.05))));		
+		
 		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
 		AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
-		AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		//AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
 		printf(" Done.\n");
 
 

@@ -13,10 +13,6 @@ in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 
-// Ouput data
-out vec4 color; //I changed it for a 4 dimensional vector instead of a vec3
-
-uniform vec3 LightPosition_worldspace;
 
 // Values that stay constant for the whole mesh.
 //uniform sampler2D myTextureSampler;
@@ -44,17 +40,23 @@ out vec4 finalColor;
 
 uniform mat4 MVP;
 
-void main(){
+uniform vec3 LightPosition_worldspace;
 
+
+// Ouput data
+out vec3 color; //I changed it for a 4 dimensional vector instead of a vec3
+
+void main(){
+/*
     // Light emission properties
     // You probably want to put them as uniforms
     vec3 LightColor = vec3(1,1,1);
     float LightPower = 50.0f;
 
     // Material properties
-    vec3 MaterialDiffuseColor = vec3(0.4,0,0)//texture( myTextureSampler, UV ).rgb;
-    vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-    vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
+    vec3 MaterialDiffuseColor = vec3(1,0,0)//texture( myTextureSampler, UV ).rgb;
+    vec3 MaterialAmbientColor = vec3(1,1,1) * MaterialDiffuseColor;
+    vec3 MaterialSpecularColor = vec3(1,1,1);
 
     // Distance to the light
     float distance = length( LightPosition_worldspace - Position_worldspace );
@@ -80,22 +82,23 @@ void main(){
     //  - Looking elsewhere -> < 1
     float cosAlpha = clamp( dot( E,R ), 0,1 );
     
-    color =  vec4(1.0,1.0,1.0,1.0);
+    color =  vec4(1.0,1.0,1.0);/*
         // Ambient : simulates indirect lighting
         MaterialAmbientColor +
         // Diffuse : "color" of the object
         MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
         // Specular : reflective highlight, like a mirror
         MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (Distancence*distance);
-        
-/*
+        */
+
 
 	// Output color = color of the texture at the specified UV
 	//color = texture( myTextureSampler, UV ).rgb;
 	//color = vec4(0.0, 1.0, 1.0, 1.0); // It uses RGBA (red, green, blue and alpha)
 
-	//-----------------------------------------------------------------------------------
 
+	//-----------------------------------------------------------------------------------
+/*
 	//Trying to include lighting
 	//calculate normal in world coordinates
     mat3 normalMatrix = transpose(inverse(mat3(MVP)));
@@ -129,4 +132,36 @@ void main(){
 	//color = vec4(brightness * glm::vec3(1,1,1), surfaceColor.a);
 
 */
+    color = vec3(1.0f, 1.0f, 1.0f);
+/*
+    mat3 normalMatrix = transpose(inverse(mat3(MVP)));
+    vec3 normal = normalize(normalMatrix * fragNormal);
+
+    //calculate the location of this fragment (pixel) in world coordinates
+    vec3 fragPosition = vec3(MVP * vec4(fragVert, 1));
+    //vec3 fragPosition = vec3(vec4(fragVert, 1));
+    
+
+    //calculate the vector from this pixels surface to the light source
+    //vec3 surfaceToLight = light.position - fragPosition;
+    vec3 surfaceToLight = vec3(0,25,0) - Position_worldspace;
+
+    //calculate the cosine of the angle of incidence
+    float brightness = dot(normalize(Normal_cameraspace), normalize(surfaceToLight)) / (length(normalize(surfaceToLight)) * length(normalize(Normal_cameraspace)));
+    brightness = clamp(brightness, 0, 1);
+    //brightness = (brightness<0)?1:brightness;
+
+    //calculate final color of the pixel, based on:
+    // 1. The angle of incidence: brightness
+    // 2. The color/intensities of the light: light.intensities
+    // 3. The texture and texture coord: texture(tex, fragTexCoord)
+    vec4 surfaceColor = vec4(1.0, 1.0, 1.0, 1.0);//texture(0, UV);
+    color = vec4(brightness * vec3(1,1,1) * surfaceColor.rgb, surfaceColor.a);
+    
+    //white light
+    //color = vec4(brightness * vec3(1,1,1) * surfaceColor.rgb, surfaceColor.a);
+
+    //white light
+    //color = vec4(brightness * glm::vec3(1,1,1), surfaceColor.a);
+    */
 }
