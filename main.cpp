@@ -208,7 +208,7 @@ public:
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &instance.transformMatrix[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-		glm::vec3 lightPos = glm::vec3(4,4,4);
+		glm::vec3 lightPos = glm::vec3(0,15,0);
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 
@@ -262,7 +262,7 @@ public:
 		glm::mat4 ProjectionMatrix = getProjectionMatrix();
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
-		printf("%lu objs to draw.\n", m_models->size());
+		//printf("%lu objs to draw.\n", m_models->size());
 		for(std::vector<ModelInstance*>::const_iterator it = m_models->begin(); it!=m_models->end(); ++it)
 			DrawModelInstance(**it, ProjectionMatrix, ViewMatrix);
 
@@ -365,7 +365,7 @@ public:
 		
 		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
 		AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
-		//AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
 		printf(" Done.\n");
 
 
