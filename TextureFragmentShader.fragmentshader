@@ -47,16 +47,16 @@ uniform vec3 LightPosition_worldspace;
 out vec3 color; //I changed it for a 4 dimensional vector instead of a vec3
 
 void main(){
-/*
+
     // Light emission properties
     // You probably want to put them as uniforms
     vec3 LightColor = vec3(1,1,1);
     float LightPower = 50.0f;
 
     // Material properties
-    vec3 MaterialDiffuseColor = vec3(1,0,0)//texture( myTextureSampler, UV ).rgb;
-    vec3 MaterialAmbientColor = vec3(1,1,1) * MaterialDiffuseColor;
-    vec3 MaterialSpecularColor = vec3(1,1,1);
+    vec3 MaterialDiffuseColor = vec3(1,1,1).rgb;//texture( myTextureSampler, UV ).rgb;
+    vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
+    vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
 
     // Distance to the light
     float distance = length( LightPosition_worldspace - Position_worldspace );
@@ -82,15 +82,14 @@ void main(){
     //  - Looking elsewhere -> < 1
     float cosAlpha = clamp( dot( E,R ), 0,1 );
     
-    color =  vec4(1.0,1.0,1.0);/*
+    color =  //vec4(1.0,1.0,1.0);
         // Ambient : simulates indirect lighting
         MaterialAmbientColor +
         // Diffuse : "color" of the object
         MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
         // Specular : reflective highlight, like a mirror
-        MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (Distancence*distance);
-        */
-
+        MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+        
 
 	// Output color = color of the texture at the specified UV
 	//color = texture( myTextureSampler, UV ).rgb;
@@ -132,7 +131,7 @@ void main(){
 	//color = vec4(brightness * glm::vec3(1,1,1), surfaceColor.a);
 
 */
-    color = vec3(1.0f, 1.0f, 1.0f);
+    //color = vec3(1.0f, 1.0f, 1.0f);
 /*
     mat3 normalMatrix = transpose(inverse(mat3(MVP)));
     vec3 normal = normalize(normalMatrix * fragNormal);
