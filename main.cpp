@@ -63,13 +63,13 @@ public:
 	virtual void Update()=0;// float dt ) = 0;
 
 	// It's good practice to separate the construction and initialization code.
-	virtual void Init( void ) = 0;
+	virtual bool Init( void ) = 0;
 
 	// This recieves any messages sent to the core engine in Engine.cpp
 	//virtual void SendMessage( Message *msg ) = 0;
 
 	///All systems need a virtual destructor to have their destructor called 
-virtual ~System( ) {}
+	virtual ~System( ) {}
 };
 
 GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
@@ -86,6 +86,8 @@ GLuint Component::current_id;
 
 class Entity
 {
+ 	std::unique_ptr < std::vector<Component*> > m_components;
+
 public:
 	GLuint id;
 	static GLuint current_id;
@@ -97,6 +99,33 @@ public:
 };
 //Initializing Entity static attributes
 GLuint Entity::current_id;
+
+/*
+class EntityManager
+{
+	HashSet<Entity> _entities;
+	Entity _next;
+
+	public:
+	 Entity create()
+	 {
+	  ++_next.id;
+	  while (alive(_next))
+	   ++_next.id;
+	  _entities.insert(_next);
+	  return _next;
+	 }
+
+	 bool alive(Entity e)
+	 {
+	  return _entities.has(e);
+	 }
+
+	 void destroy(Entity e)
+	 {
+	  _entities.erase(e);
+	 }
+}*/
 
 /*
 class GameObject
@@ -169,13 +198,17 @@ public:
 */
 class Rendering : public System {
 public:
-	std::shared_ptr < std::vector<ModelInstance*> > m_models;
+	std::shared_ptr < std::vector<Entity*> > m_entities;
 	GLuint shaders;
 	GLuint MatrixID;
 	GLuint ViewMatrixID;
 	GLuint ModelMatrixID;
 	GLuint LightID;
 
+	// I would be interesting to try and not assign data on the constructor,
+	// in a way that all that would be done on Init(). So we can assign the memory of the Rendering class anywhere
+	// without having problem o linking attributes.
+	/*
 	Rendering(std::shared_ptr < std::vector<ModelInstance*> > engModels) :
 		m_models(NULL),
 		shaders(LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" )),	//Maybe it's a good ideia to make shaders and texture pointers
@@ -185,14 +218,21 @@ public:
 		LightID(glGetUniformLocation(shaders, "LightPosition_worldspace"))
 	{
 		assignModels(engModels);
-	}
-
+	}*/
 	~Rendering()
 	{
 		glDeleteProgram(shaders);
 	}
 
-	void Init( void ){};	
+	bool Init( void ){
+		m_models = NULL; //Maybe the ideia of this line is not cool for cache coherency
+		//Maybe it's a good ideia to make shaders and texture pointers
+		this->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
+		this->MatrixID = glGetUniformLocation(shaders, "MVP");
+		this->ViewMatrixID = glGetUniformLocation(shaders, "V");
+		this->ModelMatrixID(glGetUniformLocation(shaders, "M"));
+		this->LightID(glGetUniformLocation(shaders, "LightPosition_worldspace"));
+	};	
 
 	void DrawModelInstance(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
@@ -348,9 +388,9 @@ class Engine
 {
 private:
 	static std::unique_ptr < std::vector<System*> > m_systems;
-	static std::shared_ptr < std::vector<ModelInstance*> > m_models;
+	static std::shared_ptr < std::vector<ModelInstance*> > m_models; // It appears that this pointer shouldnt exist on Engine
 	static std::shared_ptr < std::vector<Entity*> > m_entities;
-	static std::shared_ptr < std::vector<Component*> > m_components;
+	//static std::shared_ptr < std::vector<Component*> > m_components;
 
 public:
 	void Run(void)
@@ -524,7 +564,7 @@ public:
 std::unique_ptr < std::vector<System*> > Engine::m_systems = std::unique_ptr < std::vector<System*> >(new std::vector<System*>);
 std::shared_ptr < std::vector<ModelInstance*> > Engine::m_models = std::shared_ptr < std::vector<ModelInstance*> >(new std::vector<ModelInstance*>);
 std::shared_ptr < std::vector<Entity*> > Engine::m_entities = std::shared_ptr < std::vector<Entity*> >(new std::vector<Entity*>);
-std::shared_ptr < std::vector<Component*> > Engine::m_components = std::shared_ptr < std::vector<Component*> >(new std::vector<Component*>);
+//std::shared_ptr < std::vector<Component*> > Engine::m_components = std::shared_ptr < std::vector<Component*> >(new std::vector<Component*>);
 
 /*
  Represents a point light
