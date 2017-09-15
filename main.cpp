@@ -63,7 +63,9 @@ public:
 	virtual void Update()=0;// float dt ) = 0;
 
 	// It's good practice to separate the construction and initialization code.
-	virtual bool Init( void ) = 0;
+	virtual bool init() = 0;
+
+	virtual bool shutdown()=0;
 
 	// This recieves any messages sent to the core engine in Engine.cpp
 	//virtual void SendMessage( Message *msg ) = 0;
@@ -169,7 +171,7 @@ public:
 	{}
 };
 
-class ModelInstance{
+class ModelInstance : public Entity {
 public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
@@ -218,21 +220,35 @@ public:
 		LightID(glGetUniformLocation(shaders, "LightPosition_worldspace"))
 	{
 		assignModels(engModels);
-	}*/
+	}
 	~Rendering()
 	{
-		glDeleteProgram(shaders);
-	}
+		glDeleteProgram(shaders)
+	}*/
 
-	bool Init( void ){
-		m_models = NULL; //Maybe the ideia of this line is not cool for cache coherency
+	bool init(){
+		m_entities = NULL; //Maybe the ideia of this line is not cool for cache coherency
 		//Maybe it's a good ideia to make shaders and texture pointers
 		this->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
 		this->MatrixID = glGetUniformLocation(shaders, "MVP");
 		this->ViewMatrixID = glGetUniformLocation(shaders, "V");
-		this->ModelMatrixID(glGetUniformLocation(shaders, "M"));
-		this->LightID(glGetUniformLocation(shaders, "LightPosition_worldspace"));
-	};	
+		this->ModelMatrixID = glGetUniformLocation(shaders, "M");
+		this->LightID = glGetUniformLocation(shaders, "LightPosition_worldspace");
+	
+		return true;
+	}
+
+	bool init(std::shared_ptr < std::vector<Entity*> > entities)
+	{
+		assignEntities(entities);
+
+		return true && init();
+	}
+
+	bool shutdown(){
+		glDeleteProgram(shaders);
+		return true;
+	}
 
 	void DrawModelInstance(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
@@ -303,8 +319,8 @@ public:
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
 		//printf("%lu objs to draw.\n", m_models->size());
-		for(std::vector<ModelInstance*>::const_iterator it = m_models->begin(); it!=m_models->end(); ++it)
-			DrawModelInstance(**it, ProjectionMatrix, ViewMatrix);
+		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it)
+			DrawModelInstance(ModelInstance (**it), ProjectionMatrix, ViewMatrix);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -315,9 +331,9 @@ public:
 		glfwPollEvents();
 	}
 
-	void assignModels(std::shared_ptr < std::vector<ModelInstance*> > &instances){
+	void assignEntities(std::shared_ptr < std::vector<Entity*> > &instances){
 		printf("Assigning Models... ");
-		m_models = std::shared_ptr < std::vector<ModelInstance*> >(instances);
+		m_entities = std::shared_ptr < std::vector<Entity*> >(instances);
 		printf("Models Assigned!\n");
 	}
 
@@ -505,7 +521,9 @@ public:
 		
 		//Rendering *render = new Rendering(m_models);
 		//render->assignModels(m_models);
-		AddSys(new Rendering(m_models));
+		Rendering * auxiliary_pointer =  new Rendering(m_models);
+		auxiliary_pointer->init(m_models);
+		AddSys(*auxiliary_pointer);
 
 		return;
 	}
