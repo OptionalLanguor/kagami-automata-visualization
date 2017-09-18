@@ -8,9 +8,6 @@ cmake_minimum_required(VERSION 3.0)
 if( CMAKE_SOURCE_DIR MATCHES " " )
 	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
-if( CMAKE_BINARY_DIR MATCHES " " )
-	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
-endif()
 
 
 ################################################################################
@@ -109,6 +106,16 @@ include_directories(external/glm-0.9.7.1/) #Using a current compiled version of 
 
 
 ################################################################################
+# PROJECT FOLDERS DIRECTORIES
+
+include_directories(Misc)
+include_directories(Entities)
+include_directories(common)
+
+
+################################################################################
+
+
 # FILES
 set(HDRS
     Entities/Entity.hpp
@@ -117,6 +124,7 @@ set(HDRS
     common/texture.hpp
     common/controls.hpp
     common/objloader.hpp
+    Misc/TypeDefs.hpp
 )
 
 set(SRCS
@@ -169,21 +177,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_B
 
 #Install
 
-
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

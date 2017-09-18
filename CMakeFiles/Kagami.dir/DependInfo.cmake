@@ -28,6 +28,9 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "external/glew-1.13.0/include"
   "external/glfw-3.1.2/include/GLFW"
   "external/glm-0.9.7.1"
+  "Misc"
+  "Entities"
+  "common"
   )
 
 # Targets to which this target links.

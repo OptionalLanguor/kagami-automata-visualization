@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
+#include <unordered_set>
 
 // Include pointer management library for shared_prt
 #include <memory>
@@ -22,6 +23,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
+
+// Entities
+#include "Entities/Entity.hpp"
+#include "Entities/Entity.cpp"
+#include "Entities/Component.hpp"
+#include "Entities/Component.cpp"
 
 //Common 
 #include "common/shader.hpp"
@@ -55,17 +62,16 @@ public:
 	// The idea of enum is to identify each systems so they can be processed
 	// properly by the Engine class
 	enum System_type {
-		Rendering,
-		ModelManager
+		Renderer
 	};
 	// All systems must update each game loop
 	// = 0 means derived classes must provide an implementation, not that the base class can not provide an implementation.
-	virtual void Update()=0;// float dt ) = 0;
+	virtual void update() = 0;// float dt ) = 0;
 
 	// It's good practice to separate the construction and initialization code.
-	virtual bool init() = 0;
+	virtual bool initialize() = 0;
 
-	virtual bool shutdown()=0;
+	virtual bool shutdown() = 0;
 
 	// This recieves any messages sent to the core engine in Engine.cpp
 	//virtual void SendMessage( Message *msg ) = 0;
@@ -77,69 +83,34 @@ public:
 GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
 				// to work it's necessary at the moment.
 
-class Component
-{
-public:
-	GLuint id;
-	static GLuint current_id;
-};
-//Initializing Component static attributes
-GLuint Component::current_id;
 
-class Entity
-{
- 	std::unique_ptr < std::vector<Component*> > m_components;
-
-public:
-	GLuint id;
-	static GLuint current_id;
-
-	//init()
-	//{
-
-	//}
-};
-//Initializing Entity static attributes
-GLuint Entity::current_id;
-
-/*
 class EntityManager
 {
-	HashSet<Entity> _entities;
-	Entity _next;
-
-	public:
-	 Entity create()
-	 {
-	  ++_next.id;
-	  while (alive(_next))
-	   ++_next.id;
-	  _entities.insert(_next);
-	  return _next;
-	 }
-
-	 bool alive(Entity e)
-	 {
-	  return _entities.has(e);
-	 }
-
-	 void destroy(Entity e)
-	 {
-	  _entities.erase(e);
-	 }
-}*/
-
-/*
-class GameObject
-{
-public:
-  Component *GetComponent( id );
-  void AddComponent( Component *comp );
-  bool HasComponent( id );
- 
 private:
-  std::vector<Component *> m_components;
-};*/
+	std::unordered_set<Entity> m_entities ;
+	Entity m_next;
+
+public:
+	Entity create()
+	{
+		++m_next.id;
+		while (alive(m_next))
+			++m_next.id;
+		m_entities.insert(m_next);
+		
+		return m_next;
+	}
+
+	bool alive(Entity e)
+	{
+		return m_entities.has(e);
+	}
+
+	void destroy(Entity e)
+	{
+		m_entities.erase(e);
+	}
+}
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:
@@ -171,18 +142,18 @@ public:
 	{}
 };
 
-class ModelInstance : public Entity {
+class RenderableComponent : public Component{
 public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
 	std::string modelPath;
 
-	ModelInstance() :
+	RenderableComponent() :
 		properties(NULL),
 		transformMatrix(),
 		modelPath()
 	{}
-	ModelInstance(std::string modelPath, glm::mat4 transf) :
+	RenderableComponent(std::string modelPath, glm::mat4 transf) :
 		properties(NULL),
 		modelPath(modelPath)
 	{
@@ -198,7 +169,7 @@ public:
 	1. There should be only one instance of the class.
 	1. It's a System so it should be encapsulated for Engine access.
 */
-class Rendering : public System {
+class RendererSystem : public System {
 public:
 	std::shared_ptr < std::vector<Entity*> > m_entities;
 	GLuint shaders;
@@ -226,7 +197,7 @@ public:
 		glDeleteProgram(shaders)
 	}*/
 
-	bool init(){
+	bool initialize(){
 		m_entities = NULL; //Maybe the ideia of this line is not cool for cache coherency
 		//Maybe it's a good ideia to make shaders and texture pointers
 		this->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
@@ -238,7 +209,7 @@ public:
 		return true;
 	}
 
-	bool init(std::shared_ptr < std::vector<Entity*> > entities)
+	bool initialize(std::shared_ptr < std::vector<Entity*> > entities)
 	{
 		assignEntities(entities);
 
@@ -249,8 +220,8 @@ public:
 		glDeleteProgram(shaders);
 		return true;
 	}
-
-	void DrawModelInstance(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
+	/*
+	void drawRenderable(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
 		glBindVertexArray(instance.properties->vao);
 
@@ -307,8 +278,8 @@ public:
 		// Draw the obj!
 		glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 	}
-
-	void Draw()
+	*/
+	void draw()
 	{
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -320,7 +291,7 @@ public:
 		
 		//printf("%lu objs to draw.\n", m_models->size());
 		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it)
-			DrawModelInstance(ModelInstance (**it), ProjectionMatrix, ViewMatrix);
+			//DrawModelInstance((ModelInstance) (**it), ProjectionMatrix, ViewMatrix);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -337,8 +308,8 @@ public:
 		printf("Models Assigned!\n");
 	}
 
-	void Update(){
-		Draw();
+	void update(){
+		draw();
 	}
 };
 

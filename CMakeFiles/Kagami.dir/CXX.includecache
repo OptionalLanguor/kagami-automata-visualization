@@ -7,20 +7,26 @@
 #IncludeRegexTransform: 
 
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.cpp
+Component.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
 
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
+Entity.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.cpp
 Entity.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
-cstdio
--
 
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 Component.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
 vector
 -
+../Misc/TypeDefs.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Misc/TypeDefs.hpp
+
+/home/aluno/Kagami/kagami-automata-visualization/Misc/TypeDefs.hpp
 
 /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp
 glfw3.h
@@ -99,6 +105,8 @@ cstdio
 -
 vector
 -
+unordered_set
+-
 memory
 -
 exception
@@ -111,6 +119,14 @@ glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
+Entities/Entity.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
+Entities/Entity.cpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.cpp
+Entities/Component.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
+Entities/Component.cpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Component.cpp
 common/shader.hpp
 /home/aluno/Kagami/kagami-automata-visualization/common/shader.hpp
 common/controls.hpp
