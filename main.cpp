@@ -41,7 +41,7 @@ using namespace glm;
 #include <string>
 //#include "Entities/Entity.hpp"
 
-/* To generate Diagrams:
+/* To generate Diagrams with doxygraph at terminal:
 	sudo perl doxygraph/doxygraph /home/aluno/Kagami/xml/index.xml doxyviz/htdocs/graph.dot
 */
 
@@ -84,13 +84,46 @@ GLFWwindow* window; //This is horrendous, but for the linking of libraries(contr
 				// to work it's necessary at the moment.
 
 /*
+ 	Initially EntityManager class was supposed to the creator of Entities and would
+ 	check for existent Entities or destroy them.
+	My idea is to use EntityManager as the initializer for different type of
+	predefined Entities (Like the car we want to project that have certain types
+	of components.)
+*/
 class EntityManager
 {
 private:
-	std::unordered_set<Entity> m_entities ;
+	//std::unordered_set<Entity> m_entities;		// C++11 compiler necessary
+	static std::shared_ptr < std::vector<Entity*> > m_entities;
 	Entity m_next;
 
 public:
+	bool assignEntities(std::shared_ptr < std::vector<Entity*> > &entities){
+		m_entities = std::shared_ptr < std::vector<Entity*> >(entities);
+		return true;
+	}
+
+	bool initialize()
+	{
+		m_entities = NULL;
+	}
+
+	bool initialize(std::shared_ptr < std::vector<Entity*> > entities)
+	{
+		bool init_isOK = initialize();
+		init_isOK &= assignEntities(entities);
+
+		return init_isOK;
+	}
+
+	bool AddEntity(Entity& ent)
+	{
+		m_entities->push_back(&ent); //Is this ok? Should I use pointers instead?
+		return true;
+	}
+
+	/*
+	// This was supposed to be for std:unordered_set implementation
 	Entity create()
 	{
 		++m_next.id;
@@ -100,7 +133,7 @@ public:
 		
 		return m_next;
 	}
-
+	
 	bool alive(Entity e)
 	{
 		return m_entities.has(e);
@@ -110,8 +143,9 @@ public:
 	{
 		m_entities.erase(e);
 	}
-}
-*/
+	*/
+};
+
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:
@@ -154,11 +188,12 @@ public:
 		transformMatrix(),
 		modelPath()
 	{}
-	RenderableComponent(std::string modelPath, glm::mat4 transf) :
+	RenderableComponent(std::string modelPath, glm::mat4 &transf) :
 		properties(NULL),
+		transformMatrix(transf),
 		modelPath(modelPath)
 	{
-		transformMatrix = transf;
+		//transformMatrix = transf;
 	}
 };
 
@@ -198,6 +233,14 @@ public:
 		glDeleteProgram(shaders)
 	}*/
 
+	bool assignEntities(std::shared_ptr < std::vector<Entity*> > &entities){
+		printf("Assigning Entities... ");
+		m_entities = std::shared_ptr < std::vector<Entity*> >(entities);
+		printf("Entities Assigned!\n");
+
+		return true;
+	}
+
 	bool initialize(){
 		m_entities = NULL; //Maybe the ideia of this line is not cool for cache coherency
 		//Maybe it's a good ideia to make shaders and texture pointers
@@ -212,9 +255,10 @@ public:
 
 	bool initialize(std::shared_ptr < std::vector<Entity*> > entities)
 	{
-		assignEntities(entities);
+		bool init_isOK = initialize();
+		init_isOK &= assignEntities(entities);
 
-		return true && initialize();
+		return init_isOK;
 	}
 
 	bool shutdown(){
@@ -303,12 +347,6 @@ public:
 		glfwPollEvents();
 	}
 
-	void assignEntities(std::shared_ptr < std::vector<Entity*> > &instances){
-		printf("Assigning Models... ");
-		m_entities = std::shared_ptr < std::vector<Entity*> >(instances);
-		printf("Models Assigned!\n");
-	}
-
 	void update(){
 		draw();
 	}
@@ -372,14 +410,13 @@ void desalocateModelInstance(ModelInstance &instance)
 	glDeleteVertexArrays(1, &instance.properties->vao);
 }
 */
-/*
+
 class Engine
 {
 private:
+	// One should ask self, why thou use pointers? Respond when certain.
 	static std::unique_ptr < std::vector<System*> > m_systems;
-	static std::shared_ptr < std::vector<ModelInstance*> > m_models; // It appears that this pointer shouldnt exist on Engine
 	static std::shared_ptr < std::vector<Entity*> > m_entities;
-	//static std::shared_ptr < std::vector<Component*> > m_components;
 
 public:
 	void Run(void)
@@ -407,6 +444,7 @@ public:
 
 	void Initialization(void)
 	{
+		
 		printf("Hello, World!\n");
 		//Entity ent;
 		//ent.hello();	
@@ -494,17 +532,19 @@ public:
 		
 		//Rendering *render = new Rendering(m_models);
 		//render->assignModels(m_models);
-		Rendering * auxiliary_pointer =  new Rendering(m_models);
-		auxiliary_pointer->init(m_models);
-		AddSys(*auxiliary_pointer);
-
+		RendererSystem *auxiliary_pointer =  new RendererSystem();
+		
+		if(auxiliary_pointer->initialize(m_entities))
+			AddSys(auxiliary_pointer);
+		else
+			printf("RendererSystem couldn't be initialized at Engine\n");
 		return;
 	}
 
 	void Update()// float dt );
 	{
 		for(std::vector<System*>::iterator it = m_systems->begin(); it!= m_systems->end(); it++)
-			(*it)->Update();
+			(*it)->update();
 	}
 
 	void RunLoop(void)
@@ -544,19 +584,17 @@ public:
 		m_systems->push_back(sys);
 	}
 	
-	void AddObj(ModelInstance* obj)
+	void AddEnt(Entity* ent)
 	{
-		m_models->push_back(obj);
-		initializerModelInstance(*m_models->back());
+		m_entities->push_back(ent);
+		//initializerModelInstance(*m_models->back());
 	}
 	
 };
 //Initialization of static attributes
 std::unique_ptr < std::vector<System*> > Engine::m_systems = std::unique_ptr < std::vector<System*> >(new std::vector<System*>);
-std::shared_ptr < std::vector<ModelInstance*> > Engine::m_models = std::shared_ptr < std::vector<ModelInstance*> >(new std::vector<ModelInstance*>);
 std::shared_ptr < std::vector<Entity*> > Engine::m_entities = std::shared_ptr < std::vector<Entity*> >(new std::vector<Entity*>);
-//std::shared_ptr < std::vector<Component*> > Engine::m_components = std::shared_ptr < std::vector<Component*> >(new std::vector<Component*>);
-*/
+
 /*
  Represents a point light
  */
@@ -570,8 +608,8 @@ struct Light {
 
 
 int main(){
-	//Engine* Kagami = new Engine();
-	//Kagami->Run();
+	Engine* Kagami = new Engine();
+	Kagami->Run();
 	
 	return 0;
 }
