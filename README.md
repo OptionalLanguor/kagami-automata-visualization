@@ -3,10 +3,10 @@ This is the repository for a software, built using C++, for embedded systems whi
 The project is part of the Undergraduate thesis of Felipe Tavares and João Guilherme Costa, by the orientation of Giovanis Vitor, for the Computer Engineering Degree at Universidade Federal de Itajubá - Itabira campus.
 
 
-There is more information about the development of the project in this Google Docs link (it's in Portuguese): https://goo.gl/JFWCDY
+There is more information about the development of the project in this Logbook created in Google Docs (it's in Portuguese): https://goo.gl/JFWCDY
 
 
-The expected present date of the Undergraduate Thesis is Jan. of 2018.
+The expected present date of the Undergraduate Thesis is Jun. of 2018.
 
 
 Contact:    
