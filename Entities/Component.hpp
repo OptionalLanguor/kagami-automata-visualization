@@ -1,11 +1,11 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-#include "Entity.hpp"
+//#include "Entity.hpp"
+#include <GL/glew.h>
 
 class Component
 {
-	
 	static GLuint current_id;
 
 public:
@@ -20,6 +20,5 @@ public:
 	{}
 };
 //Initializing Component static attributes
-GLuint Component::current_id;
 
 #endif

@@ -26,9 +26,9 @@ using namespace glm;
 
 // Entities
 #include "Entities/Entity.hpp"
-#include "Entities/Entity.cpp"
+//#include "Entities/Entity.cpp"
 #include "Entities/Component.hpp"
-#include "Entities/Component.cpp"
+//#include "Entities/Component.cpp"
 
 //Common 
 #include "common/shader.hpp"
@@ -83,7 +83,7 @@ public:
 GLFWwindow* window; //This is horrendous, but for the linking of libraries(control.cpp)
 				// to work it's necessary at the moment.
 
-
+/*
 class EntityManager
 {
 private:
@@ -111,6 +111,7 @@ public:
 		m_entities.erase(e);
 	}
 }
+*/
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:
@@ -163,8 +164,8 @@ public:
 
 
 //---------------------------------------------------------------------------------------------------------
-/* Rendering
-	Class Rendering is the class that will manage everything graphic related.
+/* RendererSystem
+	Class RendererSystem is the class that will manage everything graphic related.
 
 	1. There should be only one instance of the class.
 	1. It's a System so it should be encapsulated for Engine access.
@@ -213,7 +214,7 @@ public:
 	{
 		assignEntities(entities);
 
-		return true && init();
+		return true && initialize();
 	}
 
 	bool shutdown(){
@@ -313,7 +314,7 @@ public:
 	}
 };
 
-
+/*
 // Function to place an object in the scene
 void initializerModelInstance(ModelInstance &instance)
 {
@@ -370,7 +371,8 @@ void desalocateModelInstance(ModelInstance &instance)
 	//glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &instance.properties->vao);
 }
-
+*/
+/*
 class Engine
 {
 private:
@@ -388,11 +390,11 @@ public:
 
 
 		printf("Alocatting objs to test...");
-		AddObj(new ModelInstance("golf-cart.obj", mat4(translate(0,5,0) * scale(0.05,0.05,0.05))));		
+		//AddObj(new ModelInstance("golf-cart.obj", mat4(translate(0,5,0) * scale(0.05,0.05,0.05))));		
 		
 		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
-		AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
-		AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
+		//AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
+		//AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
 		printf(" Done.\n");
 
 
@@ -554,7 +556,7 @@ std::unique_ptr < std::vector<System*> > Engine::m_systems = std::unique_ptr < s
 std::shared_ptr < std::vector<ModelInstance*> > Engine::m_models = std::shared_ptr < std::vector<ModelInstance*> >(new std::vector<ModelInstance*>);
 std::shared_ptr < std::vector<Entity*> > Engine::m_entities = std::shared_ptr < std::vector<Entity*> >(new std::vector<Entity*>);
 //std::shared_ptr < std::vector<Component*> > Engine::m_components = std::shared_ptr < std::vector<Component*> >(new std::vector<Component*>);
-
+*/
 /*
  Represents a point light
  */
@@ -568,8 +570,8 @@ struct Light {
 
 
 int main(){
-	Engine* Kagami = new Engine();
-	Kagami->Run();
+	//Engine* Kagami = new Engine();
+	//Kagami->Run();
 	
 	return 0;
 }

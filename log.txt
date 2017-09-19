@@ -1,0 +1,3 @@
+[ 16%] Built target glfw
+[ 19%] Built target GLEW_1130
+[ 20%] Building CXX object CMakeFiles/Kagami.dir/main.cpp.o

@@ -3,12 +3,13 @@
 
 #include "Component.hpp"
 #include <vector>
-#include "../Misc/TypeDefs.hpp"
+#include <glm/glm.hpp>
+using namespace glm;
 
 class Entity
 {
 private:
- 	static const uint MAX_COMPONENTS = 64;
+ 	static const unsigned int MAX_COMPONENTS = 64;
  	std::vector<Component> m_components;
  	long long int componentKey;
 
@@ -25,11 +26,8 @@ public:
 		else{
 			//m_components.push_back();
 			componentKey |= comp;
-			
 		}
 	}
 };
-//Initializing Entity static attributes
-//GLuint Entity::current_id;
 
 #endif
