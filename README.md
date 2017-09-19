@@ -10,5 +10,5 @@ The expected present date of the Undergraduate Thesis is Jan. of 2018.
 
 
 Contact:    
-Felipe Tavares - felmt@hotmail.com
+Felipe Tavares - felmt@hotmail.com;
 João Guilherme Costa - joao_rln27@hotmail.com
