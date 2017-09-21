@@ -108,7 +108,6 @@ include_directories(external/glm-0.9.7.1/) #Using a current compiled version of 
 ################################################################################
 # PROJECT FOLDERS DIRECTORIES
 
-include_directories(Misc)
 include_directories(Entities)
 include_directories(common)
 
@@ -124,7 +123,6 @@ set(HDRS
     common/texture.hpp
     common/controls.hpp
     common/objloader.hpp
-    Misc/TypeDefs.hpp
 )
 
 set(SRCS
