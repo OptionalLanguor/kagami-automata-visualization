@@ -13,6 +13,10 @@ Component.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
 GL/glew.h
 -
+string
+-
+../common/objloader.hpp
+/home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
 
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.cpp
 Entity.hpp
@@ -21,10 +25,6 @@ Entity.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 Component.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
-vector
--
-glm/glm.hpp
--
 
 /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp
 glfw3.h
@@ -59,6 +59,10 @@ assimp/postprocess.h
 -
 
 /home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
+vector
+-
+glm/glm.hpp
+-
 
 /home/aluno/Kagami/kagami-automata-visualization/common/shader.cpp
 stdio.h
@@ -103,7 +107,9 @@ cstdio
 -
 vector
 -
-unordered_set
+cstring
+-
+string
 -
 memory
 -
@@ -117,20 +123,14 @@ glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
-Entities/Entity.hpp
-/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
-Entities/Component.hpp
-/home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
 common/shader.hpp
 /home/aluno/Kagami/kagami-automata-visualization/common/shader.hpp
 common/controls.hpp
 /home/aluno/Kagami/kagami-automata-visualization/common/controls.hpp
 common/objloader.hpp
 /home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
-cstring
--
-string
--
+Entities/Entity.hpp
+/home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 
 external/glew-1.13.0/include/GL/glew.h
 stddef.h

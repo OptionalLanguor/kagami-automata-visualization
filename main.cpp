@@ -2,7 +2,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <vector>
-#include <unordered_set>
+#include <cstring>
+#include <string>
 
 // Include pointer management library for shared_prt
 #include <memory>
@@ -24,22 +25,19 @@
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-// Entities
-#include "Entities/Entity.hpp"
-//#include "Entities/Entity.cpp"
-#include "Entities/Component.hpp"
-//#include "Entities/Component.cpp"
-
 //Common 
 #include "common/shader.hpp"
 //#include "common/texture.hpp"
 #include "common/controls.hpp"
 #include "common/objloader.hpp"
 
-//#include <GL/glut.h>
-#include <cstring>
-#include <string>
-//#include "Entities/Entity.hpp"
+// Entities
+#include "Entities/Entity.hpp"
+//#include "Entities/Entity.cpp"
+//#include "Entities/Component.hpp"
+//#include "Entities/Component.cpp"
+
+
 
 /* To generate Diagrams with doxygraph at terminal:
 	sudo perl doxygraph/doxygraph /home/aluno/Kagami/xml/index.xml doxyviz/htdocs/graph.dot
@@ -147,56 +145,6 @@ public:
 };
 
 
-class ModelProperties{ //Kinda of using the idea of tomdalling's code
-public:
-	//GLuint shaders;
-	GLuint texture;
-	GLuint vao;
-	GLuint vbo;
-	GLenum drawType;
-	GLfloat shininess;
-	glm::vec3 specularColor;
-	GLuint vertexbuffer;
-	GLuint uvbuffer;
-	GLuint normalbuffer;
-	GLuint vertexSize;
-
-	ModelProperties() :
-		//id(++current_id),
-		//shaders(LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" )),	//Maybe it's a good ideia to make shaders and texture pointers
-		texture(0),
-		vao(0),
-		vbo(0),
-		drawType(GL_TRIANGLES),
-		shininess(0.0f),
-		specularColor(1.0f, 1.0f, 1.0f),
-		vertexbuffer(0),
-		uvbuffer(0),
-		normalbuffer(0),
-		vertexSize(0)
-	{}
-};
-
-class RenderableComponent : public Component{
-public:
-	ModelProperties* properties;
-	glm::mat4 transformMatrix;
-	std::string modelPath;
-
-	RenderableComponent() :
-		properties(NULL),
-		transformMatrix(),
-		modelPath()
-	{}
-	RenderableComponent(std::string modelPath, glm::mat4 &transf) :
-		properties(NULL),
-		transformMatrix(transf),
-		modelPath(modelPath)
-	{
-		//transformMatrix = transf;
-	}
-};
-
 
 //---------------------------------------------------------------------------------------------------------
 /* RendererSystem
@@ -265,8 +213,8 @@ public:
 		glDeleteProgram(shaders);
 		return true;
 	}
-	/*
-	void drawRenderable(const ModelInstance &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
+	
+	void drawRenderableComponent(const RenderableComponent &instance, const glm::mat4 &ProjectionMatrix, const glm::mat4 &ViewMatrix)
 	{
 		glBindVertexArray(instance.properties->vao);
 
@@ -323,7 +271,7 @@ public:
 		// Draw the obj!
 		glDrawArrays(GL_TRIANGLES, 0, instance.properties->vertexSize);
 	}
-	*/
+	
 	void draw()
 	{
 		// Clear the screen
@@ -336,7 +284,7 @@ public:
 		
 		//printf("%lu objs to draw.\n", m_models->size());
 		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it)
-			//DrawModelInstance((ModelInstance) (**it), ProjectionMatrix, ViewMatrix);
+			drawRenderableComponent((**it).renderableComp, ProjectionMatrix, ViewMatrix);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -352,64 +300,6 @@ public:
 	}
 };
 
-/*
-// Function to place an object in the scene
-void initializerModelInstance(ModelInstance &instance)
-{
-	instance.properties = new ModelProperties(); 
-	instance.properties->shininess = 80.0; //Value used by tomdalling
-
-
-	// Binding arrays
-	glGenVertexArrays(1, &instance.properties->vao);
-	glGenBuffers(1, &instance.properties->vbo);
-
-	// bind the VAO
-    glBindVertexArray(instance.properties->vao);
-
-    // bind the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, instance.properties->vbo);
-
-    // Read our .obj file
-	std::vector<glm::vec3> vertices;
-	std::vector<glm::vec2> uvs;
-	std::vector<glm::vec3> normals; // Won't be used at the moment.
-	printf("Opening the .obj\n");
-	//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
-	bool res = loadOBJ(instance.modelPath.c_str(), vertices, uvs, normals);
-	printf(".obj opened.\n");
-	
-	instance.properties->vertexSize = vertices.size();
-
-	// Load it into a VBO
-	//GLuint vertexbuffer;
-	glGenBuffers(1, &instance.properties->vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-
-	//GLuint uvbuffer;
-	glGenBuffers(1, &instance.properties->uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
-
-	//GLuint normalbuffer;
-	glGenBuffers(1, &instance.properties->normalbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, instance.properties->normalbuffer);
-	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
-
-	//glBindVertexArray(0);
-}
-
-void desalocateModelInstance(ModelInstance &instance)
-{
-	// Cleanup VBO and shader
-	glDeleteBuffers(1, &instance.properties->vertexbuffer);
-	glDeleteBuffers(1, &instance.properties->uvbuffer);
-	glDeleteBuffers(1, &instance.properties->normalbuffer);
-	//glDeleteTextures(1, &Texture);
-	glDeleteVertexArrays(1, &instance.properties->vao);
-}
-*/
 
 class Engine
 {
@@ -444,7 +334,6 @@ public:
 
 	void Initialization(void)
 	{
-		
 		printf("Hello, World!\n");
 		//Entity ent;
 		//ent.hello();	
