@@ -22,7 +22,7 @@ public:
 	{}
 };
 //Initializing Component static attributes
-//
+
 
 class ModelProperties{ //Kinda of using the idea of tomdalling's code
 public:

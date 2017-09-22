@@ -25,6 +25,10 @@ Entity.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Entity.hpp
 Component.hpp
 /home/aluno/Kagami/kagami-automata-visualization/Entities/Component.hpp
+map
+-
+string
+-
 
 /home/aluno/Kagami/kagami-automata-visualization/common/controls.cpp
 glfw3.h
