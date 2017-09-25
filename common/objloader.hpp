@@ -1,5 +1,5 @@
-#ifndef OBJLOADER_H
-#define OBJLOADER_H
+#ifndef KAGAMI_COMMON_OBJLOADER_H
+#define KAGAMI_COMMON_OBJLOADER_H
 
 #include <vector>
 #include <glm/glm.hpp>

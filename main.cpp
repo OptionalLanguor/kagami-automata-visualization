@@ -114,9 +114,9 @@ public:
 		return init_isOK;
 	}
 
-	bool AddEntity(Entity& ent)
+	bool AddEntity(std::string modelFile, glm::mat4 transformMatrix)//Entity& ent)
 	{
-		m_entities->push_back(&ent); //Is this ok? Should I use pointers instead?
+		//m_entities->push_back(&ent); //Is this ok? Should I use pointers instead?
 		return true;
 	}
 
@@ -283,8 +283,13 @@ public:
 		glm::mat4 ViewMatrix = getViewMatrix();
 		
 		//printf("%lu objs to draw.\n", m_models->size());
-		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it)
-			drawRenderableComponent((**it).renderableComp, ProjectionMatrix, ViewMatrix);
+		//Find RenderableComponents in entities
+		std::vector<RenderableComponent> renderableComponents;
+		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it){
+			renderableComponents = (**it).getRenderableComponents();
+			for(std::vector<RenderableComponent>::iterator it2 = renderableComponents.begin(); it2 != renderableComponents.end(); it2++)
+				drawRenderableComponent(*it2, ProjectionMatrix, ViewMatrix);
+		}
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -317,6 +322,23 @@ public:
 
 
 		printf("Alocatting objs to test...");
+
+
+		Entity* newEntity = new Entity();
+		newEntity->initialize();
+		newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
+		AddEnt(newEntity);
+
+		newEntity = new Entity();
+		newEntity->initialize();
+		newEntity->addRenderableComponent("desert city.obj", translate(0,5,0));
+		AddEnt(newEntity);
+
+		newEntity = new Entity();
+		newEntity->initialize();
+		newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
+		AddEnt(newEntity);
+
 		//AddObj(new ModelInstance("golf-cart.obj", mat4(translate(0,5,0) * scale(0.05,0.05,0.05))));		
 		
 		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
@@ -460,12 +482,23 @@ public:
 			   glfwWindowShouldClose(window) == 0 );
 	}
 
-	void Finalization(void)
+	//Deletion of pointers
+	template <typename pointerType>
+	void delete_pointed_to(pointerType* const ptr) { delete ptr; }
+
+	bool Finalization(void)
 	{
 		//desalocateModelInstance(*sportsCar1);
 
 		// Close OpenGL window and terminate GLFW
 		glfwTerminate();
+
+		for(std::vector<System*>:: iterator it = m_systems->begin(); it!=m_systems->end(); it++)
+			delete_pointed_to(*it);
+		for(std::vector<Entity*>:: iterator it = m_entities->begin(); it!=m_entities->end(); it++)
+			delete_pointed_to(*it);
+
+		return true;
 	}
 
 	void AddSys(System* sys)
@@ -476,7 +509,6 @@ public:
 	void AddEnt(Entity* ent)
 	{
 		m_entities->push_back(ent);
-		//initializerModelInstance(*m_models->back());
 	}
 	
 };
@@ -493,7 +525,7 @@ struct Light {
     float attenuation;
     float ambientCoefficient;
 };
-//Light gLight;
+//Light gLight;feed/?trk=
 
 
 int main(){

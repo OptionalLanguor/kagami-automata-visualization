@@ -3,6 +3,6 @@
 
 #include "Entity.hpp"
 
-//GLuint Entity::current_id;
+GLuint Entity::current_id;
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+//#ifndef KAGAMI_ENTITIES_COMPONENT_H_
+//#define KAGAMI_ENTITIES_COMPONENT_H_
 
 //#include "Entity.hpp"
 #include <GL/glew.h>
@@ -84,7 +84,7 @@ public:
 	}
 
 	// Function to place an object in the scene
-	bool initializer()
+	bool initialize()
 	{
 		properties = new ModelProperties(); 
 		properties->shininess = 80.0; //Value used by tomdalling
@@ -131,10 +131,10 @@ public:
 		return true;
 	}
 
-	bool initializer(std::string modelPath, glm::mat4 &transf)
+	bool initialize(std::string modelPath, glm::mat4 &transf)
 	{
 		bool init_isOK = assignModels(modelPath, transf);
-		init_isOK &= initializer();
+		init_isOK &= initialize();
 
 		return init_isOK;
 	}
@@ -152,4 +152,4 @@ public:
 	}
 };
 
-#endif
+//#endif

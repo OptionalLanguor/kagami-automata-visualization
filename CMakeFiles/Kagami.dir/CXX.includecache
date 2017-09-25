@@ -43,9 +43,11 @@ controls.hpp
 /home/aluno/Kagami/kagami-automata-visualization/common/controls.hpp
 
 /home/aluno/Kagami/kagami-automata-visualization/common/objloader.cpp
-vector
--
+objloader.hpp
+/home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
 stdio.h
+-
+vector
 -
 string
 -
@@ -53,8 +55,6 @@ cstring
 -
 glm/glm.hpp
 -
-objloader.hpp
-/home/aluno/Kagami/kagami-automata-visualization/common/objloader.hpp
 assimp/Importer.hpp
 -
 assimp/scene.h
