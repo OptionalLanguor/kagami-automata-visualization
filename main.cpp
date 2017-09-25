@@ -38,9 +38,9 @@ using namespace glm;
 //#include "Entities/Component.cpp"
 
 
-
 /* To generate Diagrams with doxygraph at terminal:
 	sudo perl doxygraph/doxygraph /home/aluno/Kagami/xml/index.xml doxyviz/htdocs/graph.dot
+
 */
 
 // ---------------------------------------------------------- These are from tomdalling
@@ -323,7 +323,6 @@ public:
 
 		printf("Alocatting objs to test...");
 
-
 		Entity* newEntity = new Entity();
 		newEntity->initialize();
 		newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
@@ -339,11 +338,6 @@ public:
 		newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
 		AddEnt(newEntity);
 
-		//AddObj(new ModelInstance("golf-cart.obj", mat4(translate(0,5,0) * scale(0.05,0.05,0.05))));		
-		
-		//AddObj(new ModelInstance("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05)));		
-		//AddObj(new ModelInstance("desert city.obj", translate(0,5,0)));
-		//AddObj(new ModelInstance("hazelnut.obj", translate(0,25,0)));
 		printf(" Done.\n");
 
 
@@ -357,8 +351,6 @@ public:
 	void Initialization(void)
 	{
 		printf("Hello, World!\n");
-		//Entity ent;
-		//ent.hello();	
 
 		// Initialize GLFW
 		if( !glfwInit() )
@@ -488,8 +480,6 @@ public:
 
 	bool Finalization(void)
 	{
-		//desalocateModelInstance(*sportsCar1);
-
 		// Close OpenGL window and terminate GLFW
 		glfwTerminate();
 

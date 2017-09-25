@@ -1,7 +1,6 @@
-//#ifndef KAGAMI_ENTITIES_COMPONENT_H_
-//#define KAGAMI_ENTITIES_COMPONENT_H_
+#ifndef KAGAMI_ENTITIES_COMPONENT_H_
+#define KAGAMI_ENTITIES_COMPONENT_H_
 
-//#include "Entity.hpp"
 #include <GL/glew.h>
 #include <string>
 #include "../common/objloader.hpp"
@@ -21,10 +20,8 @@ public:
 		id(current_id++)
 	{}
 };
-//Initializing Component static attributes
 
-
-class ModelProperties{ //Kinda of using the idea of tomdalling's code
+class ModelProperties{
 public:
 	// There is no member shader (only at RendererSystem) at moment but it 
 	// could be a good idea when the program have more than one.
@@ -65,15 +62,6 @@ public:
 		transformMatrix(),
 		modelPath()
 	{}
-	/*
-	RenderableComponent(std::string modelPath, glm::mat4 &transf) :
-		properties(NULL),
-		transformMatrix(transf),
-		modelPath(modelPath)
-	{
-		//transformMatrix = transf;
-	}
-	*/
 
 	bool assignModels(std::string modelPath, glm::mat4 &transf)
 	{
@@ -152,4 +140,4 @@ public:
 	}
 };
 
-//#endif
+#endif
