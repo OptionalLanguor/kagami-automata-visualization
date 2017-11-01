@@ -1,3 +1,30 @@
 [ 16%] Built target glfw
-[ 19%] Built target GLEW_1130
-[ 20%] Building CXX object CMakeFiles/Kagami.dir/main.cpp.o
+[ 18%] Built target GLEW_1130
+Scanning dependencies of target Kagami
+[ 19%] Building CXX object CMakeFiles/Kagami.dir/Entities/Engine.cpp.o
+[ 20%] Building CXX object CMakeFiles/Kagami.dir/common/controls.cpp.o
+[ 22%] Linking CXX executable Kagami
+[ 31%] Built target Kagami
+[ 33%] Built target boing
+[ 36%] Built target gears
+[ 39%] Built target heightmap
+[ 44%] Built target particles
+[ 46%] Built target wave
+[ 48%] Built target simple
+[ 51%] Built target splitview
+[ 53%] Built target windows
+[ 55%] Built target sharing
+[ 59%] Built target tearing
+[ 62%] Built target events
+[ 66%] Built target gamma
+[ 68%] Built target title
+[ 72%] Built target threads
+[ 75%] Built target empty
+[ 79%] Built target msaa
+[ 82%] Built target glfwinfo
+[ 86%] Built target iconify
+[ 89%] Built target monitors
+[ 91%] Built target cursor
+[ 94%] Built target joysticks
+[ 97%] Built target clipboard
+[100%] Built target reopen

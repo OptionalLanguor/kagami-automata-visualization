@@ -3,9 +3,12 @@
 #ifndef KAGAMI_ENTITIES_ENTITY_H_
 #define KAGAMI_ENTITIES_ENTITY_H_
 
-#include "Component.hpp"
 #include <map>
 #include <string>
+
+#include "Component.hpp"
+#include "RenderableComponent.hpp"
+
 
 class Entity
 {

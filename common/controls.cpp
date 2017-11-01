@@ -1,6 +1,6 @@
 // Include GLFW
-#include <glfw3.h>
-extern GLFWwindow* window; // The "extern" keyword here is to access the variable "window" declared in tutorialXXX.cpp. This is a hack to keep the tutorials simple. Please avoid this.
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 // Include GLM
 #include <glm/glm.hpp>
@@ -8,6 +8,14 @@ extern GLFWwindow* window; // The "extern" keyword here is to access the variabl
 using namespace glm;
 
 #include "controls.hpp"
+
+#include "../Entities/Engine.hpp"
+
+//extern GLFWwindow* getWindow();
+//GLFWwindow* window = Engine::getWindow();
+
+extern GLFWwindow* window; // The "extern" keyword here is to access the variable "window". This is a hack to keep things simple. Please avoid this.
+
 
 glm::mat4 ViewMatrix;
 glm::mat4 ProjectionMatrix;

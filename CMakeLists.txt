@@ -5,6 +5,8 @@
 project(Kagami)
 cmake_minimum_required(VERSION 3.0)
 
+set(CMAKE_PREFIX_PATH "/home/aluno/Kagami/kagami-automata-visualization")
+
 if( CMAKE_SOURCE_DIR MATCHES " " )
 	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
@@ -118,8 +120,12 @@ include_directories(common)
 
 # FILES
 set(HDRS
+	Entities/Engine.hpp
     Entities/Entity.hpp
     Entities/Component.hpp
+    Entities/System.hpp
+    Entities/RendererSystem.hpp
+    Entities/RenderableComponent.hpp
     common/shader.hpp
     common/texture.hpp
     common/controls.hpp
@@ -128,8 +134,11 @@ set(HDRS
 
 set(SRCS
 	main.cpp
+	Entities/Engine.cpp
     Entities/Entity.cpp
     Entities/Component.cpp
+    Entities/System.cpp
+    Entities/RendererSystem.cpp
 	common/shader.cpp
     common/texture.cpp
     common/controls.cpp
