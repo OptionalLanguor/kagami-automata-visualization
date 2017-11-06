@@ -1,8 +1,8 @@
+//#ifndef KAGAMI_ENTITIES_ENTITY_CPP_
+//#define KAGAMI_ENTITIES_ENTITY_CPP_
+
 #include "Entity.hpp"
 
-#include <cstdio>
+GLuint Entity::current_id;
 
-void Entity::hello()
-{
-	printf("Hello, World!--\n");
-}
+//#endif

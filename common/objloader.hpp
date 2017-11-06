@@ -1,5 +1,8 @@
-#ifndef OBJLOADER_H
-#define OBJLOADER_H
+#ifndef KAGAMI_COMMON_OBJLOADER_H
+#define KAGAMI_COMMON_OBJLOADER_H
+
+#include <vector>
+#include <glm/glm.hpp>
 
 bool loadOBJ(
 	const char * path, 
@@ -7,8 +10,6 @@ bool loadOBJ(
 	std::vector<glm::vec2> & out_uvs, 
 	std::vector<glm::vec3> & out_normals
 );
-
-
 
 bool loadAssImp(
 	const char * path, 
