@@ -9,6 +9,31 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 
+<<<<<<< HEAD
+=======
+	# Subdirectories
+	external/CMakeCache.txt
+	external/CMakeFiles
+	external/CMakeScripts
+	external/Testing
+	external/Makefile
+	external/cmake_install.cmake
+	external/install_manifest.txt
+	external/compile_commands.json
+	external/CTestTestfile.cmake
+
+	external/glfw-3.1.2/CMakeCache.txt
+	external/glfw-3.1.2/CMakeFiles
+	external/glfw-3.1.2/CMakeScripts
+	external/glfw-3.1.2/Testing
+	external/glfw-3.1.2/Makefile
+	external/glfw-3.1.2/cmake_install.cmake
+	external/glfw-3.1.2/install_manifest.txt
+	external/glfw-3.1.2/compile_commands.json
+	external/glfw-3.1.2/CTestTestfile.cmake
+
+
+>>>>>>> 458d7ddaa26a9970660a4c0990128a2848fb1750
 # Debug files
 log.txt
 output.txt
@@ -87,3 +112,21 @@ output.txt
 			external/glfw-3.1.2/tests/*.exe
 			external/glfw-3.1.2/tests/*.out
 			external/glfw-3.1.2/tests/*.app
+
+		# external/glfw-3.1.2/examples/
+			# CMake files
+			external/glfw-3.1.2/examples/CMakeCache.txt
+			external/glfw-3.1.2/examples/CMakeFiles
+			external/glfw-3.1.2/examples/CMakeScripts
+			external/glfw-3.1.2/examples/Testing
+			external/glfw-3.1.2/examples/Makefile
+			external/glfw-3.1.2/examples/cmake_install.cmake
+			external/glfw-3.1.2/examples/install_manifest.txt
+			external/glfw-3.1.2/examples/compile_commands.json
+			external/glfw-3.1.2/examples/CTestTestfile.cmake
+
+			# Executables
+			external/glfw-3.1.2/examples/*.a
+			external/glfw-3.1.2/examples/*.exe
+			external/glfw-3.1.2/examples/*.out
+			external/glfw-3.1.2/examples/*.app
