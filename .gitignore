@@ -9,6 +9,32 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 
+	# Subdirectories
+	external/CMakeCache.txt
+	external/CMakeFiles
+	external/CMakeScripts
+	external/Testing
+	external/Makefile
+	external/cmake_install.cmake
+	external/install_manifest.txt
+	external/compile_commands.json
+	external/CTestTestfile.cmake
+
+	external/glfw-3.1.2/CMakeCache.txt
+	external/glfw-3.1.2/CMakeFiles
+	external/glfw-3.1.2/CMakeScripts
+	external/glfw-3.1.2/Testing
+	external/glfw-3.1.2/Makefile
+	external/glfw-3.1.2/cmake_install.cmake
+	external/glfw-3.1.2/install_manifest.txt
+	external/glfw-3.1.2/compile_commands.json
+	external/glfw-3.1.2/CTestTestfile.cmake
+
+
+# Debug files
+log.txt
+output.txt
+
 # Compiled object files
 *.o
 
