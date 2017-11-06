@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/EGL/eglext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/EGL/eglext.h
 EGL/eglplatform.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glext.h
 windows.h
 -
 stddef.h
@@ -28,7 +28,7 @@ stdint.h
 inttypes.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glxext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glxext.h
 inttypes.h
 -
 inttypes.h
@@ -42,11 +42,11 @@ stdint.h
 inttypes.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/wglext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/wglext.h
 windows.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/include/GLFW/glfw3.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/include/GLFW/glfw3.h
 stddef.h
 -
 OpenGL/gl3.h
@@ -82,7 +82,7 @@ GL/glext.h
 GL/glu.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/cocoa_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/cocoa_platform.h
 stdint.h
 -
 Cocoa/Cocoa.h
@@ -90,15 +90,15 @@ Cocoa/Cocoa.h
 ApplicationServices/ApplicationServices.h
 -
 posix_tls.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
 iokit_joystick.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/iokit_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/iokit_joystick.h
 nsgl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/nsgl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/nsgl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/context.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/context.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 stdio.h
 -
 string.h
@@ -108,19 +108,19 @@ limits.h
 stdio.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
 dlfcn.h
 -
 EGL/egl.h
 -
 ../deps/EGL/eglext.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/EGL/eglext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/EGL/eglext.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glfw_config.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glfw_config.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 string.h
 -
 stdlib.h
@@ -130,15 +130,15 @@ assert.h
 dlfcn.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.h
 GL/glx.h
 -
 ../deps/GL/glxext.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glxext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glxext.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/init.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/init.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 string.h
 -
 stdlib.h
@@ -148,33 +148,33 @@ stdio.h
 stdarg.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/input.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/input.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 stdlib.h
 -
 malloc.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 glfw_config.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glfw_config.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glfw_config.h
 ../include/GLFW/glfw3.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/include/GLFW/glfw3.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/include/GLFW/glfw3.h
 ../deps/GL/glext.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/glext.h
 cocoa_platform.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/cocoa_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/cocoa_platform.h
 win32_platform.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_platform.h
 x11_platform.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_platform.h
 wl_platform.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wl_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wl_platform.h
 mir_platform.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/mir_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/mir_platform.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/iokit_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/iokit_joystick.h
 IOKit/IOKitLib.h
 -
 IOKit/IOCFPlugIn.h
@@ -184,9 +184,9 @@ IOKit/hid/IOHIDLib.h
 IOKit/hid/IOHIDKeys.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 linux/joystick.h
 -
 sys/types.h
@@ -210,11 +210,11 @@ string.h
 unistd.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
 regex.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/mir_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/mir_platform.h
 sys/queue.h
 -
 pthread.h
@@ -222,19 +222,19 @@ pthread.h
 mir_toolkit/mir_client_library.h
 -
 posix_tls.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
 posix_time.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
 linux_joystick.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
 xkb_unicode.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
 egl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/monitor.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/monitor.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 math.h
 -
 float.h
@@ -246,33 +246,33 @@ stdlib.h
 limits.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/nsgl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/nsgl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 sys/time.h
 -
 time.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
 stdint.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
 pthread.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wgl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wgl_context.h
 ../deps/GL/wglext.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/wglext.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/GL/wglext.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_platform.h
 windows.h
 -
 mmsystem.h
@@ -282,45 +282,45 @@ dbt.h
 malloc.h
 -
 win32_tls.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_tls.h
 winmm_joystick.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/winmm_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/winmm_joystick.h
 wgl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wgl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wgl_context.h
 egl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/win32_tls.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/window.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/window.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 string.h
 -
 stdlib.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/winmm_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/winmm_joystick.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wl_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/wl_platform.h
 wayland-client.h
 -
 xkbcommon/xkbcommon.h
 -
 posix_tls.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
 posix_time.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
 linux_joystick.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
 xkb_unicode.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
 egl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_init.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_init.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 X11/Xresource.h
 -
 stdlib.h
@@ -334,9 +334,9 @@ stdio.h
 locale.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_monitor.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_monitor.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 limits.h
 -
 stdlib.h
@@ -344,7 +344,7 @@ stdlib.h
 string.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_platform.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_platform.h
 unistd.h
 -
 signal.h
@@ -370,21 +370,21 @@ X11/extensions/XInput2.h
 X11/extensions/xf86vmode.h
 -
 posix_tls.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_tls.h
 posix_time.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/posix_time.h
 linux_joystick.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/linux_joystick.h
 xkb_unicode.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
 glx_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/glx_context.h
 egl_context.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/egl_context.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_window.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/x11_window.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 X11/cursorfont.h
 -
 X11/Xmd.h
@@ -404,9 +404,9 @@ errno.h
 assert.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.c
 internal.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/internal.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/xkb_unicode.h
 

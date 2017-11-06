@@ -1,14 +1,38 @@
-This is the repository for a software, built using C++, for embedded systems which uses Computer Graphics to create in real-time a estimate representation of the Computer Vision obtained by Autonomous Cars.
+The repository for this project is empty - not
 
-The project is part of the Undergraduate thesis of Felipe Tavares and João Guilherme Costa, by the orientation of Giovanis Vitor, for the Computer Engineering Degree at Universidade Federal de Itajubá - Itabira campus.
+If you already have files you can push them using command line instructions below.
 
+Otherwise you can start with adding a README, a LICENSE, or a .gitignore to this project.
 
-There is more information about the development of the project in this Logbook created in Google Docs (it's in Portuguese): https://goo.gl/JFWCDY
+You will need to be owner or have the master permission level for the initial push, as the master branch is automatically protected.
+Command line instructions
+Git global setup
 
+git config --global user.name "OptionalLanguor"
+git config --global user.email "felmt@hotmail.com"
 
-The expected present date of the Undergraduate Thesis is Jun. of 2018.
+Create a new repository
 
+git clone https://gitlab.com/OptionalLanguor/kagami-automata-visualization.git
+cd kagami-automata-visualization
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
 
-Contact:    
-Felipe Tavares - felmt@hotmail.com;
-João Guilherme Costa - joao_rln27@hotmail.com
+Existing folder
+
+cd existing_folder
+git init
+git remote add origin https://gitlab.com/OptionalLanguor/kagami-automata-visualization.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+Existing Git repository
+
+cd existing_repo
+git remote add origin https://gitlab.com/OptionalLanguor/kagami-automata-visualization.git
+git push -u origin --all
+git push -u origin --tags
+

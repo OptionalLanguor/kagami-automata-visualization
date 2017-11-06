@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "System.hpp"
+#include "Engine.hpp"
 #include "../common/shader.hpp"
 
 #include "../common/controls.hpp" // To use computeMatricesFromInputs()

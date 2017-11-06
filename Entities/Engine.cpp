@@ -169,7 +169,7 @@ void Engine::Initialization(void)
 		printf("RendererSystem couldn't be initialized at Engine\n");
 	return;
 
-	isWorldMoving = false;
+	worldMoving = false;
 }
 
 void Engine::Update()// float dt );
@@ -231,6 +231,6 @@ void Engine::AddEnt(Entity* ent)
 
 void Engine::MoveWorld(glm::vec3 transform)
 {
-	isWorldMoving = true;
+	worldMoving = true;
 	worldTransform = transform;
 }

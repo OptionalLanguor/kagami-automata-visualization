@@ -1,8 +1,8 @@
-# Install script for directory: /home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src
+# Install script for directory: /home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/aluno/Kagami/kagami-automata-visualization/bin")
+  set(CMAKE_INSTALL_PREFIX "/home/chiruno/Kagami/kagami-automata-visualization/bin")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -32,7 +32,12 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/libglfw3.a")
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/libglfw3.a")
 endif()
 

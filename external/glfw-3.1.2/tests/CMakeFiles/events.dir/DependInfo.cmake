@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.c" "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o"
-  "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/events.c" "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o"
+  "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.c" "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/CMakeFiles/events.dir/__/deps/getopt.c.o"
+  "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/events.c" "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/CMakeFiles/events.dir/events.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -26,7 +26,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/CMakeFiles/glfw.dir/DependInfo.cmake"
+  "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/src/CMakeFiles/glfw.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

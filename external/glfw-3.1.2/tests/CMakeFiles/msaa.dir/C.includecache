@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.c
 getopt.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.h
 stddef.h
 -
 string.h
 -
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/deps/getopt.h
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/msaa.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/msaa.c
 GLFW/glfw3.h
 -
 stdio.h
@@ -24,7 +24,7 @@ stdio.h
 stdlib.h
 -
 getopt.h
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/getopt.h
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/tests/getopt.h
 
 external/glfw-3.1.2/deps/GL/glext.h
 windows.h

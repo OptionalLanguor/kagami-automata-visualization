@@ -21,6 +21,10 @@ private:
 	static std::shared_ptr < std::vector<Entity*> > m_entities;
 	//static std::shared_ptr <GLFWwindow*> window;
 
+	static bool worldMoving;
+	static glm::vec3 worldTransform;
+
+
 	// ---------------------------------------------------------- These are from tomdalling
 	// convenience function that returns a translation matrix
 	static glm::mat4 translate(GLfloat x, GLfloat y, GLfloat z);
@@ -28,9 +32,7 @@ private:
 	// convenience function that returns a scaling matrix
 	static glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z);
 
-	bool worldMoving;
-	glm::vec3 worldTransform;
-
+	
 public:
 	//static GLFWwindow* getWindow();
 
@@ -54,9 +56,9 @@ public:
 	
 	void MoveWorld(glm::vec3 transform);
 
-	bool isWorldMoving(){return worldMoving;}
+	static bool isWorldMoving(){return worldMoving;}
 
-	glm::vec3 getWorldTransform(){return worldTransform;}
+	static glm::vec3 getWorldTransform(){return worldTransform;}
 };
 
 #endif

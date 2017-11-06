@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/examples/wave.c
+/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/examples/wave.c
 stdio.h
 -
 stdlib.h
