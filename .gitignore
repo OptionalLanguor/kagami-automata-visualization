@@ -9,10 +9,81 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 
+# Debug files
+log.txt
+output.txt
+
 # Compiled object files
 *.o
 
 # Executables
+*.a
 *.exe
 *.out
 *.app
+
+# external/
+	# CMake files
+	external/CMakeCache.txt
+	external/CMakeFiles
+	external/CMakeScripts
+	external/Testing
+	external/Makefile
+	external/cmake_install.cmake
+	external/install_manifest.txt
+	external/compile_commands.json
+	external/CTestTestfile.cmake
+
+	# Executables
+	external/*.a
+	external/*.exe
+	external/*.out
+	external/*.app
+
+	# external/glfw-3.1.2/
+		# CMake files
+		external/glfw-3.1.2/CMakeCache.txt
+		external/glfw-3.1.2/CMakeFiles
+		external/glfw-3.1.2/CMakeScripts
+		external/glfw-3.1.2/Testing
+		external/glfw-3.1.2/Makefile
+		external/glfw-3.1.2/cmake_install.cmake
+		external/glfw-3.1.2/install_manifest.txt
+		external/glfw-3.1.2/compile_commands.json
+		external/glfw-3.1.2/CTestTestfile.cmake
+
+		# external/glfw-3.1.2/src/
+			# CMake files
+			external/glfw-3.1.2/src/CMakeCache.txt
+			external/glfw-3.1.2/src/CMakeFiles
+			external/glfw-3.1.2/src/CMakeScripts
+			external/glfw-3.1.2/src/Testing
+			external/glfw-3.1.2/src/Makefile
+			external/glfw-3.1.2/src/cmake_install.cmake
+			external/glfw-3.1.2/src/install_manifest.txt
+			external/glfw-3.1.2/src/compile_commands.json
+			external/glfw-3.1.2/src/CTestTestfile.cmake
+
+			# Executables
+			external/glfw-3.1.2/src/*.a
+			external/glfw-3.1.2/src/*.exe
+			external/glfw-3.1.2/src/*.out
+			external/glfw-3.1.2/src/*.app
+
+		# external/glfw-3.1.2/tests/
+			# CMake files
+			external/glfw-3.1.2/tests/CMakeCache.txt
+			external/glfw-3.1.2/tests/CMakeFiles
+			external/glfw-3.1.2/tests/CMakeScripts
+			external/glfw-3.1.2/tests/Testing
+			external/glfw-3.1.2/tests/Makefile
+			external/glfw-3.1.2/tests/cmake_install.cmake
+			external/glfw-3.1.2/tests/install_manifest.txt
+			external/glfw-3.1.2/tests/compile_commands.json
+			external/glfw-3.1.2/tests/CTestTestfile.cmake
+
+			# Executables
+			external/glfw-3.1.2/tests/*.a
+			external/glfw-3.1.2/tests/*.exe
+			external/glfw-3.1.2/tests/*.out
+			external/glfw-3.1.2/tests/*.app
