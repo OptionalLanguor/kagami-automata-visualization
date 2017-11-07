@@ -170,6 +170,9 @@ void Engine::Initialization(void)
 	return;
 
 	worldMoving = false;
+
+	//For test purpose, world is moving.
+	MoveWorld(glm::vec3(0,1,5));
 }
 
 void Engine::Update()// float dt );

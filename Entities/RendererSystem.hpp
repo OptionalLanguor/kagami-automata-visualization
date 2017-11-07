@@ -4,11 +4,16 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/gtc/matrix_transform.hpp> // For glm::translate()
+
 #include "System.hpp"
 #include "Engine.hpp"
 #include "../common/shader.hpp"
 
 #include "../common/controls.hpp" // To use computeMatricesFromInputs()
+
+
+//#include <iostream>
 
 //---------------------------------------------------------------------------------------------------------
 /* RendererSystem
@@ -154,12 +159,9 @@ public:
 		std::vector<RenderableComponent> renderableComponents;
 		for(std::vector<Entity*>::const_iterator it = m_entities->begin(); it!=m_entities->end(); ++it){
 			renderableComponents = (**it).getRenderableComponents();
-			if(Engine::isWorldMoving())
-			{
-				
-			}
-			for(std::vector<RenderableComponent>::iterator it2 = renderableComponents.begin(); it2 != renderableComponents.end(); it2++)
+			for(std::vector<RenderableComponent>::iterator it2 = renderableComponents.begin(); it2 != renderableComponents.end(); it2++){
 				drawRenderableComponent(*it2, ProjectionMatrix, ViewMatrix);
+			}
 		}
 
 		glDisableVertexAttribArray(0);
@@ -172,6 +174,21 @@ public:
 	}
 
 	void update(){
+		// Conditional to move all the world elements
+		if(Engine::isWorldMoving()){
+			std::vector<RenderableComponent> renderableComponents;
+			for(std::vector<Entity*>::iterator it = m_entities->begin(); it!=m_entities->end(); ++it){
+				renderableComponents = (**it).getRenderableComponents();
+				for(std::vector<RenderableComponent>::iterator it2 = renderableComponents.begin(); it2 != renderableComponents.end(); it2++){
+					if(it2 != renderableComponents.begin()){ // Assuming the first element is the car
+						//std::cout << it2->transformMatrix << endl << endl;
+						it2->transformMatrix = glm::translate(it2->transformMatrix, Engine::getWorldTransform());
+						//std::cout << it2->transformMatrix << endl << endl;
+					}
+				}
+			}
+		}
+		
 		draw();
 	}
 };

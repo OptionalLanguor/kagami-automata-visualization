@@ -1,4 +1,4 @@
-prefix=/home/chiruno/Kagami/kagami-automata-visualization/bin
+prefix=/home/aluno/Kagami/kagami-automata-visualization/bin
 exec_prefix=${prefix}
 includedir=${prefix}/include
 libdir=${exec_prefix}/lib
