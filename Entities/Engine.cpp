@@ -34,6 +34,13 @@ glm::mat4 Engine::scale(GLfloat x, GLfloat y, GLfloat z) {
     return glm::scale(glm::mat4(), glm::vec3(x,y,z));
 }
 
+bool Engine::isWorldMoving(){
+	return worldMoving;
+}
+
+glm::vec3 Engine::getWorldTransform(){
+	return worldTransform;
+}
 
 /*GLFWwindow* Engine:: getWindow()
 {
@@ -169,7 +176,7 @@ void Engine::Initialization(void)
 		printf("RendererSystem couldn't be initialized at Engine\n");
 	return;
 
-	worldMoving = false;
+	//worldMoving = false;
 
 	//For test purpose, world is moving.
 	MoveWorld(glm::vec3(0,1,5));
@@ -234,6 +241,6 @@ void Engine::AddEnt(Entity* ent)
 
 void Engine::MoveWorld(glm::vec3 transform)
 {
-	worldMoving = true;
+	this->worldMoving = true;
 	worldTransform = transform;
 }

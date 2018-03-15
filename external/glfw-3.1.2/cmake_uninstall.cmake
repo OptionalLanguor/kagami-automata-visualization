@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: \"/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt\"")
+if (NOT EXISTS "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: \"/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt\"")
 endif()
 
-file(READ "/home/aluno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt" files)
+file(READ "/home/chiruno/Kagami/kagami-automata-visualization/external/glfw-3.1.2/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})

@@ -56,9 +56,9 @@ public:
 	
 	void MoveWorld(glm::vec3 transform);
 
-	static bool isWorldMoving(){return worldMoving;}
+	static bool isWorldMoving();
 
-	static glm::vec3 getWorldTransform(){return worldTransform;}
+	static glm::vec3 getWorldTransform();
 };
 
 #endif

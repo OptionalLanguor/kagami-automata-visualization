@@ -125,7 +125,7 @@ struct Light {
 */
 
 int main(){
-	printf("Hey\n");
+    printf("Hey, Kagami is starting.\n");
 	Engine* Kagami = new Engine();
 	Kagami->Run();
 	

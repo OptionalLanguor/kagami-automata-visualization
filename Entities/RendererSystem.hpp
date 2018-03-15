@@ -8,6 +8,7 @@
 
 #include "System.hpp"
 #include "Engine.hpp"
+
 #include "../common/shader.hpp"
 
 #include "../common/controls.hpp" // To use computeMatricesFromInputs()
@@ -176,6 +177,7 @@ public:
 	void update(){
 		// Conditional to move all the world elements
 		if(Engine::isWorldMoving()){
+			printf("World is moving!\n");
 			std::vector<RenderableComponent> renderableComponents;
 			for(std::vector<Entity*>::iterator it = m_entities->begin(); it!=m_entities->end(); ++it){
 				renderableComponents = (**it).getRenderableComponents();
@@ -188,6 +190,7 @@ public:
 				}
 			}
 		}
+		//printf("%f %f %f\n", );
 		
 		draw();
 	}
