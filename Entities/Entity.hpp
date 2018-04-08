@@ -13,7 +13,7 @@
 class Entity
 {
 private:
- 	static const unsigned int MAX_COMPONENTS = 64;
+ 	static const unsigned int MAX_COMPONENTS = 10000;
  	static GLuint current_id;
 
 public:
@@ -45,6 +45,18 @@ public:
 		else{
 			RenderableComponent* rComp = new RenderableComponent();
 			rComp->initialize(modelPath, transf);
+			renderableComponents.push_back(*rComp);
+			return true;
+		}
+	}
+
+	bool addRenderableComponent(std::string modelPath, glm::mat4 transf, glm::vec3 mColor)
+	{
+		if(sizeComponents() > MAX_COMPONENTS)
+			return false;
+		else{
+			RenderableComponent* rComp = new RenderableComponent();
+			rComp->initialize(modelPath, transf, mColor);
 			renderableComponents.push_back(*rComp);
 			return true;
 		}

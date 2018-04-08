@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <vector>
+#include <fstream>
+#include <string>
 
 #include "System.hpp"
 #include "Entity.hpp" 
@@ -55,22 +57,59 @@ void Engine::Run(void)
 
 
 	printf("Alocatting objs to test...");
-
+	
 	Entity* newEntity = new Entity();
+	/*
 	newEntity->initialize();
 	newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
 	AddEnt(newEntity);
-
+	*/
+	
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("desert city.obj", translate(0,5,0));
+	newEntity->addRenderableComponent("desert city.obj", translate(0,-5,0));
 	AddEnt(newEntity);
-
+	
 	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
 	AddEnt(newEntity);
 
+		//Point points;
+		std::fstream reader_file;
+	    reader_file.open ("color_cloud.xyz");
+		printf("Aberta color_cloud\n");
+
+		std::vector<std::string> inputPoint(3);
+		glm::vec3 inputColor;
+		
+		newEntity = new Entity();
+		newEntity->initialize();
+
+		if(reader_file.is_open()){    
+			int i = 0, auxInt;
+			while(!reader_file.eof()){
+
+				reader_file >> inputPoint[0] >> inputPoint[1] >> inputPoint[2] >> auxInt >> 
+					inputColor[2] >> inputColor[1] >> inputColor[0];
+
+				std::string auxStr = std::string(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2]);
+				
+				newEntity->addRenderableComponent(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2], 
+						translate(0, 0, 0), inputColor);
+				
+				//colorCloud.push_back(points);		
+				//cout << points.x << " " << points.y << " "  << points.z << " "  << points.intensidade << " "  << points.b << " "  << points.g << " "  << points.r << " "  << endl;
+				i++;
+			}
+		}
+		else	printf("Arquivo não encontrado\n");	
+		reader_file.close();
+		
+		printf("Number of renderableComponentes: %d\n", newEntity->sizeComponents());
+		AddEnt(newEntity);
+
+	
 	printf(" Done.\n");
 
 

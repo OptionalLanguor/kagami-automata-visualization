@@ -30,7 +30,7 @@ public:
 	GLuint vbo;
 	GLenum drawType;
 	GLfloat shininess;
-	glm::vec3 specularColor;
+	glm::vec3 materialColor;
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
 	GLuint normalbuffer;
@@ -42,7 +42,7 @@ public:
 		vbo(0),
 		drawType(GL_TRIANGLES),
 		shininess(0.0f),
-		specularColor(1.0f, 1.0f, 1.0f),
+		materialColor(1.0f, 1.0f, 1.0f),
 		vertexbuffer(0),
 		uvbuffer(0),
 		normalbuffer(0),

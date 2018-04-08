@@ -2,8 +2,25 @@
 #define KAGAMI_ENTITIES_RENDERABLECOMPONENT_H_
 
 #include <string>
+#include <sstream>
+
 #include <GL/glew.h>
 #include <Component.hpp>
+
+struct Point{
+	double x, y, z;
+	int intensidade;
+	int r, g, b;
+
+	void draw(){
+		glPointSize(1.0f);
+        glBegin(GL_POINTS);
+			glColor3f(r, g, b);
+			glVertex3f(x, y, z);	  
+        glEnd();
+		//cout << r << " " << g << " " << b  << endl;
+	}
+};
 
 class RenderableComponent : public Component{
 public:
@@ -13,7 +30,7 @@ public:
 	std::string modelPath;
 
 	RenderableComponent() :
-		properties(NULL),
+		properties(new ModelProperties()),
 		transformMatrix(),
 		modelPath()
 	{}
@@ -28,8 +45,7 @@ public:
 
 	// Function to place an object in the scene
 	bool initialize()
-	{
-		properties = new ModelProperties(); 
+	{ 
 		properties->shininess = 80.0; //Value used by tomdalling
 
 		// Binding arrays
@@ -46,13 +62,56 @@ public:
 		std::vector<glm::vec3> vertices;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> normals; // Won't be used at the moment.
-		printf("Opening the .obj\n");
-		//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
-		bool res = loadOBJ(modelPath.c_str(), vertices, uvs, normals);
-		printf(".obj opened.\n");
-		
-		properties->vertexSize = vertices.size();
 
+		if(modelPath.find(".obj") != std::string::npos)
+		{
+			printf("It's a .obj!\n");
+			
+			printf("Opening the .obj\n");
+			//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
+			bool res = loadOBJ(modelPath.c_str(), vertices, uvs, normals);
+			printf(".obj opened.\n");
+		}
+		else 
+		{
+			printf("It's a point of a point cloud!\n");
+
+			std::stringstream auxOutput;
+
+			auxOutput << modelPath;
+			glm::vec3 auxVert;
+			auxOutput >> auxVert.x >> auxVert.y >> auxVert.z;
+			//auxVert[0]*= 100;
+			//auxVert[1]*= 100;
+			//auxVert[2]*= 100;
+			vertices.push_back(auxVert);
+
+			printf("Point registered! %lf %lf %lf\n", vertices[0].x, vertices[0].y, vertices[0].z);
+			/*
+			//Point points;
+			fstream reader_file;
+		    reader_file.open (modelPath.c_str());
+			
+			if(reader_file.is_open()){    
+				int i = 0, auxInt;
+				while(!reader_file.eof()){
+					reader_file >> vertices[i][0] >> vertices[i][1] >> vertices[i][2] >> auxInt >> 
+						properties.materialColor[2] >> properties.materialColor[1] >> properties.materialColor[0];
+					//colorCloud.push_back(points);		
+
+					//cout << points.auxVert" << points.y << " "  << points.z << " "  << points.intensidade << " "  << points.b << " "  << points.g << " "  << points.r << " "  << endl;
+								vertices.push_back(auxVert);i++;
+
+				}
+			}
+			else	
+				cout << "Arquivo não encontrado" << endl;	
+			reader_file.close();
+			*/
+		}
+
+		properties->vertexSize = vertices.size();
+		printf("Vertices size: %d\n", vertices.size());
 		// Load it into a VBO
 		//GLuint vertexbuffer;
 		glGenBuffers(1, &properties->vertexbuffer);
@@ -80,6 +139,14 @@ public:
 		init_isOK &= initialize();
 
 		return init_isOK;
+	}
+
+	bool initialize(std::string modelPath, glm::mat4 &transf, glm::vec3 &mColor)
+	{
+		properties->materialColor = mColor;
+		initialize(modelPath, transf);
+
+		return true;
 	}
 
 	bool desalocate()
