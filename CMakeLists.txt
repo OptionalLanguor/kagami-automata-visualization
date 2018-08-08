@@ -5,7 +5,7 @@
 project(Kagami)
 cmake_minimum_required(VERSION 2.8)
 
-set(CMAKE_PREFIX_PATH "/home/aluno/Kagami/kagami-automata-visualization")
+#set(CMAKE_PREFIX_PATH "/home/aluno/Kagami/kagami-automata-visualization")
 
 if( CMAKE_SOURCE_DIR MATCHES " " )
 	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
@@ -33,7 +33,7 @@ set(${PROJECT_NAME}_ROOT_DIR         ${CMAKE_SOURCE_DIR})
 SET(CMAKE_MODULE_PATH                ${${PROJECT_NAME}_ROOT_DIR}/cmake)
 SET(CMAKE_CURRENT_BINARY_DIR            ${${PROJECT_NAME}_ROOT_DIR}/build)
 SET(CMAKE_INSTALL_PREFIX             ${${PROJECT_NAME}_ROOT_DIR}/bin)
-SET(PROJECT_SOURCE_DIR 				${PROJECT_NAME})
+#SET(PROJECT_SOURCE_DIR 				${PROJECT_NAME})
 
 
 ################################################################################
@@ -78,7 +78,19 @@ include_directories(external/glew-1.13.0/include/)
 
 
 ################################################################################
-# GLFW
+# glfw
+
+#find_package(glfw3)
+
+find_package(glfw3 REQUIRED)
+
+include_directories(${glfw3_INCLUDE_DIRS})
+link_directories(${glfw3_LIBRARY_DIRS})
+add_definitions(${glfw3_DEFINITIONS})
+
+if(NOT glfw3_FOUND)
+        message(Error "glfw3 not found")
+endif(NOT glfw3_FOUND)
 
 #When including GLFW as part of your build, you probably don't want to build the GLFW tests, examples and documentation. To disable these, set the corresponding cache variables before adding the GLFW source tree.
 #set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
@@ -86,26 +98,25 @@ include_directories(external/glew-1.13.0/include/)
 #set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 #add_subdirectory(external/glfw-3.1.2/)
-include_directories(external/glfw-3.1.2/include/GLFW)
+#include_directories(external/glfw-3.1.2/include/GLFW)
 
 
 ################################################################################
 # GLM
 
-include_directories(external/glm-0.9.7.1/) #Using a current compiled version of GLM for this computer, I used this from the OpenGL tutorial	
-
 #The commands bellow arent supported anymore by cmake, so the glm library was downloaded
 #manually and included in the project by the command right up.
 
+find_package(GLM REQUIRED)
 
-#find_package(GLM REQUIRED)
-#include_directories(${GLM_INCLUDE_DIRS})
-#link_directories(${GLM_LIBRARY_DIRS})
-#add_definitions(${GLM_DEFINITIONS})
+include_directories(${GLM_INCLUDE_DIRS})
+#include_directories(external/glm-0.9.7.1/) #Using a current compiled version of GLM for this computer, I used this from the OpenGL tutorial	
+link_directories(${GLM_LIBRARY_DIRS})
+add_definitions(${GLM_DEFINITIONS})
 
-#if(NOT GLM_FOUND)
-#        message(Error "GLM not found")
-#endif(NOT GLM_FOUND)
+if(NOT GLM_FOUND)
+        message(Error "GLM not found")
+endif(NOT GLM_FOUND)
 
 
 ################################################################################
@@ -168,17 +179,17 @@ add_executable(${PROJECT_NAME} ${HDRS} ${SRCS} ${SHADERS})
 # LIBS
 set(LIBS
     ${OPENGL_LIBRARIES}
-    #${GLEW_LIBRARIES} 
+    #${GLEW_LIBRARIES}
     glfw
     GLEW_1130
-    #${GLFW_LIBRARIES}
+    ${GLFW_LIBRARIES}
     #${GLUT_LIBRARIES}
     ${GLM_LIBRARIES}
-    
+
 )
 
 # LINK
-target_link_libraries(${PROJECT_NAME} ${LIBS})
+target_link_libraries(${PROJECT_NAME} ${LIBS} glfw)
 
 # Xcode and Visual working directories
 set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/")
