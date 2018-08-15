@@ -10,8 +10,7 @@
 #include <GLFW/glfw3.h>
 
 #include "System.hpp"
-#include "Entity.hpp" 
-
+#include "Entity.hpp"
 
 class Engine
 {
@@ -24,17 +23,16 @@ private:
 	static bool worldMoving;
 	static glm::vec3 worldTransform;
 
-
-	// ---------------------------------------------------------- These are from tomdalling
-	// convenience function that returns a translation matrix
+	// ----- These are from tomdalling
+	// Convenience function that returns a translation matrix
 	static glm::mat4 translate(GLfloat x, GLfloat y, GLfloat z);
 
-	// convenience function that returns a scaling matrix
+	// onvenience function that returns a scaling matrix
 	static glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z);
 
-	
 public:
 	//static GLFWwindow* getWindow();
+	void loadObjectsFile(std::string);
 
 	void Run(void);
 
@@ -51,9 +49,9 @@ public:
 	bool Finalization(void);
 
 	void AddSys(System* sys);
-	
+
 	void AddEnt(Entity* ent);
-	
+
 	void MoveWorld(glm::vec3 transform);
 
 	static bool isWorldMoving();

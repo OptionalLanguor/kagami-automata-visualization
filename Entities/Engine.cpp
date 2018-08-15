@@ -49,14 +49,41 @@ glm::vec3 Engine::getWorldTransform(){
 	return *window;
 }*/
 
+void Engine::loadObjectsFile(std::string filepath)
+{
+	std::ifstream inputHandle(filepath);
+
+	if (inputHandle.is_open())
+	{
+		// read path to .obj, values to tranlate and values to scale
+		std::string objPath;
+		float translateX, translateY, translateZ, scaleX, scaleY, scaleZ;
+
+		inputHandle >> objPath >> translateX >> translateY >> translateZ >> scaleX >> scaleY >> scaleZ;
+
+		Entity* newEntity;
+		newEntity = new Entity();
+		newEntity->initialize();
+		newEntity->addRenderableComponent(objPath, translate(translateX,translateY,translateZ) * scale(scaleX,scaleY,scaleZ));
+		AddEnt(newEntity);
+
+		inputHandle.close();
+
+	}
+	else fprintf (stderr, "Failed to open file with objects.\n" );
+
+	return;
+}
+
 void Engine::Run(void)
 {
 	printf("Entering Engine::Initialization()...\n");
 	Initialization();
 	printf("Engine::Initialization() Done.\n");
 
-
 	printf("Alocatting objs to test...");
+
+	loadObjectsFile("obj1.txt");
 
 	Entity* newEntity;
 
