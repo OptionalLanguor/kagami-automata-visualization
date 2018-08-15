@@ -82,11 +82,11 @@ include_directories(external/glew-1.13.0/include/)
 
 #find_package(glfw3)
 
-find_package(glfw3 REQUIRED)
+#find_package(glfw3 REQUIRED)
 
-include_directories(${glfw3_INCLUDE_DIRS})
-link_directories(${glfw3_LIBRARY_DIRS})
-add_definitions(${glfw3_DEFINITIONS})
+#include_directories(${glfw3_INCLUDE_DIRS})
+#link_directories(${glfw3_LIBRARY_DIRS})
+#add_definitions(${glfw3_DEFINITIONS})
 
 if(NOT glfw3_FOUND)
         message(Error "glfw3 not found")
@@ -98,7 +98,7 @@ endif(NOT glfw3_FOUND)
 #set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 #add_subdirectory(external/glfw-3.1.2/)
-#include_directories(external/glfw-3.1.2/include/GLFW)
+include_directories(external/glfw-3.1.2/include/GLFW)
 
 
 ################################################################################
@@ -189,7 +189,7 @@ set(LIBS
 )
 
 # LINK
-target_link_libraries(${PROJECT_NAME} ${LIBS} glfw)
+target_link_libraries(${PROJECT_NAME} ${LIBS})
 
 # Xcode and Visual working directories
 set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/")

@@ -7,7 +7,7 @@
 #include <string>
 
 #include "System.hpp"
-#include "Entity.hpp" 
+#include "Entity.hpp"
 #include "RendererSystem.hpp"
 
 #include <GL/glew.h>
@@ -57,24 +57,25 @@ void Engine::Run(void)
 
 
 	printf("Alocatting objs to test...");
-	
-	Entity* newEntity = new Entity();
-	/*
+
+	Entity* newEntity;
+
+	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
 	AddEnt(newEntity);
-	*/
-	
+
 	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("desert city.obj", translate(0,-5,0));
 	AddEnt(newEntity);
-	
+
 	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
 	AddEnt(newEntity);
 
+		/*
 		//Point points;
 		std::fstream reader_file;
 	    reader_file.open ("color_cloud.xyz");
@@ -82,34 +83,35 @@ void Engine::Run(void)
 
 		std::vector<std::string> inputPoint(3);
 		glm::vec3 inputColor;
-		
+
 		newEntity = new Entity();
 		newEntity->initialize();
 
-		if(reader_file.is_open()){    
+		if(reader_file.is_open()){
 			int i = 0, auxInt;
 			while(!reader_file.eof()){
 
-				reader_file >> inputPoint[0] >> inputPoint[1] >> inputPoint[2] >> auxInt >> 
+				reader_file >> inputPoint[0] >> inputPoint[1] >> inputPoint[2] >> auxInt >>
 					inputColor[2] >> inputColor[1] >> inputColor[0];
 
 				std::string auxStr = std::string(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2]);
-				
-				newEntity->addRenderableComponent(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2], 
+
+				newEntity->addRenderableComponent(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2],
 						translate(0, 0, 0), inputColor);
-				
-				//colorCloud.push_back(points);		
+
+				//colorCloud.push_back(points);
 				//cout << points.x << " " << points.y << " "  << points.z << " "  << points.intensidade << " "  << points.b << " "  << points.g << " "  << points.r << " "  << endl;
 				i++;
 			}
 		}
-		else	printf("Arquivo não encontrado\n");	
+		else	printf("Arquivo não encontrado\n");
 		reader_file.close();
-		
+
+
 		printf("Number of renderableComponentes: %d\n", newEntity->sizeComponents());
 		AddEnt(newEntity);
+		*/
 
-	
 	printf(" Done.\n");
 
 
@@ -153,12 +155,12 @@ void Engine::Initialization(void)
 	//old Initialize GLEW
 	// Initialize GLEW
 	glewExperimental = GL_TRUE; //For VertexArrayID on the campus Ubuntu and for OSX
-		//As of writing this, GLEW has a few issues with the OpenGL core profile we are using. 
-		//Setting glewExperimental to true fixes the problem, 
+		//As of writing this, GLEW has a few issues with the OpenGL core profile we are using.
+		//Setting glewExperimental to true fixes the problem,
 		//but hopefully this won't be necessary in the future.
 
 	GLenum err = glewInit();
-	if (err != GLEW_OK) 
+	if (err != GLEW_OK)
 	{
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
@@ -187,12 +189,12 @@ void Engine::Initialization(void)
 	printf("After depth test.\n");
 
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 	printf("After DepthFunc.\n");
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
-	
+
 	// Get a handle for our "MVP" uniform
 	//GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 
@@ -201,14 +203,14 @@ void Engine::Initialization(void)
 
 	// Load the texture
 	//GLuint Texture = loadDDS("uvmap.DDS");
-	
+
 	// Get a handle for our "myTextureSampler" uniform
 	//GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
-	
+
 	//Rendering *render = new Rendering(m_models);
 	//render->assignModels(m_models);
 	RendererSystem *auxiliary_pointer =  new RendererSystem();
-	
+
 	if(auxiliary_pointer->initialize(window, m_entities))
 		AddSys(auxiliary_pointer);
 	else
@@ -218,7 +220,7 @@ void Engine::Initialization(void)
 	//worldMoving = false;
 
 	//For test purpose, world is moving.
-	MoveWorld(glm::vec3(0,1,5));
+	//MoveWorld(glm::vec3(0,1,5));
 }
 
 void Engine::Update()// float dt );
@@ -245,13 +247,13 @@ void Engine::RunLoop(void)
 	    }
 	    //end
 	    Update();
-		
+
 	} // Check if the ESC key was pressed or the window was closed
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
 		   glfwWindowShouldClose(window) == 0 );
 }
 
-	//Deletion of pointers
+// Deletion of pointers
 template <typename pointerType>
 void Engine::delete_pointed_to(pointerType* const ptr) { delete ptr; }
 

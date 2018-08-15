@@ -1,5 +1,5 @@
 /*
-Use standard order for readability and to avoid hidden dependencies: 
+Use standard order for readability and to avoid hidden dependencies:
 	Related header, C library, C++ library, other libraries' .h, your project's .h.
 */
 
@@ -17,7 +17,7 @@ Use standard order for readability and to avoid hidden dependencies:
 // Include error handling librarie
 #include <exception>
 
-// Include GLEW (OpenGL Extension Wrangler Library). 
+// Include GLEW (OpenGL Extension Wrangler Library).
 // Always include it before gl.h and glfw.h, since it's a bit magic.
 #include <GL/glew.h>
 
@@ -31,7 +31,7 @@ Use standard order for readability and to avoid hidden dependencies:
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-//Common 
+//Common
 #include "common/shader.hpp"
 //#include "common/texture.hpp"
 #include "common/controls.hpp"
@@ -39,7 +39,6 @@ using namespace glm;
 
 // Our libs
 #include "Entities/Engine.hpp"
-
 
 /* To generate Diagrams with doxygraph at terminal:
 	sudo perl doxygraph/doxygraph /home/aluno/Kagami/xml/index.xml doxyviz/htdocs/graph.dot
@@ -97,10 +96,10 @@ public:
 		while (alive(m_next))
 			++m_next.id;
 		m_entities.insert(m_next);
-		
+
 		return m_next;
 	}
-	
+
 	bool alive(Entity e)
 	{
 		return m_entities.has(e);
@@ -114,7 +113,7 @@ public:
 
 /*
  Represents a point light
- 
+
 struct Light {
     glm::vec3 position;
     glm::vec3 intensities; //a.k.a. the color of the light
@@ -125,9 +124,9 @@ struct Light {
 */
 
 int main(){
-    printf("Hey, Kagami is starting.\n");
+  printf("Hey, Kagami is starting.\n");
 	Engine* Kagami = new Engine();
 	Kagami->Run();
-	
+
 	return 0;
 }

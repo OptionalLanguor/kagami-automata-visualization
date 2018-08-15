@@ -20,7 +20,7 @@ public:
 
 	const GLuint id;
 	std::vector<RenderableComponent> renderableComponents;
-	
+
 	Entity(): id(current_id++) {}
 	bool initialize()
 	{
