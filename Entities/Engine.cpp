@@ -56,17 +56,50 @@ void Engine::loadObjectsFile(std::string filepath)
 	if (inputHandle.is_open())
 	{
 		// read path to .obj, values to tranlate and values to scale
-		std::string objPath;
-		float translateX, translateY, translateZ, scaleX, scaleY, scaleZ;
+		std::string objPath = "empty";
+		unsigned int semantic_class;
+		double x_centroid, y_centroid, z_centroid, theta, width, height, lenght;
 
-		inputHandle >> objPath >> translateX >> translateY >> translateZ >> scaleX >> scaleY >> scaleZ;
+		while(inputHandle >> x_centroid >> y_centroid >> z_centroid >> theta >> width >> height >> lenght >> semantic_class)
+		{
+			// Respective model for semantic_class
+			// void
+			if (semantic_class == 0)
+				objPath = "hazelnut.obj";
+			// car
+			else if (semantic_class == 1)
+				objPath = "nope"; // "golf-cart.obj";
+			// street
+			else if (semantic_class == 2)
+				objPath = "nope"; // "hazelnut.obj";
+			// tree
+			else if (semantic_class == 3)
+				objPath = "hazelnut.obj";
+			// sky
+			else if (semantic_class == 4)
+				objPath = "hazelnut.obj";
+			// sidewalk
+			else if (semantic_class == 5)
+				objPath = "hazelnut.obj";
+			// house
+			else if (semantic_class == 6)
+				objPath = "hazelnut.obj";
+			else
+				fprintf(stderr, "Semantic class invalid.\n");
 
-		Entity* newEntity;
-		newEntity = new Entity();
-		newEntity->initialize();
-		newEntity->addRenderableComponent(objPath, translate(translateX,translateY,translateZ) * scale(scaleX,scaleY,scaleZ));
-		AddEnt(newEntity);
+			double street_plane_offset = 0.0674;
+			double distance_scale = 10;
 
+			Entity *newEntity;
+			newEntity = new Entity();
+			newEntity->initialize();
+			newEntity->addRenderableComponent(objPath, 
+							translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid), distance_scale * (z_centroid)) 
+							* scale(distance_scale * width, distance_scale * height, distance_scale * lenght));
+							//translate(x_centroid * -10, (y_centroid - street_plane_offset) * -10, z_centroid * 10) 
+							//* scale(width, height, lenght));
+			AddEnt(newEntity);
+		}
 		inputHandle.close();
 
 	}
@@ -83,25 +116,29 @@ void Engine::Run(void)
 
 	printf("Alocatting objs to test...");
 
-	loadObjectsFile("obj1.txt");
+	// loadObjectsFile("obj1.txt");
+	// loadObjectsFile("obj-car.txt");
+	loadObjectsFile("input_3d-environment.txt");
 
 	Entity* newEntity;
 
+	/*
 	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
 	AddEnt(newEntity);
+	*/
 
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("desert city.obj", translate(0,-5,0));
+	newEntity->addRenderableComponent("desert city.obj", translate(0,0,0));
 	AddEnt(newEntity);
-
+	/*
 	newEntity = new Entity();
 	newEntity->initialize();
 	newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
 	AddEnt(newEntity);
-
+	*/
 		/*
 		//Point points;
 		std::fstream reader_file;
@@ -171,7 +208,7 @@ void Engine::Initialization(void)
 	// Open a window and create its OpenGL context
 	window = glfwCreateWindow( 1024, 768, "Kagami - Automata Visualization", NULL, NULL);
 	if( window == NULL ){
-		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
+		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version.\n" );
 		getchar();
 		glfwTerminate();
 		return;
@@ -250,7 +287,7 @@ void Engine::Initialization(void)
 	//MoveWorld(glm::vec3(0,1,5));
 }
 
-void Engine::Update()// float dt );
+void Engine::Update()
 {
 	for(std::vector<System*>::iterator it = m_systems->begin(); it!= m_systems->end(); it++)
 		(*it)->update();
@@ -297,15 +334,8 @@ bool Engine::Finalization(void)
 	return true;
 }
 
-void Engine::AddSys(System* sys)
-{
-	m_systems->push_back(sys);
-}
-
-void Engine::AddEnt(Entity* ent)
-{
-	Engine::m_entities->push_back(ent);
-}
+void Engine::AddSys(System* sys) {	m_systems->push_back(sys);}
+void Engine::AddEnt(Entity* ent) {	Engine::m_entities->push_back(ent);}
 
 void Engine::MoveWorld(glm::vec3 transform)
 {

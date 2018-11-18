@@ -3,10 +3,13 @@
 
 #include <string>
 #include <sstream>
+#include <cstring>
 
 #include <GL/glew.h>
+
 #include <Component.hpp>
 
+/*
 struct Point{
 	double x, y, z;
 	int intensidade;
@@ -21,6 +24,85 @@ struct Point{
 		//cout << r << " " << g << " " << b  << endl;
 	}
 };
+*/
+
+static const GLfloat standard_box[] = {
+	-1.0f, -1.0f, -1.0f, // triangle 1 : begin
+	-1.0f, -1.0f, 1.0f,
+	-1.0f, 1.0f, 1.0f, // triangle 1 : end
+	1.0f, 1.0f, -1.0f, // triangle 2 : begin
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, 1.0f, -1.0f, // triangle 2 : end
+	1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,
+	1.0f, 1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, 1.0f, 1.0f,
+	-1.0f, 1.0f, -1.0f,
+	1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
+	1.0f, -1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, -1.0f, -1.0f,
+	1.0f, 1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, -1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, -1.0f,
+	-1.0f, 1.0f, -1.0f,
+	1.0f, 1.0f, 1.0f,
+	-1.0f, 1.0f, -1.0f,
+	-1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	-1.0f, 1.0f, 1.0f,
+	1.0f, -1.0f, 1.0f
+};
+
+static const GLfloat standard_box_normals[] = {
+	-0.3333f, -0.3333f, -0.3333f, // triangle 1 : begin
+	-0.3333f, -0.3333f, 0.3333f,
+	-0.3333f, 0.3333f, 0.3333f, // triangle 1 : end
+	0.3333f, 0.3333f, -0.3333f, // triangle 2 : begin
+	-0.3333f, -0.3333f, -0.3333f,
+	-0.3333f, 0.3333f, -0.3333f, // triangle 2 : end
+	0.3333f, -0.3333f, 0.3333f,
+	-0.3333f, -0.3333f, -0.3333f,
+	0.3333f, -0.3333f, -0.3333f,
+	0.3333f, 0.3333f, -0.3333f,
+	0.3333f, -0.3333f, -0.3333f,
+	-0.3333f, -0.3333f, -0.3333f,
+	-0.3333f, -0.3333f, -0.3333f,
+	-0.3333f, 0.3333f, 0.3333f,
+	-0.3333f, 0.3333f, -0.3333f,
+	0.3333f, -0.3333f, 0.3333f,
+	-0.3333f, -0.3333f, 0.3333f,
+	-0.3333f, -0.3333f, -0.3333f,
+	-0.3333f, 0.3333f, 0.3333f,
+	-0.3333f, -0.3333f, 0.3333f,
+	0.3333f, -0.3333f, 0.3333f,
+	0.3333f, 0.3333f, 0.3333f,
+	0.3333f, -0.3333f, -0.3333f,
+	0.3333f, 0.3333f, -0.3333f,
+	0.3333f, -0.3333f, -0.3333f,
+	0.3333f, 0.3333f, 0.3333f,
+	0.3333f, -0.3333f, 0.3333f,
+	0.3333f, 0.3333f, 0.3333f,
+	0.3333f, 0.3333f, -0.3333f,
+	-0.3333f, 0.3333f, -0.3333f,
+	0.3333f, 0.3333f, 0.3333f,
+	-0.3333f, 0.3333f, -0.3333f,
+	-0.3333f, 0.3333f, 0.3333f,
+	0.3333f, 0.3333f, 0.3333f,
+	-0.3333f, 0.3333f, 0.3333f,
+	0.3333f, -0.3333f, 0.3333f
+};
 
 class RenderableComponent : public Component{
 public:
@@ -28,6 +110,7 @@ public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
 	std::string modelPath;
+
 
 	RenderableComponent() :
 		properties(new ModelProperties()),
@@ -68,11 +151,10 @@ public:
 			printf("It's a .obj!\n");
 			
 			printf("Opening the .obj\n");
-			//bool res = loadOBJ("desert city.obj", vertices, uvs, normals);
 			bool res = loadOBJ(modelPath.c_str(), vertices, uvs, normals);
 			printf(".obj opened.\n");
 		}
-		else 
+		else if (modelPath.find(".xyz") != std::string::npos)
 		{
 			printf("It's a point of a point cloud!\n");
 
@@ -109,20 +191,51 @@ public:
 			reader_file.close();
 			*/
 		}
+		else{
+
+			// A geometric form - as of writting the current standart is a box (fixed size of 36 vertices)
+			
+			GLfloat *box = new GLfloat[36 * 3];
+			std::memcpy(box, standard_box, sizeof(GLfloat) * 36 * 3);
+
+			GLfloat *normal_box = new GLfloat[36 * 3];
+			std::memcpy(box, standard_box_normals, sizeof(GLfloat) * 36 * 3);
+
+			for(int i = 0; i < 36 * 3; i)
+			{				
+				glm::vec3 auxVert, temp_normal;
+
+				auxVert.x = box[i];
+				temp_normal.x = normal_box[i++];
+
+				auxVert.y = box[i];
+				temp_normal.y = normal_box[i++];
+
+				auxVert.z = box[i];
+				temp_normal.z = normal_box[i++];
+
+				vertices.push_back(glm::vec3(auxVert));
+				normals.push_back(glm::vec3(temp_normal));
+			}
+			printf("\n");
+			printf("Geometric form registered! (Currently using standard box.)\n");
+		}
 
 		properties->vertexSize = vertices.size();
 		printf("Vertices size: %d\n", vertices.size());
+		printf("Normals size: %d\n", normals.size());
+
 		// Load it into a VBO
 		//GLuint vertexbuffer;
 		glGenBuffers(1, &properties->vertexbuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, properties->vertexbuffer);
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-
+		/*
 		//GLuint uvbuffer;
 		glGenBuffers(1, &properties->uvbuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, properties->uvbuffer);
 		glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
-
+		*/
 		//GLuint normalbuffer;
 		glGenBuffers(1, &properties->normalbuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, properties->normalbuffer);
@@ -140,20 +253,22 @@ public:
 
 		return init_isOK;
 	}
-
-	bool initialize(std::string modelPath, glm::mat4 &transf, glm::vec3 &mColor)
+	/*
+	bool initialize(std::string modelPath, glm::mat4 &transf, double x_pos, double y_pos,
+					double z_pos, double theta, double width, double height, double length)
 	{
-		properties->materialColor = mColor;
-		initialize(modelPath, transf);
+		bool init_isOK = assignModels(modelPath, transf);
+		init_isOK &= initialize();
 
-		return true;
+		return init_isOK;
 	}
-
+	*/
+	
 	bool desalocate()
 	{
 		// Cleanup VBO and shader
 		glDeleteBuffers(1, &properties->vertexbuffer);
-		glDeleteBuffers(1, &properties->uvbuffer);
+		//glDeleteBuffers(1, &properties->uvbuffer);
 		glDeleteBuffers(1, &properties->normalbuffer);
 		//glDeleteTextures(1, &Texture);
 		glDeleteVertexArrays(1, &properties->vao);

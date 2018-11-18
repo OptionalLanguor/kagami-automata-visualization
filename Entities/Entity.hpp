@@ -9,7 +9,6 @@
 #include "Component.hpp"
 #include "RenderableComponent.hpp"
 
-
 class Entity
 {
 private:
@@ -40,27 +39,31 @@ public:
 
 	bool addRenderableComponent(std::string modelPath, glm::mat4 transf)
 	{
-		if(sizeComponents() > MAX_COMPONENTS)
+		if (sizeComponents() > MAX_COMPONENTS)
 			return false;
-		else{
-			RenderableComponent* rComp = new RenderableComponent();
+		else
+		{
+			RenderableComponent *rComp = new RenderableComponent();
 			rComp->initialize(modelPath, transf);
 			renderableComponents.push_back(*rComp);
 			return true;
 		}
 	}
-
-	bool addRenderableComponent(std::string modelPath, glm::mat4 transf, glm::vec3 mColor)
+	
+	/*
+	bool addRenderableComponent(std::string modelPath, glm::mat4 transf, double x_centroid, double y_centroid,
+								double z_centroid, double theta, double width, double height, double lenght)
 	{
 		if(sizeComponents() > MAX_COMPONENTS)
 			return false;
 		else{
 			RenderableComponent* rComp = new RenderableComponent();
-			rComp->initialize(modelPath, transf, mColor);
+			rComp->initialize(modelPath, transf, x_centroid, y_centroid, z_centroid, theta, width, height, lenght);
 			renderableComponents.push_back(*rComp);
 			return true;
 		}
 	}
+	*/
 
 	unsigned int sizeComponents()
 	{
