@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <fstream>
 
 #include <GL/glew.h>
 
@@ -143,8 +144,8 @@ public:
 
 	    // Read our .obj file
 		std::vector<glm::vec3> vertices;
-		std::vector<glm::vec2> uvs;
-		std::vector<glm::vec3> normals; // Won't be used at the moment.
+		std::vector<glm::vec2> uvs; // Won't be used at the moment.
+		std::vector<glm::vec3> normals;
 
 		if(modelPath.find(".obj") != std::string::npos)
 		{
@@ -156,19 +157,133 @@ public:
 		}
 		else if (modelPath.find(".xyz") != std::string::npos)
 		{
-			printf("It's a point of a point cloud!\n");
+			printf("It's a point cloud!\n");
 
-			std::stringstream auxOutput;
+			std::ifstream aux_handler(modelPath);
 
-			auxOutput << modelPath;
+			glm::vec3 standard_normal1 = glm::vec3(0.3333f, 0.3333f, 0.3333f);
+			glm::vec3 standard_normal2 = glm::vec3(0.3333f, 0.3333f, -0.3333f);
+			glm::vec3 standard_normal3 = glm::vec3(0.3333f, -0.3333f, 0.3333f);
+			glm::vec3 standard_normal4 = glm::vec3(0.3333f, -0.3333f, -0.3333f);
+			glm::vec3 standard_normal5 = glm::vec3(-0.3333f, 0.3333f, 0.3333f);
+			glm::vec3 standard_normal6 = glm::vec3(-0.3333f, 0.3333f, -0.3333f);
+			glm::vec3 standard_normal7 = glm::vec3(-0.3333f, -0.3333f, 0.3333f);
+			glm::vec3 standard_normal8 = glm::vec3(-0.3333f, -0.3333f, -0.3333f);
+
+			if (aux_handler.is_open())
+			{
+				double x_aux, y_aux, z_aux;
+				int gray_intensity, blue_aux, green_aux, red_aux;
+				int scale = 1; 
+
+				while (aux_handler >> x_aux >> y_aux >> z_aux >> gray_intensity >> blue_aux >> green_aux >> red_aux)
+				{
+
+					x_aux *= scale;
+					y_aux *= -scale;
+					z_aux *= -scale;
+
+					//for(int i = 0; i < 3; i++){
+
+						
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal1));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal1));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal1));
+		
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal2));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal2));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal2));
+		
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal3));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal3));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal3));
+		
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal4));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal4));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal4));
+		
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal5));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal5));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal5));
+		
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal6));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal6));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal6));
+								
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal7));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal7));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal7));
+								
+
+						vertices.push_back(glm::vec3(x_aux, y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal8));
+
+						vertices.push_back(glm::vec3(x_aux - (0.0005), y_aux, z_aux));
+						normals.push_back(glm::vec3(standard_normal8));
+
+						vertices.push_back(glm::vec3(x_aux, y_aux - (0.0005), z_aux));
+						normals.push_back(glm::vec3(standard_normal8));
+						//}
+				}
+				aux_handler.close();
+			}
+
+			/*
+			std::stringstream aux_handler;
+
+			aux_handler << modelPath;
 			glm::vec3 auxVert;
-			auxOutput >> auxVert.x >> auxVert.y >> auxVert.z;
+			aux_handler >> auxVert.x >> auxVert.y >> auxVert.z;
 			//auxVert[0]*= 100;
 			//auxVert[1]*= 100;
 			//auxVert[2]*= 100;
 			vertices.push_back(auxVert);
 
 			printf("Point registered! %lf %lf %lf\n", vertices[0].x, vertices[0].y, vertices[0].z);
+			*/
+
 			/*
 			//Point points;
 			fstream reader_file;
@@ -192,8 +307,7 @@ public:
 			*/
 		}
 		else{
-
-			// A geometric form - as of writting the current standart is a box (fixed size of 36 vertices)
+			// A geometric form - as of writting the current standard is a box (36 vertices)
 			
 			GLfloat *box = new GLfloat[36 * 3];
 			std::memcpy(box, standard_box, sizeof(GLfloat) * 36 * 3);
@@ -203,18 +317,18 @@ public:
 
 			for(int i = 0; i < 36 * 3; i)
 			{				
-				glm::vec3 auxVert, temp_normal;
+				glm::vec3 temp_vert, temp_normal;
 
-				auxVert.x = box[i];
+				temp_vert.x = box[i];
 				temp_normal.x = normal_box[i++];
 
-				auxVert.y = box[i];
+				temp_vert.y = box[i];
 				temp_normal.y = normal_box[i++];
 
-				auxVert.z = box[i];
+				temp_vert.z = box[i];
 				temp_normal.z = normal_box[i++];
 
-				vertices.push_back(glm::vec3(auxVert));
+				vertices.push_back(glm::vec3(temp_vert));
 				normals.push_back(glm::vec3(temp_normal));
 			}
 			printf("\n");

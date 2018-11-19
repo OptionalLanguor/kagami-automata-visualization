@@ -63,29 +63,24 @@ void Engine::loadObjectsFile(std::string filepath)
 		while(inputHandle >> x_centroid >> y_centroid >> z_centroid >> theta >> width >> height >> lenght >> semantic_class)
 		{
 			// Respective model for semantic_class
-			// void
-			if (semantic_class == 0)
+			if (semantic_class == 0) // void
 				objPath = "hazelnut.obj";
-			// car
-			else if (semantic_class == 1)
+			else if (semantic_class == 1) // car
 				objPath = "nope"; // "golf-cart.obj";
-			// street
-			else if (semantic_class == 2)
+			else if (semantic_class == 2) // street
 				objPath = "nope"; // "hazelnut.obj";
-			// tree
-			else if (semantic_class == 3)
+			else if (semantic_class == 3) // tree
 				objPath = "hazelnut.obj";
-			// sky
-			else if (semantic_class == 4)
+			else if (semantic_class == 4) // sky
 				objPath = "hazelnut.obj";
-			// sidewalk
-			else if (semantic_class == 5)
+			else if (semantic_class == 5) // sidewalk
 				objPath = "hazelnut.obj";
-			// house
-			else if (semantic_class == 6)
+			else if (semantic_class == 6) // house
 				objPath = "hazelnut.obj";
+			else if (semantic_class == -1) // point cloud
+				objPath = "color_cloud_for_3D_environment.xyz";
 			else
-				fprintf(stderr, "Semantic class invalid.\n");
+				fprintf(stderr, "Semantic class invalid. Value \"%d\"\n", semantic_class);
 
 			double street_plane_offset = 0.0674;
 			double distance_scale = 10;
@@ -101,7 +96,6 @@ void Engine::loadObjectsFile(std::string filepath)
 			AddEnt(newEntity);
 		}
 		inputHandle.close();
-
 	}
 	else fprintf (stderr, "Failed to open file with objects.\n" );
 
@@ -114,11 +108,15 @@ void Engine::Run(void)
 	Initialization();
 	printf("Engine::Initialization() Done.\n");
 
-	printf("Alocatting objs to test...");
+	printf("Loading objs...");
 
 	// loadObjectsFile("obj1.txt");
 	// loadObjectsFile("obj-car.txt");
-	loadObjectsFile("input_3d-environment.txt");
+
+	//loadObjectsFile("input_3d-environment.txt");
+	loadObjectsFile("input_point_cloud.txt");
+
+	printf("Done loading objs!\n");
 
 	Entity* newEntity;
 
@@ -133,6 +131,7 @@ void Engine::Run(void)
 	newEntity->initialize();
 	newEntity->addRenderableComponent("desert city.obj", translate(0,0,0));
 	AddEnt(newEntity);
+	
 	/*
 	newEntity = new Entity();
 	newEntity->initialize();
