@@ -32,7 +32,10 @@ private:
 
 public:
 	//static GLFWwindow* getWindow();
+	
 	void loadObjectsFile(std::string);
+
+	void loadPointCloud(std::string);
 
 	void Run(void);
 

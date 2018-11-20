@@ -28,42 +28,42 @@ struct Point{
 */
 
 static const GLfloat standard_box[] = {
-	-1.0f, -1.0f, -1.0f, // triangle 1 : begin
-	-1.0f, -1.0f, 1.0f,
-	-1.0f, 1.0f, 1.0f, // triangle 1 : end
-	1.0f, 1.0f, -1.0f, // triangle 2 : begin
-	-1.0f, -1.0f, -1.0f,
-	-1.0f, 1.0f, -1.0f, // triangle 2 : end
-	1.0f, -1.0f, 1.0f,
-	-1.0f, -1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,
-	1.0f, 1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,
-	-1.0f, -1.0f, -1.0f,
-	-1.0f, -1.0f, -1.0f,
-	-1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f, -1.0f,
-	1.0f, -1.0f, 1.0f,
-	-1.0f, -1.0f, 1.0f,
-	-1.0f, -1.0f, -1.0f,
-	-1.0f, 1.0f, 1.0f,
-	-1.0f, -1.0f, 1.0f,
-	1.0f, -1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f, -1.0f, -1.0f,
-	1.0f, 1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f, -1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, -1.0f,
-	-1.0f, 1.0f, -1.0f,
-	1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f, -1.0f,
-	-1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
-	-1.0f, 1.0f, 1.0f,
-	1.0f, -1.0f, 1.0f
+	-0.5f, -0.5f, -0.5f, // triangle 1 : begin
+	-0.5f, -0.5f, 0.5f,
+	-0.5f, 0.5f, 0.5f, // triangle 1 : end
+	0.5f, 0.5f, -0.5f, // triangle 2 : begin
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, 0.5f, -0.5f, // triangle 2 : end
+	0.5f, -0.5f, 0.5f,
+	-0.5f, -0.5f, -0.5f,
+	0.5f, -0.5f, -0.5f,
+	0.5f, 0.5f, -0.5f,
+	0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, 0.5f, 0.5f,
+	-0.5f, 0.5f, -0.5f,
+	0.5f, -0.5f, 0.5f,
+	-0.5f, -0.5f, 0.5f,
+	-0.5f, -0.5f, -0.5f,
+	-0.5f, 0.5f, 0.5f,
+	-0.5f, -0.5f, 0.5f,
+	0.5f, -0.5f, 0.5f,
+	0.5f, 0.5f, 0.5f,
+	0.5f, -0.5f, -0.5f,
+	0.5f, 0.5f, -0.5f,
+	0.5f, -0.5f, -0.5f,
+	0.5f, 0.5f, 0.5f,
+	0.5f, -0.5f, 0.5f,
+	0.5f, 0.5f, 0.5f,
+	0.5f, 0.5f, -0.5f,
+	-0.5f, 0.5f, -0.5f,
+	0.5f, 0.5f, 0.5f,
+	-0.5f, 0.5f, -0.5f,
+	-0.5f, 0.5f, 0.5f,
+	0.5f, 0.5f, 0.5f,
+	-0.5f, 0.5f, 0.5f,
+	0.5f, -0.5f, 0.5f
 };
 
 static const GLfloat standard_box_normals[] = {
@@ -331,13 +331,12 @@ public:
 				vertices.push_back(glm::vec3(temp_vert));
 				normals.push_back(glm::vec3(temp_normal));
 			}
-			printf("\n");
-			printf("Geometric form registered! (Currently using standard box.)\n");
+			//printf("Geometric form registered! (Currently using standard box.)\n");
 		}
 
 		properties->vertexSize = vertices.size();
-		printf("Vertices size: %d\n", vertices.size());
-		printf("Normals size: %d\n", normals.size());
+		//printf("Vertices size: %d\n", vertices.size());
+		//printf("Normals size: %d\n", normals.size());
 
 		// Load it into a VBO
 		//GLuint vertexbuffer;

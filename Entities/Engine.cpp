@@ -49,6 +49,47 @@ glm::vec3 Engine::getWorldTransform(){
 	return *window;
 }*/
 
+void Engine::loadPointCloud(std::string filepath)
+{
+	std::ifstream inputHandle(filepath);
+
+	if (inputHandle.is_open())
+	{
+		double x_centroid, y_centroid, z_centroid, theta, width, height, lenght;
+
+		double x_aux, y_aux, z_aux;
+		int gray_intensity, blue_aux, green_aux, red_aux;
+	
+		unsigned int point_counter = 1;
+		while (inputHandle >> x_aux >> y_aux >> z_aux >> gray_intensity >> blue_aux >> green_aux >> red_aux)
+		{
+			//double street_plane_offset = 0.0674;
+			double distance_scale = 3;
+			x_aux *= distance_scale; y_aux *= distance_scale; z_aux *= distance_scale; 
+
+
+			//if(z_aux > 1.1)
+			//	continue;
+
+			Entity *newEntity;
+			newEntity = new Entity();
+			newEntity->initialize();
+			newEntity->addRenderableComponent("box",
+						translate((x_aux * -1), (y_aux * -1), z_aux) * scale(0.005, 0.005, 0.005));
+			AddEnt(newEntity);
+
+			// if(point_counter >= 30000)
+			// 	break;
+			// point_counter++;
+		}
+		inputHandle.close();
+	}
+	else
+		fprintf(stderr, "Failed to open file with objects.\n");
+
+	return;
+}
+
 void Engine::loadObjectsFile(std::string filepath)
 {
 	std::ifstream inputHandle(filepath);
@@ -64,33 +105,39 @@ void Engine::loadObjectsFile(std::string filepath)
 		{
 			// Respective model for semantic_class
 			if (semantic_class == 0) // void
-				objPath = "hazelnut.obj";
+				objPath = "nope";	// "hazelnut.obj";
 			else if (semantic_class == 1) // car
 				objPath = "nope"; // "golf-cart.obj";
 			else if (semantic_class == 2) // street
 				objPath = "nope"; // "hazelnut.obj";
 			else if (semantic_class == 3) // tree
-				objPath = "hazelnut.obj";
+				objPath = "nope"; // "hazelnut.obj";
 			else if (semantic_class == 4) // sky
-				objPath = "hazelnut.obj";
+				objPath = "nope"; // "hazelnut.obj";
 			else if (semantic_class == 5) // sidewalk
-				objPath = "hazelnut.obj";
+				objPath = "nope"; // "hazelnut.obj";
 			else if (semantic_class == 6) // house
-				objPath = "hazelnut.obj";
+				objPath = "nope"; // "hazelnut.obj";
 			else if (semantic_class == -1) // point cloud
 				objPath = "color_cloud_for_3D_environment.xyz";
 			else
 				fprintf(stderr, "Semantic class invalid. Value \"%d\"\n", semantic_class);
 
-			double street_plane_offset = 0.0674;
-			double distance_scale = 10;
+			//double street_plane_offset = 0; //0.0674;
+			double distance_scale = 15; //10;
+			//double scale_fix = 1;//.5; //1.49;
 
 			Entity *newEntity;
 			newEntity = new Entity();
 			newEntity->initialize();
 			newEntity->addRenderableComponent(objPath, 
-							translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid), distance_scale * (z_centroid)) 
-							* scale(distance_scale * width, distance_scale * height, distance_scale * lenght));
+							translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid * -1) -0.1, distance_scale * (z_centroid)) 
+							//* scale(scale_fix * distance_scale * width, scale_fix * distance_scale * height, scale_fix * distance_scale * lenght));
+							//* scale(width * (1.5 + (width - 1)), height  * (1.5 + (height - 1)),  lenght  * (1.5 + (lenght - 1))));
+							//* scale((width*width/2.0), (height*height/2.0),  (lenght*lenght/2.0)));
+							//* scale(width, height, lenght));
+							* scale((1.5) * width * distance_scale, (1.5) * height * distance_scale,  (1.5) * lenght * distance_scale));
+							
 							//translate(x_centroid * -10, (y_centroid - street_plane_offset) * -10, z_centroid * 10) 
 							//* scale(width, height, lenght));
 			AddEnt(newEntity);
@@ -114,7 +161,15 @@ void Engine::Run(void)
 	// loadObjectsFile("obj-car.txt");
 
 	//loadObjectsFile("input_3d-environment.txt");
-	loadObjectsFile("input_point_cloud.txt");
+	//loadObjectsFile("input_point_cloud.txt");
+
+	//loadPointCloud("color_cloud_for_3D_environment.xyz");
+	//loadPointCloud("street410.xyz");
+
+	loadObjectsFile("box_groundtruth_car.txt");
+	//loadObjectsFile("box_simplecubes.txt");
+	//loadObjectsFile("box_casetest1.txt");
+	//loadObjectsFile("box_casetest2.txt");
 
 	printf("Done loading objs!\n");
 
@@ -129,7 +184,7 @@ void Engine::Run(void)
 
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("desert city.obj", translate(0,0,0));
+	newEntity->addRenderableComponent("desert city.obj", translate(0,-2,0));
 	AddEnt(newEntity);
 	
 	/*
