@@ -103,43 +103,46 @@ void Engine::loadObjectsFile(std::string filepath)
 
 		while(inputHandle >> x_centroid >> y_centroid >> z_centroid >> theta >> width >> height >> lenght >> semantic_class)
 		{
-			// Respective model for semantic_class
-			if (semantic_class == 0) // void
-				objPath = "nope";	// "hazelnut.obj";
-			else if (semantic_class == 1) // car
-				objPath = "nope"; // "golf-cart.obj";
-			else if (semantic_class == 2) // street
-				objPath = "nope"; // "hazelnut.obj";
-			else if (semantic_class == 3) // tree
-				objPath = "nope"; // "hazelnut.obj";
-			else if (semantic_class == 4) // sky
-				objPath = "nope"; // "hazelnut.obj";
-			else if (semantic_class == 5) // sidewalk
-				objPath = "nope"; // "hazelnut.obj";
-			else if (semantic_class == 6) // house
-				objPath = "nope"; // "hazelnut.obj";
-			else if (semantic_class == -1) // point cloud
-				objPath = "color_cloud_for_3D_environment.xyz";
-			else
-				fprintf(stderr, "Semantic class invalid. Value \"%d\"\n", semantic_class);
-
-			//double street_plane_offset = 0; //0.0674;
-			double distance_scale = 15; //10;
-			//double scale_fix = 1;//.5; //1.49;
+			double distance_scale = 4; //10;
+			glm::mat4 box_transform = translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid * -1), distance_scale * (z_centroid)) 
+							* scale((1.5) * width * distance_scale, (1.5) * height * distance_scale,  (1.5) * lenght * distance_scale);
 
 			Entity *newEntity;
 			newEntity = new Entity();
 			newEntity->initialize();
-			newEntity->addRenderableComponent(objPath, 
-							translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid * -1) -0.1, distance_scale * (z_centroid)) 
-							//* scale(scale_fix * distance_scale * width, scale_fix * distance_scale * height, scale_fix * distance_scale * lenght));
-							//* scale(width * (1.5 + (width - 1)), height  * (1.5 + (height - 1)),  lenght  * (1.5 + (lenght - 1))));
-							//* scale((width*width/2.0), (height*height/2.0),  (lenght*lenght/2.0)));
-							//* scale(width, height, lenght));
-							* scale((1.5) * width * distance_scale, (1.5) * height * distance_scale,  (1.5) * lenght * distance_scale));
-							
-							//translate(x_centroid * -10, (y_centroid - street_plane_offset) * -10, z_centroid * 10) 
-							//* scale(width, height, lenght));
+			// Respective model for semantic_class
+			if (semantic_class == 0){ // void
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == 1){ // car
+				//objPath = "golf-cart.obj";
+				// newEntity->addRenderableComponent(objPath, translate((x_centroid * -1), (y_centroid * -1), z_centroid + 0.1) * scale(0.0025, 0.0025, 0.0025));
+				// AddEnt(newEntity);
+
+				// newEntity = new Entity();
+				// newEntity->initialize();
+				newEntity->addRenderableComponent("cube_sample.obj", box_transform);
+			} else if (semantic_class == 2){ // street
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == 3){ // tree
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == 4){ // sky
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == 5){ // sidewalk
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == 6){ // house
+				objPath = "cube_sample.obj"; // "hazelnut.obj";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else if (semantic_class == -1){ // point cloud
+				objPath = "color_cloud_for_3D_environment.xyz";
+				newEntity->addRenderableComponent(objPath, box_transform);
+			} else
+				fprintf(stderr, "Semantic class invalid. Value \"%d\"\n", semantic_class);
+
 			AddEnt(newEntity);
 		}
 		inputHandle.close();
@@ -175,18 +178,34 @@ void Engine::Run(void)
 
 	Entity* newEntity;
 
-	/*
+	
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("golf-cart.obj", translate(0,5,0) * scale(0.05,0.05,0.05));
+	newEntity->addRenderableComponent("golf-cart.obj", translate(0, -0.0005, 0) * scale(0.0025, 0.0025, 0.0025));
 	AddEnt(newEntity);
-	*/
+	
 
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("desert city.obj", translate(0,-2,0));
+	newEntity->addRenderableComponent("desert city.obj", translate(0, -0.0005, 0));
 	AddEnt(newEntity);
-	
+
+	// newEntity = new Entity();
+	// newEntity->initialize();
+	// //newEntity->addRenderableComponent("crate_78poly.obj", translate(0, -0.3, -1) * scale(0.012, 0.012, 0.012));
+	// newEntity->addRenderableComponent("crate_78poly.obj", translate(0, 0, -1) * scale(0.011, 0.011, 0.011) * translate(0, -29, +10));
+	// AddEnt(newEntity);
+
+	// newEntity = new Entity();
+	// newEntity->initialize();
+	// newEntity->addRenderableComponent("cube_sample.obj", translate(0, 0, 0) * scale(0.5, 0.5, 0.5));
+	// AddEnt(newEntity);
+
+	newEntity = new Entity();
+	newEntity->initialize();
+	newEntity->addRenderableComponent("nope", translate(0, 0, -1));
+	AddEnt(newEntity);
+
 	/*
 	newEntity = new Entity();
 	newEntity->initialize();

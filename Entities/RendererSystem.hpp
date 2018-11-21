@@ -100,7 +100,7 @@ public:
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &instance.transformMatrix[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-		glm::vec3 lightPos = glm::vec3(0,15,0);
+		glm::vec3 lightPos = glm::vec3(0,5,0);
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 
