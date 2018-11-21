@@ -32,6 +32,7 @@ public:
 	GLuint ViewMatrixID;
 	GLuint ModelMatrixID;
 	GLuint LightID;
+	GLuint Material_Color;
 
 	// I would be interesting to try and not assign data on the constructor,
 	// in a way that all that would be done on Init(). So we can assign the memory of the Rendering class anywhere
@@ -63,12 +64,12 @@ public:
 	bool initialize(){
 		m_entities = NULL; //Maybe the ideia of this line is not cool for cache coherency
 		//Maybe it's a good ideia to make shaders and texture pointers
-		this->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader" );
+		this->shaders = LoadShaders( "TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
 		this->MatrixID = glGetUniformLocation(shaders, "MVP");
 		this->ViewMatrixID = glGetUniformLocation(shaders, "V");
 		this->ModelMatrixID = glGetUniformLocation(shaders, "M");
 		this->LightID = glGetUniformLocation(shaders, "LightPosition_worldspace");
-	
+		this->Material_Color = glGetUniformLocation(shaders, "Material_Color");
 		return true;
 	}
 
@@ -100,9 +101,9 @@ public:
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &instance.transformMatrix[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-		glm::vec3 lightPos = glm::vec3(0,5,0);
+		glm::vec3 lightPos = glm::vec3(0,6,0);
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-
+		glUniform3f(Material_Color, instance.materialColor.x, instance.materialColor.y, instance.materialColor.z);
 
 		// 1rst attribute buffer : vertices
 		glEnableVertexAttribArray(0); // Enabling the var at vertexshader with layout=0

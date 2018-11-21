@@ -48,7 +48,7 @@ glm::vec3 Engine::getWorldTransform(){
 {
 	return *window;
 }*/
-
+/*
 void Engine::loadPointCloud(std::string filepath)
 {
 	std::ifstream inputHandle(filepath);
@@ -89,7 +89,7 @@ void Engine::loadPointCloud(std::string filepath)
 
 	return;
 }
-
+*/
 void Engine::loadObjectsFile(std::string filepath)
 {
 	std::ifstream inputHandle(filepath);
@@ -103,7 +103,7 @@ void Engine::loadObjectsFile(std::string filepath)
 
 		while(inputHandle >> x_centroid >> y_centroid >> z_centroid >> theta >> width >> height >> lenght >> semantic_class)
 		{
-			double distance_scale = 4; //10;
+			double distance_scale = 1; //10;
 			glm::mat4 box_transform = translate(distance_scale * (x_centroid * -1), distance_scale * (y_centroid * -1), distance_scale * (z_centroid)) 
 							* scale((1.5) * width * distance_scale, (1.5) * height * distance_scale,  (1.5) * lenght * distance_scale);
 
@@ -111,35 +111,30 @@ void Engine::loadObjectsFile(std::string filepath)
 			newEntity = new Entity();
 			newEntity->initialize();
 			// Respective model for semantic_class
-			if (semantic_class == 0){ // void
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
-			} else if (semantic_class == 1){ // car
-				//objPath = "golf-cart.obj";
-				// newEntity->addRenderableComponent(objPath, translate((x_centroid * -1), (y_centroid * -1), z_centroid + 0.1) * scale(0.0025, 0.0025, 0.0025));
-				// AddEnt(newEntity);
-
-				// newEntity = new Entity();
-				// newEntity->initialize();
-				newEntity->addRenderableComponent("cube_sample.obj", box_transform);
-			} else if (semantic_class == 2){ // street
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
-			} else if (semantic_class == 3){ // tree
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
-			} else if (semantic_class == 4){ // sky
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
-			} else if (semantic_class == 5){ // sidewalk
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
-			} else if (semantic_class == 6){ // house
-				objPath = "cube_sample.obj"; // "hazelnut.obj";
-				newEntity->addRenderableComponent(objPath, box_transform);
+			if (semantic_class == 0){ // void _ purple
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.502f, 0.016f, 0.780f), box_transform);
+			} else if (semantic_class == 1){ // car _ pink
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.745f, 0.420f, 0.529f), box_transform);
+			} else if (semantic_class == 2){ // street _ gray
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.480, 0.480, 0.480f), box_transform);
+			} else if (semantic_class == 3){ // vegetation _ bright green
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.035f, 0.695f, 0.011f), box_transform);
+			} else if (semantic_class == 4){ // sky _ blue
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.010f, 0.297f, 0.750f), box_transform);
+			} else if (semantic_class == 5){ // sidewalk _ dark green
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.422, 0.425, 0.216), box_transform);
+			} else if (semantic_class == 6){ // building _ red 
+				objPath = "cube.obj";
+				newEntity->addRenderableComponent(objPath, glm::vec3(0.912f, 0.055f, 0.072f), box_transform);
 			} else if (semantic_class == -1){ // point cloud
 				objPath = "color_cloud_for_3D_environment.xyz";
-				newEntity->addRenderableComponent(objPath, box_transform);
+				newEntity->addRenderableComponent(objPath, glm::vec3(1.0f, 1.0f, 1.0f), box_transform);
 			} else
 				fprintf(stderr, "Semantic class invalid. Value \"%d\"\n", semantic_class);
 
@@ -160,19 +155,11 @@ void Engine::Run(void)
 
 	printf("Loading objs...");
 
-	// loadObjectsFile("obj1.txt");
-	// loadObjectsFile("obj-car.txt");
-
-	//loadObjectsFile("input_3d-environment.txt");
-	//loadObjectsFile("input_point_cloud.txt");
-
-	//loadPointCloud("color_cloud_for_3D_environment.xyz");
-	//loadPointCloud("street410.xyz");
-
-	loadObjectsFile("box_groundtruth_car.txt");
-	//loadObjectsFile("box_simplecubes.txt");
-	//loadObjectsFile("box_casetest1.txt");
-	//loadObjectsFile("box_casetest2.txt");
+	
+	//loadObjectsFile("box_groundtruth_car.txt");
+	//loadObjectsFile("box_groundtruth_car_simplified.txt");
+	loadObjectsFile("box_groundtruth_centerofmass.txt");
+	//loadObjectsFile("box_groundtruth_variance.txt");
 
 	printf("Done loading objs!\n");
 
@@ -181,30 +168,19 @@ void Engine::Run(void)
 	
 	newEntity = new Entity();
 	newEntity->initialize();
-	newEntity->addRenderableComponent("golf-cart.obj", translate(0, -0.0005, 0) * scale(0.0025, 0.0025, 0.0025));
-	AddEnt(newEntity);
-	
-
-	newEntity = new Entity();
-	newEntity->initialize();
-	newEntity->addRenderableComponent("desert city.obj", translate(0, -0.0005, 0));
+	newEntity->addRenderableComponent("golf-cart.obj", glm::vec3(1.0f, 1.0f, 1.0f), translate(0, -0.0005, 0) * scale(0.0025, 0.0025, 0.0025));
 	AddEnt(newEntity);
 
 	// newEntity = new Entity();
 	// newEntity->initialize();
-	// //newEntity->addRenderableComponent("crate_78poly.obj", translate(0, -0.3, -1) * scale(0.012, 0.012, 0.012));
-	// newEntity->addRenderableComponent("crate_78poly.obj", translate(0, 0, -1) * scale(0.011, 0.011, 0.011) * translate(0, -29, +10));
+	// newEntity->addRenderableComponent("desert city.obj", glm::vec3(1.0f, 1.0f, 1.0f), translate(0, -0.005, 0));
 	// AddEnt(newEntity);
+
 
 	// newEntity = new Entity();
 	// newEntity->initialize();
-	// newEntity->addRenderableComponent("cube_sample.obj", translate(0, 0, 0) * scale(0.5, 0.5, 0.5));
+	// newEntity->addRenderableComponent("nope", glm::vec3(1.0f, 1.0f, 1.0f), translate(0, 0, -1));
 	// AddEnt(newEntity);
-
-	newEntity = new Entity();
-	newEntity->initialize();
-	newEntity->addRenderableComponent("nope", translate(0, 0, -1));
-	AddEnt(newEntity);
 
 	/*
 	newEntity = new Entity();
@@ -212,42 +188,7 @@ void Engine::Run(void)
 	newEntity->addRenderableComponent("hazelnut.obj", translate(0,25,0));
 	AddEnt(newEntity);
 	*/
-		/*
-		//Point points;
-		std::fstream reader_file;
-	    reader_file.open ("color_cloud.xyz");
-		printf("Aberta color_cloud\n");
 
-		std::vector<std::string> inputPoint(3);
-		glm::vec3 inputColor;
-
-		newEntity = new Entity();
-		newEntity->initialize();
-
-		if(reader_file.is_open()){
-			int i = 0, auxInt;
-			while(!reader_file.eof()){
-
-				reader_file >> inputPoint[0] >> inputPoint[1] >> inputPoint[2] >> auxInt >>
-					inputColor[2] >> inputColor[1] >> inputColor[0];
-
-				std::string auxStr = std::string(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2]);
-
-				newEntity->addRenderableComponent(inputPoint[0] + " " + inputPoint[1] + " " + inputPoint[2],
-						translate(0, 0, 0), inputColor);
-
-				//colorCloud.push_back(points);
-				//cout << points.x << " " << points.y << " "  << points.z << " "  << points.intensidade << " "  << points.b << " "  << points.g << " "  << points.r << " "  << endl;
-				i++;
-			}
-		}
-		else	printf("Arquivo não encontrado\n");
-		reader_file.close();
-
-
-		printf("Number of renderableComponentes: %d\n", newEntity->sizeComponents());
-		AddEnt(newEntity);
-		*/
 
 	printf(" Done.\n");
 

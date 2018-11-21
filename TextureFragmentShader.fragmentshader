@@ -35,8 +35,7 @@ out vec4 finalColor;
 */
 
 
-//in vec3 fragNormal;
-//in vec3 fragVert;
+uniform vec3 Material_Color;
 
 uniform mat4 MVP;
 
@@ -51,10 +50,10 @@ void main(){
     // Light emission properties
     // You probably want to put them as uniforms
     vec3 LightColor = vec3(1,1,1);
-    float LightPower = 20.0f;
+    float LightPower = 30.0f;
 
     // Material properties
-    vec3 MaterialDiffuseColor = vec3(1,1,1).rgb;//texture( myTextureSampler, UV ).rgb;
+    vec3 MaterialDiffuseColor = Material_Color.rgb; //texture( myTextureSampler, UV ).rgb;
     vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
     vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
 

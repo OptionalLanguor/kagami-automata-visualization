@@ -111,18 +111,21 @@ public:
 	ModelProperties* properties;
 	glm::mat4 transformMatrix;
 	std::string modelPath;
+	glm::vec3 materialColor;
 
 
 	RenderableComponent() :
 		properties(new ModelProperties()),
 		transformMatrix(),
-		modelPath()
+		modelPath(),
+		materialColor()
 	{}
 
-	bool assignModels(std::string modelPath, glm::mat4 &transf)
+	bool assignModels(std::string modelPath, glm::vec3 materialColor, glm::mat4 &transf)
 	{
 		this->transformMatrix = transf;
 		this->modelPath = modelPath;
+		this->materialColor = materialColor;
 
 		return true;
 	}
@@ -359,9 +362,9 @@ public:
 		return true;
 	}
 
-	bool initialize(std::string modelPath, glm::mat4 &transf)
+	bool initialize(std::string modelPath, glm::vec3 materialColor, glm::mat4 &transf)
 	{
-		bool init_isOK = assignModels(modelPath, transf);
+		bool init_isOK = assignModels(modelPath, materialColor, transf);
 		init_isOK &= initialize();
 
 		return init_isOK;

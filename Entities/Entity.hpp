@@ -37,14 +37,14 @@ public:
 		}
 	}
 
-	bool addRenderableComponent(std::string modelPath, glm::mat4 transf)
+	bool addRenderableComponent(std::string modelPath, glm::vec3 materialColor, glm::mat4 transf)
 	{
 		if (sizeComponents() > MAX_COMPONENTS)
 			return false;
 		else
 		{
 			RenderableComponent *rComp = new RenderableComponent();
-			rComp->initialize(modelPath, transf);
+			rComp->initialize(modelPath, materialColor, transf);
 			renderableComponents.push_back(*rComp);
 			return true;
 		}
